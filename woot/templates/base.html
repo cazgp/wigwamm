@@ -1,3 +1,12 @@
-{% block content %}
-Moo
-{% endblock %}
+<!doctype html>
+<html>
+  <head>
+    {% load static %}
+    <link href="{% static "css/base.css" %}" />
+  </head>
+  <body>
+    {% block content %}
+    Base content
+    {% endblock %}
+  </body>
+</html>
