@@ -6,7 +6,7 @@ from fabric.api import abort, env, local, settings, task
 
 
 ########## GLOBALS
-HEROKU_APP = 'stark-refuge-9721'
+HEROKU_APP = 'glacial-beach-6202'
 env.run = 'heroku run python manage.py --app %s' % HEROKU_APP
 HEROKU_ADDONS = (
     'cloudamqp:lemur',
@@ -22,7 +22,7 @@ HEROKU_CONFIGS = (
     'SECRET_KEY="^8$mp62n6(-&0ud-^aqs$wq-pua()09m&*iwf$udx%&y2=17cz"'
     'AWS_ACCESS_KEY_ID=AKIAJWGKXQF5RWPJTY4A',
     'AWS_SECRET_ACCESS_KEY=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',
-    'AWS_STORAGE_BUCKET_NAME=static.ifnoreply.com',
+    'AWS_STORAGE_BUCKET_NAME=listings.wigwamm.com',
 )
 ########## END GLOBALS
 
