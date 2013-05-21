@@ -189,6 +189,7 @@ DJANGO_APPS = (
 THIRD_PARTY_APPS = (
     # Database migration helpers:
     'south',
+    'photologue',
 
     # Static file management:
     'compressor',
