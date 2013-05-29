@@ -1,0 +1,268 @@
+@mixin light{
+	font-weight:300;
+}
+@mixin normal{
+	font-weight:400;
+}
+@mixin semi-bold{
+	font-weight:600;
+}
+@mixin bold{
+	font-weight:700;
+}
+
+@mixin vendor-prefix($name, $argument) {
+  #{$name}: $argument;
+  -webkit-#{$name}: $argument;
+  -ms-#{$name}: $argument;
+  -moz-#{$name}: $argument;
+  -o-#{$name}: $argument;
+}
+
+@mixin border-radius($radius){
+	@include vendor-prefix(border-radius, $radius)
+}
+
+@mixin gradient($bottom, $top) {
+  /* Flat background */
+  background: $bottom;
+  
+  /* Firefox 3.6+ */
+  background-image: -moz-linear-gradient($top, $bottom);
+
+  /* Safari 4+, Chrome 1+ */
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from($top), to($bottom));
+
+  /* Safari 5.1+, Chrome 10+ */
+  background-image: -webkit-linear-gradient($top, $bottom);
+
+  /* Opera 11.10+ */
+  background-image: -o-linear-gradient($top, $bottom);
+
+  /* Future */
+  background-image: linear-gradient($top, $bottom);
+  
+  /* IE */
+  
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$top', endColorstr='$bottom',GradientType=0 );
+  
+  /* @include gradient(red, white); */
+}
+
+@mixin transition($property, $duration, $function : ease) {
+    -webkit-transition: $property $duration $function;
+    -moz-transition: $property $duration $function;
+    -o-transition: $property $duration $function;
+    transition: $property $duration $function;
+}
+
+@mixin animation($property, $duration, $function : ease) {
+    -webkit-animation: $property $duration $function;
+    -moz-animation: $property $duration $function;
+    -o-animation: $property $duration $function;
+    animation: $property $duration $function;
+}
+
+@mixin box-shadow($shadow1, $shadow2:false, $shadow3:false, $shadow4:false, $shadow5:false, $shadow6:false) {
+ $params: $shadow1;
+  @if $shadow2 
+    { $params: $shadow1, $shadow2; }
+    @if $shadow3 != false
+      { $params: $shadow1, $shadow2, $shadow3; }
+      @if $shadow4 != false
+        { $params: $shadow1, $shadow2, $shadow3, $shadow4; }
+        @if $shadow5 != false
+          { $params: $shadow1, $shadow2, $shadow3, $shadow4, $shadow5; }
+          @if $shadow6 != false
+            { $params: $shadow1, $shadow2, $shadow3, $shadow4, $shadow5, $shadow6; }
+
+  -webkit-box-shadow: $params;
+  box-shadow: $params;
+}
+
+@mixin box-sizing{
+	box-sizing:border-box;
+	-moz-box-sizing:border-box;
+	-webkit-box-sizing:border-box;
+}
+
+/* ROTATE */
+
+@-moz-keyframes rotate {
+  0% {
+    -moz-transform: rotate(0deg);
+  }
+  100% {
+    -moz-transform: rotate(360deg);
+  }
+}
+
+@-webkit-keyframes rotate {
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+
+
+
+
+
+
+// Colours  //
+
+$red: #ff0000;
+$orange: #f1512d;
+$mid-orange: shade($orange,30%);
+$yellow: #ffb400;
+$blue: #44abf8;
+$darkest-blue: shade($blue,80%);
+$dark-blue: shade($blue,50%);
+$mid-blue: shade($blue,30%);
+$purple: #5d3999;
+$black: #000000;
+$mono: #7b7b7b;
+$grey: #e6e6e6;
+$dark-grey: #333;
+
+
+
+
+$green: #76d308;
+$pale-blue: #aed7fe;
+
+
+// Add percentage of pale-blue to a color
+@function grey-blue-tint($color, $percent){
+  @return mix($color, $pale-blue, $percent);
+}
+
+
+$grey-100: grey-blue-tint(#000,100%);
+$grey-99: grey-blue-tint(#000,99%);
+$grey-98: grey-blue-tint(#000,98%);
+$grey-97: grey-blue-tint(#000,97%);
+$grey-96: grey-blue-tint(#000,96%);
+$grey-95: grey-blue-tint(#000,95%);
+$grey-94: grey-blue-tint(#000,94%);
+$grey-93: grey-blue-tint(#000,93%);
+$grey-92: grey-blue-tint(#000,92%);
+$grey-91: grey-blue-tint(#000,91%);
+$grey-90: grey-blue-tint(#000,90%);
+
+$grey-89: grey-blue-tint(#000,89%);
+$grey-88: grey-blue-tint(#000,88%);
+$grey-87: grey-blue-tint(#000,87%);
+$grey-86: grey-blue-tint(#000,86%);
+$grey-85: grey-blue-tint(#000,85%);
+$grey-84: grey-blue-tint(#000,84%);
+$grey-83: grey-blue-tint(#000,83%);
+$grey-82: grey-blue-tint(#000,82%);
+$grey-81: grey-blue-tint(#000,81%);
+$grey-80: grey-blue-tint(#000,80%);
+
+$grey-79: grey-blue-tint(#000,79%);
+$grey-78: grey-blue-tint(#000,78%);
+$grey-77: grey-blue-tint(#000,77%);
+$grey-76: grey-blue-tint(#000,76%);
+$grey-75: grey-blue-tint(#000,75%);
+$grey-74: grey-blue-tint(#000,74%);
+$grey-73: grey-blue-tint(#000,73%);
+$grey-72: grey-blue-tint(#000,72%);
+$grey-71: grey-blue-tint(#000,71%);
+$grey-70: grey-blue-tint(#000,70%);
+
+$grey-69: grey-blue-tint(#000,69%);
+$grey-68: grey-blue-tint(#000,68%);
+$grey-67: grey-blue-tint(#000,67%);
+$grey-66: grey-blue-tint(#000,66%);
+$grey-65: grey-blue-tint(#000,65%);
+$grey-64: grey-blue-tint(#000,64%);
+$grey-63: grey-blue-tint(#000,63%);
+$grey-62: grey-blue-tint(#000,62%);
+$grey-61: grey-blue-tint(#000,61%);
+$grey-60: grey-blue-tint(#000,60%);
+
+$grey-59: grey-blue-tint(#000,59%);
+$grey-58: grey-blue-tint(#000,58%);
+$grey-57: grey-blue-tint(#000,57%);
+$grey-56: grey-blue-tint(#000,56%);
+$grey-55: grey-blue-tint(#000,55%);
+$grey-54: grey-blue-tint(#000,54%);
+$grey-53: grey-blue-tint(#000,53%);
+$grey-52: grey-blue-tint(#000,52%);
+$grey-51: grey-blue-tint(#000,51%);
+$grey-50: grey-blue-tint(#000,50%);
+
+
+
+
+// Add percentage of pale-blue to a color
+@function grey-blue-tint-light($color, $percent){
+  @return mix(#fff, $color, $percent);
+}
+
+$grey-49: grey-blue-tint-light($grey-50,2%);
+$grey-48: grey-blue-tint-light($grey-50,4%);
+$grey-47: grey-blue-tint-light($grey-50,6%);
+$grey-46: grey-blue-tint-light($grey-50,8%);
+$grey-45: grey-blue-tint-light($grey-50,10%);
+$grey-44: grey-blue-tint-light($grey-50,12%);
+$grey-43: grey-blue-tint-light($grey-50,14%);
+$grey-42: grey-blue-tint-light($grey-50,16%);
+$grey-41: grey-blue-tint-light($grey-50,18%);
+$grey-40: grey-blue-tint-light($grey-50,20%);
+
+$grey-39: grey-blue-tint-light($grey-50,22%);
+$grey-38: grey-blue-tint-light($grey-50,24%);
+$grey-37: grey-blue-tint-light($grey-50,26%);
+$grey-36: grey-blue-tint-light($grey-50,28%);
+$grey-35: grey-blue-tint-light($grey-50,30%);
+$grey-34: grey-blue-tint-light($grey-50,32%);
+$grey-33: grey-blue-tint-light($grey-50,34%);
+$grey-32: grey-blue-tint-light($grey-50,36%);
+$grey-31: grey-blue-tint-light($grey-50,38%);
+$grey-30: grey-blue-tint-light($grey-50,40%);
+
+$grey-29: grey-blue-tint-light($grey-50,42%);
+$grey-28: grey-blue-tint-light($grey-50,44%);
+$grey-27: grey-blue-tint-light($grey-50,46%);
+$grey-26: grey-blue-tint-light($grey-50,48%);
+$grey-25: grey-blue-tint-light($grey-50,50%);
+$grey-24: grey-blue-tint-light($grey-50,52%);
+$grey-23: grey-blue-tint-light($grey-50,54%);
+$grey-22: grey-blue-tint-light($grey-50,56%);
+$grey-21: grey-blue-tint-light($grey-50,58%);
+$grey-20: grey-blue-tint-light($grey-50,50%);
+
+$grey-19: grey-blue-tint-light($grey-50,62%);
+$grey-18: grey-blue-tint-light($grey-50,64%);
+$grey-17: grey-blue-tint-light($grey-50,66%);
+$grey-16: grey-blue-tint-light($grey-50,68%);
+$grey-15: grey-blue-tint-light($grey-50,70%);
+$grey-14: grey-blue-tint-light($grey-50,72%);
+$grey-13: grey-blue-tint-light($grey-50,74%);
+$grey-12: grey-blue-tint-light($grey-50,76%);
+$grey-11: grey-blue-tint-light($grey-50,78%);
+$grey-10: grey-blue-tint-light($grey-50,80%);
+
+$grey-9: grey-blue-tint-light($grey-50,82%);
+$grey-8: grey-blue-tint-light($grey-50,84%);
+$grey-7: grey-blue-tint-light($grey-50,86%);
+$grey-6: grey-blue-tint-light($grey-50,88%);
+$grey-5: grey-blue-tint-light($grey-50,90%);
+$grey-4: grey-blue-tint-light($grey-50,92%);
+$grey-3: grey-blue-tint-light($grey-50,94%);
+$grey-2: grey-blue-tint-light($grey-50,96%);
+$grey-1: grey-blue-tint-light($grey-50,98%);
+$grey-0: grey-blue-tint-light($grey-50,100%);
+
+
+
+
+
+
+$button: $grey-80;

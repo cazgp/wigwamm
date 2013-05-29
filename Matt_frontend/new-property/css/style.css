@@ -1,0 +1,282 @@
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700);
+/* 
+html5doctor.com Reset Stylesheet
+v1.6.1
+Last Updated: 2010-09-17
+Author: Richard Clark - http://richclarkdesign.com 
+Twitter: @rich_clark
+*/
+html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, abbr, address, cite, code, del, dfn, em, img, ins, kbd, q, samp, small, strong, sub, sup, var, b, i, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary, time, mark, audio, video { margin: 0; padding: 0; border: 0; outline: 0; font-size: 100%; vertical-align: baseline; background: transparent; }
+
+html { -webkit-font-smoothing: antialiased; }
+
+body { line-height: 1; }
+
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section { display: block; }
+
+ul { list-style: none; list-style-type: none; }
+
+nav ul li { display: inline; }
+
+blockquote, q { quotes: none; }
+
+blockquote:before, blockquote:after { content: ''; content: none; }
+
+q:before, q:after { content: ''; content: none; }
+
+a { margin: 0; padding: 0; font-size: 100%; vertical-align: baseline; background: transparent; text-decoration: none; }
+
+/* change colours to suit your needs */
+ins { background-color: #ff9; color: #000; text-decoration: none; }
+
+/* change colours to suit your needs */
+mark { background-color: #ff9; color: #000; font-style: italic; font-weight: bold; }
+
+del { text-decoration: line-through; }
+
+abbr[title], dfn[title] { border-bottom: 1px dotted; cursor: help; }
+
+table { border-collapse: collapse; border-spacing: 0; }
+
+/* change border colour to suit your needs */
+hr { display: block; border: 0; margin: 0; padding: 0; }
+
+input, select { vertical-align: middle; }
+
+/* ROTATE */
+@-moz-keyframes rotate { 0% { -moz-transform: rotate(0deg); }
+  100% { -moz-transform: rotate(360deg); } }
+
+@-webkit-keyframes rotate { 0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); } }
+
+html { height: 100%; margin: 0; }
+
+body { height: 100%; margin: 0; font-family: 'Open Sans', sans-serif; width: 100%; position: relative; -webkit-overflow-scrolling: touch; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-font-smoothing: antialiased; -webkit-text-size-adjust: none; -webkit-user-select: none; color: #222a32; }
+
+input { font-family: 'Open Sans', sans-serif; }
+
+* { box-sizing: border-box; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; }
+
+.progress-bar { position: fixed; -webkit-transition: width 0.5s; -moz-transition: width 0.5s; -o-transition: width 0.5s; transition: width 0.5s; top: 10px; height: 10px; left: 10px; width: 0; background: #76d308; border-radius: 5px; -webkit-border-radius: 5px; -ms-border-radius: 5px; -moz-border-radius: 5px; -o-border-radius: 5px; z-index: 300; }
+
+.progress-background-bar { z-index: 290; border-radius: 5px; -webkit-border-radius: 5px; -ms-border-radius: 5px; -moz-border-radius: 5px; -o-border-radius: 5px; background: #dde1e5; position: fixed; top: 10px; height: 10px; left: 10px; right: 10px; }
+
+.progress-background { position: fixed; top: 0; height: 30px; left: 0; right: 0; background: #fff; z-index: 200; }
+
+.skip-to-summary { position: fixed; top: 10px; right: 10px; z-index: 350; padding: 0 10px; height: 36px; line-height: 34px; font-size: 16px; color: #fff; border-radius: 5px; -webkit-border-radius: 5px; -ms-border-radius: 5px; -moz-border-radius: 5px; -o-border-radius: 5px; background: #76d308; box-shadow: 0 0 0 0px #76d308; cursor: pointer; }
+.skip-to-summary:active { box-shadow: 0 0 0 3px #76d308; }
+
+.back { position: absolute; height: 36px; width: 40px; border-radius: 5px; -webkit-border-radius: 5px; -ms-border-radius: 5px; -moz-border-radius: 5px; -o-border-radius: 5px; top: 20px; left: 50%; margin-left: -20px; z-index: 100; text-align: center; line-height: 36px; vertical-align: middle; cursor: pointer; z-index: 290; }
+.back i { width: 0; height: 0; border-left: 8px solid transparent; border-right: 8px solid transparent; border-bottom: 10px solid #788898; position: relative; top: -19px; }
+
+body.finished .progress-bar, body.finished .progress-background-bar, body.finished .progress-background, body.finished .back-overlay, body.finished .back { display: none; }
+body.finished .skip-to-summary { display: block; }
+
+.scrollable { overflow-x: hidden; overflow-y: scroll; -webkit-overflow-scrolling: touch; }
+
+ul.questions { height: 100%; width: 100%; }
+ul.questions li { height: 100%; width: 100%; display: table; position: relative; }
+ul.questions li .cell { height: 100%; width: 100%; padding: 0 20px; position: relative; display: table-cell; vertical-align: middle; }
+ul.questions li .cell.cell-full-width { padding: 0; }
+ul.questions li input { display: inline-block; background: #fff; height: 42px; margin-bottom: 4%; float: left; line-height: 22px; padding: 10px 5px; font-size: 16px; border: 0; outline: 0; font-weight: 300; border-radius: 5px; -webkit-border-radius: 5px; -ms-border-radius: 5px; -moz-border-radius: 5px; -o-border-radius: 5px; }
+ul.questions li input.one-col { width: 100%; margin-right: 0; }
+ul.questions li input.two-col { width: 48%; margin-right: 4%; }
+ul.questions li input.three-col { width: 30%; margin-right: 5%; }
+ul.questions li input.last { margin-right: 0; }
+ul.questions li input.error { -webkit-appearance: none; box-shadow: 0 0 0 3px #f1512d; }
+ul.questions li label, ul.questions li .next, ul.questions li .button { display: inline-block; background: #222a32; height: 42px; margin-bottom: 4%; float: left; line-height: 40px; text-align: center; font-size: 20px; font-weight: 400; border-radius: 5px; -webkit-border-radius: 5px; -ms-border-radius: 5px; -moz-border-radius: 5px; -o-border-radius: 5px; color: #fff; cursor: pointer; -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; box-shadow: 0 0 0 0 #76d308; -webkit-transition: all 0.1s ease-in-out; -moz-transition: all 0.1s ease-in-out; -o-transition: all 0.1s ease-in-out; transition: all 0.1s ease-in-out; }
+ul.questions li label:active, ul.questions li .next:active, ul.questions li .button:active { background: #76d308; box-shadow: 0 0 0 3px #76d308; -webkit-transition: all 0.1s ease-in-out; -moz-transition: all 0.1s ease-in-out; -o-transition: all 0.1s ease-in-out; transition: all 0.1s ease-in-out; }
+ul.questions li label.one-col, ul.questions li .next.one-col, ul.questions li .button.one-col { width: 100%; margin-right: 0; }
+ul.questions li label.two-col, ul.questions li .next.two-col, ul.questions li .button.two-col { width: 48%; margin-right: 4%; }
+ul.questions li label.three-col, ul.questions li .next.three-col, ul.questions li .button.three-col { width: 30%; margin-right: 5%; }
+ul.questions li label.last, ul.questions li .next.last, ul.questions li .button.last { margin-right: 0; }
+ul.questions li label.grid-1, ul.questions li .next.grid-1, ul.questions li .button.grid-1 { background: #455665; }
+ul.questions li label.grid-2, ul.questions li .next.grid-2, ul.questions li .button.grid-2 { background: #435363; }
+ul.questions li label.grid-3, ul.questions li .next.grid-3, ul.questions li .button.grid-3 { background: #425160; }
+ul.questions li label.grid-4, ul.questions li .next.grid-4, ul.questions li .button.grid-4 { background: #404f5d; }
+ul.questions li label.grid-5, ul.questions li .next.grid-5, ul.questions li .button.grid-5 { background: #3e4d5b; }
+ul.questions li label.grid-6, ul.questions li .next.grid-6, ul.questions li .button.grid-6 { background: #3c4b58; }
+ul.questions li label.grid-6, ul.questions li .next.grid-6, ul.questions li .button.grid-6 { background: #3b4956; }
+ul.questions li label.grid-7, ul.questions li .next.grid-7, ul.questions li .button.grid-7 { background: #394653; }
+ul.questions li label.grid-8, ul.questions li .next.grid-8, ul.questions li .button.grid-8 { background: #374451; }
+ul.questions li label.grid-9, ul.questions li .next.grid-9, ul.questions li .button.grid-9 { background: #35424e; }
+ul.questions li label.grid-10, ul.questions li .next.grid-10, ul.questions li .button.grid-10 { background: #34404c; }
+ul.questions li label.grid-11, ul.questions li .next.grid-11, ul.questions li .button.grid-11 { background: #323e49; }
+ul.questions li label.grid-12, ul.questions li .next.grid-12, ul.questions li .button.grid-12 { background: #303c47; }
+ul.questions li label.grid-13, ul.questions li .next.grid-13, ul.questions li .button.grid-13 { background: #2e3a44; }
+ul.questions li label.grid-14, ul.questions li .next.grid-14, ul.questions li .button.grid-14 { background: #2d3742; }
+ul.questions li label.grid-15, ul.questions li .next.grid-15, ul.questions li .button.grid-15 { background: #2b353f; }
+ul.questions li label.grid-16, ul.questions li .next.grid-16, ul.questions li .button.grid-16 { background: #29333c; }
+ul.questions li label.grid-17, ul.questions li .next.grid-17, ul.questions li .button.grid-17 { background: #28313a; }
+ul.questions li label.grid-18, ul.questions li .next.grid-18, ul.questions li .button.grid-18 { background: #262f37; }
+ul.questions li label.grid-19, ul.questions li .next.grid-19, ul.questions li .button.grid-19 { background: #242d35; }
+ul.questions li label.grid-20, ul.questions li .next.grid-20, ul.questions li .button.grid-20 { background: #222a32; }
+ul.questions li label.grid-21, ul.questions li .next.grid-21, ul.questions li .button.grid-21 { background: #212830; }
+ul.questions li label.grid-22, ul.questions li .next.grid-22, ul.questions li .button.grid-22 { background: #1f262d; }
+ul.questions li label.grid-23, ul.questions li .next.grid-23, ul.questions li .button.grid-23 { background: #1d242b; }
+ul.questions li label.grid-24, ul.questions li .next.grid-24, ul.questions li .button.grid-24 { background: #1b2228; }
+ul.questions li label.grid-25, ul.questions li .next.grid-25, ul.questions li .button.grid-25 { background: #1a2026; }
+ul.questions li label.grid-26, ul.questions li .next.grid-26, ul.questions li .button.grid-26 { background: #181e23; }
+ul.questions li label.grid-27, ul.questions li .next.grid-27, ul.questions li .button.grid-27 { background: #161b21; }
+ul.questions li label.grid-28, ul.questions li .next.grid-28, ul.questions li .button.grid-28 { background: #14191e; }
+ul.questions li label.grid-29, ul.questions li .next.grid-29, ul.questions li .button.grid-29 { background: #13171b; }
+ul.questions li label.grid-30, ul.questions li .next.grid-30, ul.questions li .button.grid-30 { background: #111519; }
+ul.questions li label.grid-31, ul.questions li .next.grid-31, ul.questions li .button.grid-31 { background: #0f1316; }
+ul.questions li label.grid-32, ul.questions li .next.grid-32, ul.questions li .button.grid-32 { background: #0d1114; }
+ul.questions li label.grid-33, ul.questions li .next.grid-33, ul.questions li .button.grid-33 { background: #0c0f11; }
+ul.questions li label.grid-34, ul.questions li .next.grid-34, ul.questions li .button.grid-34 { background: #0a0c0f; }
+ul.questions li label.grid-35, ul.questions li .next.grid-35, ul.questions li .button.grid-35 { background: #080a0c; }
+ul.questions li label.grid-36, ul.questions li .next.grid-36, ul.questions li .button.grid-36 { background: #06080a; }
+ul.questions li label.grid-37, ul.questions li .next.grid-37, ul.questions li .button.grid-37 { background: #050607; }
+ul.questions li label.grid-38, ul.questions li .next.grid-38, ul.questions li .button.grid-38 { background: #030405; }
+ul.questions li label.grid-39, ul.questions li .next.grid-39, ul.questions li .button.grid-39 { background: #010202; }
+ul.questions li label.grid-40, ul.questions li .next.grid-40, ul.questions li .button.grid-40 { background: black; }
+ul.questions li .next { width: 30%; margin: 0 35% 4%; background: #76d308; }
+ul.questions li input[type=radio] { display: none; }
+ul.questions li input[type=radio]:checked + label { background: #76d308; box-shadow: 0 0 0 0px #76d308; }
+ul.questions li input[type=checkbox] { display: none; }
+ul.questions li input[type=checkbox] + label { background: #abb5bf; box-shadow: 0 0 0 0px #abb5bf; -webkit-transition: all 0.1s ease-in-out; -moz-transition: all 0.1s ease-in-out; -o-transition: all 0.1s ease-in-out; transition: all 0.1s ease-in-out; }
+ul.questions li input[type=checkbox] + label:active { background: #222a32; box-shadow: 0 0 0 3px #222a32; -webkit-transition: all 0.1s ease-in-out; -moz-transition: all 0.1s ease-in-out; -o-transition: all 0.1s ease-in-out; transition: all 0.1s ease-in-out; }
+ul.questions li input[type=checkbox] + label:before { height: 16px; width: 20px; margin-right: 10px; content: ""; display: inline-block; background: url(../i/cross.png) center no-repeat; background-size: 20px 16px; }
+ul.questions li input[type=checkbox]:checked + label { background: #222a32; }
+ul.questions li input[type=checkbox]:checked + label:before { background: url(../i/tick.png) center no-repeat; }
+ul.questions li.postcode { z-index: 300; }
+ul.questions li.postcode .button { position: absolute; z-index: 250; top: 10px; right: 10px; padding: 0 10px; height: 36px; line-height: 34px; font-size: 16px; background: #9aa6b2; box-shadow: 0 0 0 0px #9aa6b2; }
+ul.questions li.postcode .button:active { box-shadow: 0 0 0 3px #76d308; background: #76d308; }
+ul.questions li.postcode input { border: none; margin: 0; height: 56px; line-height: 25px; width: 100%; position: absolute; z-index: 200; top: 0; left: 0; right: 0; padding: 20px 15px; font-size: 20px; font-weight: 300; border-radius: 0; -webkit-border-radius: 0; -ms-border-radius: 0; -moz-border-radius: 0; -o-border-radius: 0; border-bottom: 1px solid #d6dbe0; }
+ul.questions li.postcode ul.addresses { width: 100%; float: left; background: #e4e7ea; position: absolute; top: 55px; left: 0; right: 0; bottom: 0; overflow-x: hidden; overflow-y: scroll; -webkit-overflow-scrolling: touch; padding-bottom: 260px; }
+ul.questions li.postcode ul.addresses li { width: 100%; height: 40px; box-shadow: 0px 1px 0px 0 rgba(120, 136, 152, 0.2); }
+ul.questions li.postcode ul.addresses li a { line-height: 45px; padding-left: 15px; height: 45px; width: 100%; float: left; box-shadow: 0 0 0 0 #76d308; }
+ul.questions li.postcode ul.addresses li a:active { background: #d6dbe0; }
+ul.questions li.postcode ul.addresses li a.selected { background: #76d308; color: #fff; box-shadow: 0 0 0 3px #76d308; -webkit-transition: all 0.1s ease-in-out; -moz-transition: all 0.1s ease-in-out; -o-transition: all 0.1s ease-in-out; transition: all 0.1s ease-in-out; }
+ul.questions li.move-in .next-bar, ul.questions li.floor .next-bar, ul.questions li.keypad .next-bar { position: absolute; bottom: 0; left: 0; right: 0; height: 65px; background: #fff; z-index: 100; padding-top: 10px; }
+ul.questions li.move-in .grid-container, ul.questions li.floor .grid-container, ul.questions li.keypad .grid-container { position: absolute; bottom: 0; top: 120px; left: 0; right: 0; box-shadow: inset 0 -150px 0 0 #222a32; }
+ul.questions li.move-in .grid-container.chosen, ul.questions li.floor .grid-container.chosen, ul.questions li.keypad .grid-container.chosen { bottom: 65px; }
+ul.questions li.move-in .grid, ul.questions li.floor .grid, ul.questions li.keypad .grid { width: 100%; display: table; min-height: 100%; }
+ul.questions li.move-in .grid .row, ul.questions li.floor .grid .row, ul.questions li.keypad .grid .row { display: table-row; width: 100%; height: 50px; }
+ul.questions li.move-in .grid .row label, ul.questions li.move-in .grid .row a, ul.questions li.floor .grid .row label, ul.questions li.floor .grid .row a, ul.questions li.keypad .grid .row label, ul.questions li.keypad .grid .row a { display: table-cell; font-weight: 300; float: none; height: 50px; line-height: 0; padding: 0; border-radius: 0; -webkit-border-radius: 0; -ms-border-radius: 0; -moz-border-radius: 0; -o-border-radius: 0; margin: 0; color: #fff; }
+ul.questions li.move-in .grid .row label span.day, ul.questions li.move-in .grid .row a span.day, ul.questions li.floor .grid .row label span.day, ul.questions li.floor .grid .row a span.day, ul.questions li.keypad .grid .row label span.day, ul.questions li.keypad .grid .row a span.day { line-height: 30px; margin: 0; padding: 0; float: left; width: 100%; font-size: 20px; pointer-events: none; }
+ul.questions li.move-in .grid .row label span.month, ul.questions li.move-in .grid .row a span.month, ul.questions li.floor .grid .row label span.month, ul.questions li.floor .grid .row a span.month, ul.questions li.keypad .grid .row label span.month, ul.questions li.keypad .grid .row a span.month { opacity: 0; font-size: 12px; font-weight: 600; line-height: 10px; margin: 0; padding: 0; float: left; width: 100%; pointer-events: none; }
+ul.questions li.move-in .grid .row label span.floor-number, ul.questions li.move-in .grid .row a span.floor-number, ul.questions li.floor .grid .row label span.floor-number, ul.questions li.floor .grid .row a span.floor-number, ul.questions li.keypad .grid .row label span.floor-number, ul.questions li.keypad .grid .row a span.floor-number { line-height: 50px; margin: 0; padding: 0; float: left; width: 100%; font-size: 20px; pointer-events: none; }
+ul.questions li.move-in .grid .row label.grid-1 span.month, ul.questions li.move-in .grid .row label.today span.month, ul.questions li.move-in .grid .row a.grid-1 span.month, ul.questions li.move-in .grid .row a.today span.month, ul.questions li.floor .grid .row label.grid-1 span.month, ul.questions li.floor .grid .row label.today span.month, ul.questions li.floor .grid .row a.grid-1 span.month, ul.questions li.floor .grid .row a.today span.month, ul.questions li.keypad .grid .row label.grid-1 span.month, ul.questions li.keypad .grid .row label.today span.month, ul.questions li.keypad .grid .row a.grid-1 span.month, ul.questions li.keypad .grid .row a.today span.month { opacity: 1; position: relative; top: 9px; }
+ul.questions li.move-in .grid .row label.grid-1 span.day, ul.questions li.move-in .grid .row label.today span.day, ul.questions li.move-in .grid .row a.grid-1 span.day, ul.questions li.move-in .grid .row a.today span.day, ul.questions li.floor .grid .row label.grid-1 span.day, ul.questions li.floor .grid .row label.today span.day, ul.questions li.floor .grid .row a.grid-1 span.day, ul.questions li.floor .grid .row a.today span.day, ul.questions li.keypad .grid .row label.grid-1 span.day, ul.questions li.keypad .grid .row label.today span.day, ul.questions li.keypad .grid .row a.grid-1 span.day, ul.questions li.keypad .grid .row a.today span.day { position: relative; top: 8px; font-weight: 600; }
+ul.questions li.move-in .grid .row label.today, ul.questions li.move-in .grid .row a.today, ul.questions li.floor .grid .row label.today, ul.questions li.floor .grid .row a.today, ul.questions li.keypad .grid .row label.today, ul.questions li.keypad .grid .row a.today { background: #f1512d !important; }
+ul.questions li.move-in .grid .row label.past, ul.questions li.move-in .grid .row a.past, ul.questions li.floor .grid .row label.past, ul.questions li.floor .grid .row a.past, ul.questions li.keypad .grid .row label.past, ul.questions li.keypad .grid .row a.past { opacity: 0.15; pointer-events: none; }
+ul.questions li.move-in .grid .row label.grid-1, ul.questions li.move-in .grid .row a.grid-1, ul.questions li.floor .grid .row label.grid-1, ul.questions li.floor .grid .row a.grid-1, ul.questions li.keypad .grid .row label.grid-1, ul.questions li.keypad .grid .row a.grid-1 { background: #455665; }
+ul.questions li.move-in .grid .row label.grid-2, ul.questions li.move-in .grid .row a.grid-2, ul.questions li.floor .grid .row label.grid-2, ul.questions li.floor .grid .row a.grid-2, ul.questions li.keypad .grid .row label.grid-2, ul.questions li.keypad .grid .row a.grid-2 { background: #435363; }
+ul.questions li.move-in .grid .row label.grid-3, ul.questions li.move-in .grid .row a.grid-3, ul.questions li.floor .grid .row label.grid-3, ul.questions li.floor .grid .row a.grid-3, ul.questions li.keypad .grid .row label.grid-3, ul.questions li.keypad .grid .row a.grid-3 { background: #425160; }
+ul.questions li.move-in .grid .row label.grid-4, ul.questions li.move-in .grid .row a.grid-4, ul.questions li.floor .grid .row label.grid-4, ul.questions li.floor .grid .row a.grid-4, ul.questions li.keypad .grid .row label.grid-4, ul.questions li.keypad .grid .row a.grid-4 { background: #404f5d; }
+ul.questions li.move-in .grid .row label.grid-5, ul.questions li.move-in .grid .row a.grid-5, ul.questions li.floor .grid .row label.grid-5, ul.questions li.floor .grid .row a.grid-5, ul.questions li.keypad .grid .row label.grid-5, ul.questions li.keypad .grid .row a.grid-5 { background: #3e4d5b; }
+ul.questions li.move-in .grid .row label.grid-6, ul.questions li.move-in .grid .row a.grid-6, ul.questions li.floor .grid .row label.grid-6, ul.questions li.floor .grid .row a.grid-6, ul.questions li.keypad .grid .row label.grid-6, ul.questions li.keypad .grid .row a.grid-6 { background: #3c4b58; }
+ul.questions li.move-in .grid .row label.grid-6, ul.questions li.move-in .grid .row a.grid-6, ul.questions li.floor .grid .row label.grid-6, ul.questions li.floor .grid .row a.grid-6, ul.questions li.keypad .grid .row label.grid-6, ul.questions li.keypad .grid .row a.grid-6 { background: #3b4956; }
+ul.questions li.move-in .grid .row label.grid-7, ul.questions li.move-in .grid .row a.grid-7, ul.questions li.floor .grid .row label.grid-7, ul.questions li.floor .grid .row a.grid-7, ul.questions li.keypad .grid .row label.grid-7, ul.questions li.keypad .grid .row a.grid-7 { background: #394653; }
+ul.questions li.move-in .grid .row label.grid-8, ul.questions li.move-in .grid .row a.grid-8, ul.questions li.floor .grid .row label.grid-8, ul.questions li.floor .grid .row a.grid-8, ul.questions li.keypad .grid .row label.grid-8, ul.questions li.keypad .grid .row a.grid-8 { background: #374451; }
+ul.questions li.move-in .grid .row label.grid-9, ul.questions li.move-in .grid .row a.grid-9, ul.questions li.floor .grid .row label.grid-9, ul.questions li.floor .grid .row a.grid-9, ul.questions li.keypad .grid .row label.grid-9, ul.questions li.keypad .grid .row a.grid-9 { background: #35424e; }
+ul.questions li.move-in .grid .row label.grid-10, ul.questions li.move-in .grid .row a.grid-10, ul.questions li.floor .grid .row label.grid-10, ul.questions li.floor .grid .row a.grid-10, ul.questions li.keypad .grid .row label.grid-10, ul.questions li.keypad .grid .row a.grid-10 { background: #34404c; }
+ul.questions li.move-in .grid .row label.grid-11, ul.questions li.move-in .grid .row a.grid-11, ul.questions li.floor .grid .row label.grid-11, ul.questions li.floor .grid .row a.grid-11, ul.questions li.keypad .grid .row label.grid-11, ul.questions li.keypad .grid .row a.grid-11 { background: #323e49; }
+ul.questions li.move-in .grid .row label.grid-12, ul.questions li.move-in .grid .row a.grid-12, ul.questions li.floor .grid .row label.grid-12, ul.questions li.floor .grid .row a.grid-12, ul.questions li.keypad .grid .row label.grid-12, ul.questions li.keypad .grid .row a.grid-12 { background: #303c47; }
+ul.questions li.move-in .grid .row label.grid-13, ul.questions li.move-in .grid .row a.grid-13, ul.questions li.floor .grid .row label.grid-13, ul.questions li.floor .grid .row a.grid-13, ul.questions li.keypad .grid .row label.grid-13, ul.questions li.keypad .grid .row a.grid-13 { background: #2e3a44; }
+ul.questions li.move-in .grid .row label.grid-14, ul.questions li.move-in .grid .row a.grid-14, ul.questions li.floor .grid .row label.grid-14, ul.questions li.floor .grid .row a.grid-14, ul.questions li.keypad .grid .row label.grid-14, ul.questions li.keypad .grid .row a.grid-14 { background: #2d3742; }
+ul.questions li.move-in .grid .row label.grid-15, ul.questions li.move-in .grid .row a.grid-15, ul.questions li.floor .grid .row label.grid-15, ul.questions li.floor .grid .row a.grid-15, ul.questions li.keypad .grid .row label.grid-15, ul.questions li.keypad .grid .row a.grid-15 { background: #2b353f; }
+ul.questions li.move-in .grid .row label.grid-16, ul.questions li.move-in .grid .row a.grid-16, ul.questions li.floor .grid .row label.grid-16, ul.questions li.floor .grid .row a.grid-16, ul.questions li.keypad .grid .row label.grid-16, ul.questions li.keypad .grid .row a.grid-16 { background: #29333c; }
+ul.questions li.move-in .grid .row label.grid-17, ul.questions li.move-in .grid .row a.grid-17, ul.questions li.floor .grid .row label.grid-17, ul.questions li.floor .grid .row a.grid-17, ul.questions li.keypad .grid .row label.grid-17, ul.questions li.keypad .grid .row a.grid-17 { background: #28313a; }
+ul.questions li.move-in .grid .row label.grid-18, ul.questions li.move-in .grid .row a.grid-18, ul.questions li.floor .grid .row label.grid-18, ul.questions li.floor .grid .row a.grid-18, ul.questions li.keypad .grid .row label.grid-18, ul.questions li.keypad .grid .row a.grid-18 { background: #262f37; }
+ul.questions li.move-in .grid .row label.grid-19, ul.questions li.move-in .grid .row a.grid-19, ul.questions li.floor .grid .row label.grid-19, ul.questions li.floor .grid .row a.grid-19, ul.questions li.keypad .grid .row label.grid-19, ul.questions li.keypad .grid .row a.grid-19 { background: #242d35; }
+ul.questions li.move-in .grid .row label.grid-20, ul.questions li.move-in .grid .row a.grid-20, ul.questions li.floor .grid .row label.grid-20, ul.questions li.floor .grid .row a.grid-20, ul.questions li.keypad .grid .row label.grid-20, ul.questions li.keypad .grid .row a.grid-20 { background: #222a32; }
+ul.questions li.move-in .grid .row label.grid-21, ul.questions li.move-in .grid .row a.grid-21, ul.questions li.floor .grid .row label.grid-21, ul.questions li.floor .grid .row a.grid-21, ul.questions li.keypad .grid .row label.grid-21, ul.questions li.keypad .grid .row a.grid-21 { background: #212830; }
+ul.questions li.move-in .grid .row label.grid-22, ul.questions li.move-in .grid .row a.grid-22, ul.questions li.floor .grid .row label.grid-22, ul.questions li.floor .grid .row a.grid-22, ul.questions li.keypad .grid .row label.grid-22, ul.questions li.keypad .grid .row a.grid-22 { background: #1f262d; }
+ul.questions li.move-in .grid .row label.grid-23, ul.questions li.move-in .grid .row a.grid-23, ul.questions li.floor .grid .row label.grid-23, ul.questions li.floor .grid .row a.grid-23, ul.questions li.keypad .grid .row label.grid-23, ul.questions li.keypad .grid .row a.grid-23 { background: #1d242b; }
+ul.questions li.move-in .grid .row label.grid-24, ul.questions li.move-in .grid .row a.grid-24, ul.questions li.floor .grid .row label.grid-24, ul.questions li.floor .grid .row a.grid-24, ul.questions li.keypad .grid .row label.grid-24, ul.questions li.keypad .grid .row a.grid-24 { background: #1b2228; }
+ul.questions li.move-in .grid .row label.grid-25, ul.questions li.move-in .grid .row a.grid-25, ul.questions li.floor .grid .row label.grid-25, ul.questions li.floor .grid .row a.grid-25, ul.questions li.keypad .grid .row label.grid-25, ul.questions li.keypad .grid .row a.grid-25 { background: #1a2026; }
+ul.questions li.move-in .grid .row label.grid-26, ul.questions li.move-in .grid .row a.grid-26, ul.questions li.floor .grid .row label.grid-26, ul.questions li.floor .grid .row a.grid-26, ul.questions li.keypad .grid .row label.grid-26, ul.questions li.keypad .grid .row a.grid-26 { background: #181e23; }
+ul.questions li.move-in .grid .row label.grid-27, ul.questions li.move-in .grid .row a.grid-27, ul.questions li.floor .grid .row label.grid-27, ul.questions li.floor .grid .row a.grid-27, ul.questions li.keypad .grid .row label.grid-27, ul.questions li.keypad .grid .row a.grid-27 { background: #161b21; }
+ul.questions li.move-in .grid .row label.grid-28, ul.questions li.move-in .grid .row a.grid-28, ul.questions li.floor .grid .row label.grid-28, ul.questions li.floor .grid .row a.grid-28, ul.questions li.keypad .grid .row label.grid-28, ul.questions li.keypad .grid .row a.grid-28 { background: #14191e; }
+ul.questions li.move-in .grid .row label.grid-29, ul.questions li.move-in .grid .row a.grid-29, ul.questions li.floor .grid .row label.grid-29, ul.questions li.floor .grid .row a.grid-29, ul.questions li.keypad .grid .row label.grid-29, ul.questions li.keypad .grid .row a.grid-29 { background: #13171b; }
+ul.questions li.move-in .grid .row label.grid-30, ul.questions li.move-in .grid .row a.grid-30, ul.questions li.floor .grid .row label.grid-30, ul.questions li.floor .grid .row a.grid-30, ul.questions li.keypad .grid .row label.grid-30, ul.questions li.keypad .grid .row a.grid-30 { background: #111519; }
+ul.questions li.move-in .grid .row label.grid-31, ul.questions li.move-in .grid .row a.grid-31, ul.questions li.floor .grid .row label.grid-31, ul.questions li.floor .grid .row a.grid-31, ul.questions li.keypad .grid .row label.grid-31, ul.questions li.keypad .grid .row a.grid-31 { background: #0f1316; }
+ul.questions li.move-in .grid .row label.grid-32, ul.questions li.move-in .grid .row a.grid-32, ul.questions li.floor .grid .row label.grid-32, ul.questions li.floor .grid .row a.grid-32, ul.questions li.keypad .grid .row label.grid-32, ul.questions li.keypad .grid .row a.grid-32 { background: #0d1114; }
+ul.questions li.move-in .grid .row label.grid-33, ul.questions li.move-in .grid .row a.grid-33, ul.questions li.floor .grid .row label.grid-33, ul.questions li.floor .grid .row a.grid-33, ul.questions li.keypad .grid .row label.grid-33, ul.questions li.keypad .grid .row a.grid-33 { background: #0c0f11; }
+ul.questions li.move-in .grid .row label.grid-34, ul.questions li.move-in .grid .row a.grid-34, ul.questions li.floor .grid .row label.grid-34, ul.questions li.floor .grid .row a.grid-34, ul.questions li.keypad .grid .row label.grid-34, ul.questions li.keypad .grid .row a.grid-34 { background: #0a0c0f; }
+ul.questions li.move-in .grid .row label.grid-35, ul.questions li.move-in .grid .row a.grid-35, ul.questions li.floor .grid .row label.grid-35, ul.questions li.floor .grid .row a.grid-35, ul.questions li.keypad .grid .row label.grid-35, ul.questions li.keypad .grid .row a.grid-35 { background: #080a0c; }
+ul.questions li.move-in .grid .row label.grid-36, ul.questions li.move-in .grid .row a.grid-36, ul.questions li.floor .grid .row label.grid-36, ul.questions li.floor .grid .row a.grid-36, ul.questions li.keypad .grid .row label.grid-36, ul.questions li.keypad .grid .row a.grid-36 { background: #06080a; }
+ul.questions li.move-in .grid .row label.grid-37, ul.questions li.move-in .grid .row a.grid-37, ul.questions li.floor .grid .row label.grid-37, ul.questions li.floor .grid .row a.grid-37, ul.questions li.keypad .grid .row label.grid-37, ul.questions li.keypad .grid .row a.grid-37 { background: #050607; }
+ul.questions li.move-in .grid .row label.grid-38, ul.questions li.move-in .grid .row a.grid-38, ul.questions li.floor .grid .row label.grid-38, ul.questions li.floor .grid .row a.grid-38, ul.questions li.keypad .grid .row label.grid-38, ul.questions li.keypad .grid .row a.grid-38 { background: #030405; }
+ul.questions li.move-in .grid .row label.grid-39, ul.questions li.move-in .grid .row a.grid-39, ul.questions li.floor .grid .row label.grid-39, ul.questions li.floor .grid .row a.grid-39, ul.questions li.keypad .grid .row label.grid-39, ul.questions li.keypad .grid .row a.grid-39 { background: #010202; }
+ul.questions li.move-in .grid .row label.grid-40, ul.questions li.move-in .grid .row a.grid-40, ul.questions li.floor .grid .row label.grid-40, ul.questions li.floor .grid .row a.grid-40, ul.questions li.keypad .grid .row label.grid-40, ul.questions li.keypad .grid .row a.grid-40 { background: black; }
+ul.questions li.move-in .grid .row label:active, ul.questions li.move-in .grid .row a:active, ul.questions li.floor .grid .row label:active, ul.questions li.floor .grid .row a:active, ul.questions li.keypad .grid .row label:active, ul.questions li.keypad .grid .row a:active { position: relative; z-index: 100; background: #76d308 !important; box-shadow: 0 0 0 0 #76d308; }
+ul.questions li.move-in .grid .row a, ul.questions li.floor .grid .row a, ul.questions li.keypad .grid .row a { line-height: 60px; height: 60px; font-size: 20px; text-align: center; }
+ul.questions li.move-in .grid .row input[type=radio]:checked + label, ul.questions li.floor .grid .row input[type=radio]:checked + label, ul.questions li.keypad .grid .row input[type=radio]:checked + label { background: #76d308 !important; font-weight: 600; }
+ul.questions li.floor h4 { position: absolute; top: 70px; margin: 0; }
+ul.questions li.floor .grid-container { padding-bottom: 90px; }
+ul.questions li.move-in h4 { position: absolute; top: 70px; margin: 0; }
+ul.questions li.keypad .cell { padding: 40px 0 310px; }
+ul.questions li.keypad a { min-width: 40px; }
+ul.questions li.keypad .keypad-backspace i { width: 29px; height: 19px; display: inline-block; background: url(../i/backspace.png) no-repeat center; background-size: 29px 19px; opacity: 0.5; }
+ul.questions li.keypad .keypad-backspace:active i { opacity: 1; }
+ul.questions li.keypad .grid-container { height: 240px; bottom: 65px; top: auto; }
+ul.questions li.keypad .price-input { width: 100%; text-align: center; font-size: 40px; }
+ul.questions li.keypad .price-input sub { font-size: 30px; color: #9aa6b2; font-weight: 300; }
+ul.questions li.photos { padding-top: 30px; }
+ul.questions li.photos input[type=file] { display: none; }
+ul.questions li.photos .cell { display: block; max-width: 800px; width: 100%; margin: auto; }
+ul.questions li.photos .preview { width: 88%; margin-left: 6%; position: relative; margin-top: 30px; }
+ul.questions li.photos .preview .photo-name { position: absolute; z-index: 100; top: -40px; left: 0; right: 0; height: 40px; font-size: 20px; text-align: center; font-weight: 400; line-height: 120px; }
+ul.questions li.photos .preview .button.take-photo { z-index: 10; width: 140px; margin-left: 50%; position: absolute; left: -70px; bottom: 20px; margin-bottom: 0; box-shadow: 0 0 0 0 #222a32; }
+ul.questions li.photos .preview .button.take-photo:active { box-shadow: 0 0 0 3px #76d308; }
+ul.questions li.photos .preview .close { z-index: 120; width: 24px; height: 24px; display: block; border-radius: 24px; -webkit-border-radius: 24px; -ms-border-radius: 24px; -moz-border-radius: 24px; -o-border-radius: 24px; background: #222a32 url(../i/x-white.png) center no-repeat; background-size: 10px 10px; position: absolute; top: -10px; right: -10px; display: none; }
+ul.questions li.photos .preview .close:after { position: absolute; content: ""; top: -10px; right: -10px; bottom: -10px; left: -10px; }
+ul.questions li.photos .preview .preview-img { width: 100%; height: 0; padding-bottom: 75%; background: #dde1e5; position: relative; overflow: hidden; }
+ul.questions li.photos .preview .preview-img img { z-index: 50; position: relative; }
+ul.questions li.photos .preview.added .close { display: block; }
+ul.questions li.photos .preview.added .photo-name { color: #fff; box-shadow: 0 10px 25px 25px rgba(0, 0, 0, 0.4); font-weight: 600; }
+ul.questions li.photos .next { margin: 40px 35%; }
+ul.questions li.inputs { padding: 40px 0 260px; position: relative; z-index: 250; background: #e7eaed; }
+ul.questions li.inputs h4 { margin-top: 10px; margin-bottom: 5%; }
+ul.questions li.epc .epc-requested { width: 100%; float: left; text-align: center; height: 42px; line-height: 22px; padding: 15px 5px; font-weight: 600; margin-bottom: 4%; }
+ul.questions li.epc .epc-requested a { border-bottom: 1px solid rgba(241, 81, 45, 0.4); color: #f1512d; font-size: 14px; margin-left: 5px; }
+ul.questions li.summary, ul.questions li.portfolio { z-index: 250; padding: 40px 0 65px; background: #e7eaed; }
+ul.questions li.summary h4, ul.questions li.portfolio h4 { margin-top: 5%; }
+ul.questions li.summary .cell, ul.questions li.portfolio .cell { display: block; }
+ul.questions li.summary .next-bar, ul.questions li.portfolio .next-bar { position: absolute; bottom: 0; left: 0; right: 0; height: 65px; background: #fff; z-index: 100; padding-top: 10px; }
+ul.questions li.summary .summary-bar, ul.questions li.portfolio .summary-bar { width: 100%; box-shadow: 0px -1px 0px 0 rgba(120, 136, 152, 0.2); min-height: 56px; position: relative; float: left; padding: 10px; }
+ul.questions li.summary .summary-bar p, ul.questions li.portfolio .summary-bar p { float: left; padding: 5px 65px 0 0; line-height: 24px; }
+ul.questions li.summary .summary-bar .edit.button, ul.questions li.portfolio .summary-bar .edit.button { position: absolute; top: 10px; right: 10px; width: 55px; height: 36px; line-height: 34px; font-size: 16px; background: #9aa6b2; box-shadow: 0 0 0 0px #9aa6b2; margin: 0; }
+ul.questions li.summary .summary-bar .edit.button:active, ul.questions li.portfolio .summary-bar .edit.button:active { box-shadow: 0 0 0 3px #76d308; background: #76d308; }
+ul.questions li.portfolio { padding: 56px 0 0; }
+ul.questions li.portfolio .summary-bar { box-shadow: 0px -1px 0px 0 rgba(120, 136, 152, 0.4); }
+ul.questions li.portfolio .summary-bar .edit.button, ul.questions li.portfolio .summary-bar .gone.button { width: 55px; }
+ul.questions li.portfolio .summary-bar p { min-height: 82px; padding-top: 0px; font-size: 14px; line-height: 20px; }
+ul.questions li.portfolio .summary-bar:nth-child(odd) { background: #fff; }
+ul.questions li.portfolio .portfolio-title { position: fixed; top: 0; left: 0; right: 0; z-index: 100; width: 100%; background: #1a2026; color: #fff; padding: 10px 0; display: block; height: 56px; border-bottom: 1px solid rgba(87, 107, 127, 0.25); }
+ul.questions li.portfolio .portfolio-title h3 { width: 100%; font-size: 24px; text-align: center; line-height: 30px; font-weight: 600; }
+ul.questions li.portfolio .portfolio-title .help.button { position: absolute; top: 10px; left: 10px; height: 36px; width: 55px; line-height: 34px; font-size: 16px; background: #455665; box-shadow: 0 0 0 0px #455665; margin: 0; }
+ul.questions li.portfolio .portfolio-title .help.button:active { box-shadow: 0 0 0 3px #76d308; background: #76d308; }
+ul.questions li.portfolio .portfolio-title .add.button { position: absolute; top: 10px; right: 10px; height: 36px; width: 55px; line-height: 34px; font-size: 16px; box-shadow: 0 0 0 0px #76d308; background: #76d308; margin: 0; font-weight: 600; }
+ul.questions li.portfolio .portfolio-title .add.button:active { box-shadow: 0 0 0 3px #76d308; background: #76d308; }
+ul.questions li.portfolio .portfolio-images { width: 100%; float: left; }
+ul.questions li.portfolio .gone.button { position: absolute; top: 56px; right: 10px; width: 50px; height: 36px; line-height: 34px; font-size: 16px; background: #f1512d; box-shadow: 0 0 0 0px #f1512d; margin: 0; }
+ul.questions li.portfolio .gone.button:active { box-shadow: 0 0 0 3px #76d308; background: #76d308; }
+ul.questions li.portfolio img { margin: 10px 5% 0 0; float: left; }
+ul.questions li.portfolio img:last-child { margin-right: 0; }
+ul.questions li.safari-install { height: 200px; text-align: center; }
+ul.questions li.safari-install .cell { padding-bottom: 90px; }
+ul.questions li.safari-install img.wigwamm-logo { margin-bottom: 3%; }
+ul.questions li.safari-install h1 { font-size: 28px; font-weight: 600; margin-bottom: 15%; }
+ul.questions li.safari-install p { font-weight: 300; font-size: 16px; }
+ul.questions li.safari-install p.portal-logos-p { margin-bottom: 3%; }
+ul.questions li.safari-install .install-bar { position: absolute; bottom: 1px; left: 20px; right: 20px; border-top: 1px solid #e4e7ea; float: left; padding: 20px 0; line-height: 25px; font-size: 16px; }
+ul.questions li.safari-install .install-bar i { background: url(../i/action-icon.png) top left no-repeat; background-size: 23px 18px; width: 23px; height: 18px; display: inline-block; margin: 0 2px 0 4px; position: relative; top: 2px; }
+ul.questions li.wigwamm-login-or-start-listing img.wigwamm-logo { margin: 0 auto 15%; display: block; }
+
+h4 { width: 100%; font-size: 20px; font-weight: 400; text-align: center; margin-bottom: 5%; line-height: 26px; }
+h4 a { border-bottom: 1px solid rgba(241, 81, 45, 0.4); color: #f1512d; font-size: 14px; margin-left: 5px; }
+.requires-keyboard h4 { margin-top: 10px; }
+
+strong { font-weight: 700; }
+
+.align-right { text-align: right; }
+
+.align-center { text-align: center; }
+
+.disabled { display: none !important; }

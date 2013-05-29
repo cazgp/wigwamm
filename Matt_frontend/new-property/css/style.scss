@@ -1,0 +1,1110 @@
+@import "reset";
+
+@import "mixins";
+
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700);
+
+html{
+  height: 100%;
+  margin: 0;
+}
+body{
+  height: 100%;
+  margin:0;
+  font-family: 'Open Sans', sans-serif;
+  width: 100%;
+  position: relative;
+  -webkit-overflow-scrolling: touch;
+  -webkit-tap-highlight-color:rgba(0,0,0,0);
+  -webkit-font-smoothing:antialiased;
+  -webkit-text-size-adjust: none; 
+  -webkit-user-select: none;
+  color: $grey-80;
+}
+input{
+  font-family: 'Open Sans', sans-serif;
+}
+*{
+  @include box-sizing;
+}
+
+
+.progress-bar{
+  position: fixed;
+      -webkit-transition: width 0.5s;
+         -moz-transition: width 0.5s;
+           -o-transition: width 0.5s;
+              transition: width 0.5s;
+  top: 10px;
+  height: 10px;
+  left: 10px;
+  width: 0;
+  background: $green;
+  @include border-radius(5px);
+  z-index: 300;
+}
+.progress-background-bar{
+  z-index: 290;
+  @include border-radius(5px);
+  background: $grey-10;
+  position: fixed;
+  top: 10px;
+  height: 10px;
+  left: 10px;
+  right: 10px;
+}
+.progress-background{
+  position: fixed;
+  top: 0;
+  height: 30px;
+  left: 0;
+  right: 0;
+  background: #fff;
+  z-index: 200;
+}
+
+.skip-to-summary{
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  z-index: 350;
+  padding: 0 10px;
+  height: 36px;
+  line-height: 34px;
+  font-size: 16px;
+  color: #fff;
+  @include border-radius(5px);
+  background: $green;
+  box-shadow: 0 0 0 0px $green;
+  cursor: pointer;
+  &:active{
+    box-shadow: 0 0 0 3px $green;
+  }
+}
+
+.back{
+  position: absolute;
+  height: 36px;
+  width: 40px;
+  @include border-radius(5px);
+  top: 20px;
+  left: 50%;
+  margin-left: -20px;
+  z-index: 100;
+  text-align: center;
+  line-height: 36px;
+  vertical-align: middle;
+  cursor: pointer;
+    z-index: 290;
+      i{
+    width: 0; 
+  	height: 0; 
+  	border-left: 8px solid transparent;
+  	border-right: 8px solid transparent;
+  	border-bottom: 10px solid $grey-40;
+  	position: relative;
+  	top: -19px;
+  }
+}
+
+body.finished{
+  .progress-bar,
+  .progress-background-bar,
+  .progress-background,
+  .back-overlay,
+  .back{
+    display: none;
+  }
+  .skip-to-summary{
+    display: block;
+  }
+}
+
+.scrollable{  
+  overflow-x: hidden; 
+  overflow-y: scroll; 
+  -webkit-overflow-scrolling: touch;
+}
+
+ul.questions{
+  height: 100%;
+  width: 100%;
+  li{
+    height: 100%;
+    width: 100%;
+    display: table;
+    position: relative;
+    .cell{
+      height: 100%;
+      width: 100%;
+      padding: 0 20px;
+      position: relative;
+      display: table-cell;
+      vertical-align: middle;
+      &.cell-full-width{
+        padding: 0;
+      }
+    }
+    input{
+      display: inline-block;
+      background: #fff;
+      height: 42px;
+      margin-bottom: 4%;
+      float: left;
+      line-height: 22px;
+      padding: 10px 5px;
+      font-size: 16px;
+      border: 0;
+      outline: 0;
+      @include light;
+      @include border-radius(5px);
+      &.one-col{
+        width: 100%;
+        margin-right: 0;
+      }
+      &.two-col{
+        width: 48%;
+        margin-right: 4%;
+      }
+      &.three-col{
+        width: 30%;
+        margin-right: 5%;
+      }
+      &.last{
+        margin-right: 0;
+      }
+      &.error{
+        -webkit-appearance: none;
+        box-shadow: 0 0 0 3px $orange;
+      }
+    }
+    label,
+    .next,
+    .button{
+      display: inline-block;
+      background: $button;
+      height: 42px;
+      margin-bottom: 4%;
+      float: left;
+      line-height: 40px;
+      text-align: center;
+      font-size: 20px;
+      @include normal;
+      @include border-radius(5px);
+      color: #fff;
+      cursor: pointer;
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      -khtml-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      box-shadow: 0 0 0 0 $green;
+      @include transition(all, 0.1s, ease-in-out);
+      &:active{
+        background: $green;
+        box-shadow: 0 0 0 3px $green;
+        @include transition(all, 0.1s, ease-in-out)
+      }
+      &.one-col{
+        width: 100%;
+        margin-right: 0;
+      }
+      &.two-col{
+        width: 48%;
+        margin-right: 4%;
+      }
+      &.three-col{
+        width: 30%;
+        margin-right: 5%;
+      }
+      &.last{
+        margin-right: 0;
+      }
+                
+      &.grid-1{
+        background: $grey-60;
+      }
+      &.grid-2{
+        background: $grey-61;
+      }
+      &.grid-3{
+        background: $grey-62;
+      }
+      &.grid-4{
+        background: $grey-63;
+      }
+      &.grid-5{
+        background: $grey-64;
+      }          
+      &.grid-6{
+        background: $grey-65;
+      }
+      &.grid-6{
+        background: $grey-66;
+      }
+      &.grid-7{
+        background: $grey-67;
+      }
+      &.grid-8{
+        background: $grey-68;
+      }
+      &.grid-9{
+        background: $grey-69;
+      }
+      &.grid-10{
+        background: $grey-70;
+      }
+      &.grid-11{
+        background: $grey-71;
+      }
+      &.grid-12{
+        background: $grey-72;
+      }
+      &.grid-13{
+        background: $grey-73;
+      }
+      &.grid-14{
+        background: $grey-74;
+      }
+      &.grid-15{
+        background: $grey-75;
+      }
+      &.grid-16{
+        background: $grey-76;
+      }
+      &.grid-17{
+        background: $grey-77;
+      }
+      &.grid-18{
+        background: $grey-78;
+      }
+      &.grid-19{
+        background: $grey-79;
+      }
+      &.grid-20{
+        background: $grey-80;
+      }
+      &.grid-21{
+        background: $grey-81;
+      }
+      &.grid-22{
+        background: $grey-82;
+      }
+      &.grid-23{
+        background: $grey-83;
+      }
+      &.grid-24{
+        background: $grey-84;
+      }
+      &.grid-25{
+        background: $grey-85;
+      }
+      &.grid-26{
+        background: $grey-86;
+      }
+      &.grid-27{
+        background: $grey-87;
+      }
+      &.grid-28{
+        background: $grey-88;
+      }
+      &.grid-29{
+        background: $grey-89;
+      }
+      &.grid-30{
+        background: $grey-90;
+      }
+      &.grid-31{
+        background: $grey-91;
+      }
+      &.grid-32{
+        background: $grey-92;
+      }
+      &.grid-33{
+        background: $grey-93;
+      }
+      &.grid-34{
+        background: $grey-94;
+      }
+      &.grid-35{
+        background: $grey-95;
+      }
+      &.grid-36{
+        background: $grey-96;
+      }
+      &.grid-37{
+        background: $grey-97;
+      }
+      &.grid-38{
+        background: $grey-98;
+      }
+      &.grid-39{
+        background: $grey-99;
+      }
+      &.grid-40{
+        background: $grey-100;
+      }
+    }
+    .next{
+      width: 30%;
+      margin: 0 35% 4%;
+      background: $green;
+    }
+    input[type=radio]{
+      display: none;
+      &:checked + label{
+        background: $green;
+        box-shadow: 0 0 0 0px $green;
+      }
+    }
+    input[type=checkbox]{
+      display: none;
+      & + label{
+        background: $grey-20;
+        box-shadow: 0 0 0 0px $grey-20;
+        @include transition(all, 0.1s, ease-in-out);
+        &:active{
+          background: $grey-80;
+          box-shadow: 0 0 0 3px $grey-80;
+          @include transition(all, 0.1s, ease-in-out);
+        }
+        &:before{
+          height: 16px;
+          width: 20px;
+          margin-right: 10px;
+          content: "";
+          display: inline-block;
+          background: url(../i/cross.png) center no-repeat;
+          background-size: 20px 16px;
+        }
+      }
+      &:checked + label{
+        background: $grey-80;
+        &:before{
+          background: url(../i/tick.png) center no-repeat;
+        }
+      }
+    }
+  }
+  li.postcode{
+    z-index: 300;
+    .button{
+      position: absolute;
+      z-index: 250;
+      top: 10px;
+      right: 10px;
+      padding: 0 10px;
+      height: 36px;
+      line-height: 34px;
+      font-size: 16px;
+      background: $grey-30;
+      box-shadow: 0 0 0 0px $grey-30;
+      &:active{
+        box-shadow: 0 0 0 3px $green;
+        background: $green;
+      }
+    }
+    input{
+      border: none;
+      margin: 0;
+      height: 56px;
+      line-height: 25px;
+      width: 100%;
+      position: absolute;
+      z-index: 200;
+      top: 0;
+      left: 0;
+      right: 0;
+      padding: 20px 15px;
+      font-size: 20px;
+      @include light;
+      @include border-radius(0);
+      border-bottom: 1px solid $grey-12;
+    }
+    ul.addresses{
+      width: 100%;
+      float: left;
+      background: $grey-8;
+      position: absolute;
+      top: 55px;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      overflow-x: hidden; 
+      overflow-y: scroll; 
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: 260px;
+      li{
+        width: 100%;
+        height: 40px;
+        box-shadow: 0px 1px 0px 0 rgba($grey-40,0.2);
+        a{
+          line-height: 45px;
+          padding-left: 15px;
+          height: 45px;
+          width: 100%;
+          float: left;
+          box-shadow: 0 0 0 0 $green;
+          &:active{
+            background: $grey-12;
+          }
+          &.selected{
+            background: $green;
+            color: #fff;
+            box-shadow: 0 0 0 3px $green;
+            @include transition(all, 0.1s, ease-in-out);
+          }
+        }
+      }
+    }
+  }
+  li.move-in,
+  li.floor,
+  li.keypad{
+    .next-bar{
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 65px;
+      background: #fff;
+      z-index: 100;
+      padding-top: 10px;
+    }
+    .grid-container{
+      position: absolute;
+      bottom: 0;
+      top: 120px;
+      left: 0;
+      right: 0;
+      box-shadow: inset 0 -150px 0 0 $grey-80;
+      &.chosen{
+        bottom: 65px;
+      }
+    }
+    .grid{
+      width: 100%;
+      display: table;
+      min-height: 100%;
+      .row{
+        display: table-row;
+        width: 100%;
+        height: 50px;
+        label,
+        a{
+          display: table-cell;
+          @include light;
+          float: none;
+          height: 50px;
+          line-height: 0;
+          padding: 0;
+          @include border-radius(0);
+          margin: 0;
+          color: #fff;
+          span.day{
+            line-height: 30px;
+            margin: 0;
+            padding: 0;
+            float: left;
+            width: 100%;
+            font-size: 20px;
+            pointer-events: none;
+          }
+          span.month{
+            opacity: 0;
+            font-size: 12px;
+            @include semi-bold;
+            line-height: 10px;
+            margin: 0;
+            padding: 0;
+            float: left;
+            width: 100%;
+            pointer-events: none;
+          }
+          span.floor-number{
+            line-height: 50px;
+            margin: 0;
+            padding: 0;
+            float: left;
+            width: 100%;
+            font-size: 20px;
+            pointer-events: none;
+          }
+          &.grid-1,
+          &.today{
+            span.month{
+              opacity: 1;
+              position: relative;
+              top: 9px;
+            }
+            span.day{
+              position: relative;
+              top: 8px;
+              @include semi-bold;
+            }
+          }
+          &.today{
+            background: $orange !important;
+          }
+          &.past{
+            opacity: 0.15;
+            pointer-events: none;
+          }
+          
+          &.grid-1{
+            background: $grey-60;
+          }
+          &.grid-2{
+            background: $grey-61;
+          }
+          &.grid-3{
+            background: $grey-62;
+          }
+          &.grid-4{
+            background: $grey-63;
+          }
+          &.grid-5{
+            background: $grey-64;
+          }          
+          &.grid-6{
+            background: $grey-65;
+          }
+          &.grid-6{
+            background: $grey-66;
+          }
+          &.grid-7{
+            background: $grey-67;
+          }
+          &.grid-8{
+            background: $grey-68;
+          }
+          &.grid-9{
+            background: $grey-69;
+          }
+          &.grid-10{
+            background: $grey-70;
+          }
+          &.grid-11{
+            background: $grey-71;
+          }
+          &.grid-12{
+            background: $grey-72;
+          }
+          &.grid-13{
+            background: $grey-73;
+          }
+          &.grid-14{
+            background: $grey-74;
+          }
+          &.grid-15{
+            background: $grey-75;
+          }
+          &.grid-16{
+            background: $grey-76;
+          }
+          &.grid-17{
+            background: $grey-77;
+          }
+          &.grid-18{
+            background: $grey-78;
+          }
+          &.grid-19{
+            background: $grey-79;
+          }
+          &.grid-20{
+            background: $grey-80;
+          }
+          &.grid-21{
+            background: $grey-81;
+          }
+          &.grid-22{
+            background: $grey-82;
+          }
+          &.grid-23{
+            background: $grey-83;
+          }
+          &.grid-24{
+            background: $grey-84;
+          }
+          &.grid-25{
+            background: $grey-85;
+          }
+          &.grid-26{
+            background: $grey-86;
+          }
+          &.grid-27{
+            background: $grey-87;
+          }
+          &.grid-28{
+            background: $grey-88;
+          }
+          &.grid-29{
+            background: $grey-89;
+          }
+          &.grid-30{
+            background: $grey-90;
+          }
+          &.grid-31{
+            background: $grey-91;
+          }
+          &.grid-32{
+            background: $grey-92;
+          }
+          &.grid-33{
+            background: $grey-93;
+          }
+          &.grid-34{
+            background: $grey-94;
+          }
+          &.grid-35{
+            background: $grey-95;
+          }
+          &.grid-36{
+            background: $grey-96;
+          }
+          &.grid-37{
+            background: $grey-97;
+          }
+          &.grid-38{
+            background: $grey-98;
+          }
+          &.grid-39{
+            background: $grey-99;
+          }
+          &.grid-40{
+            background: $grey-100;
+          }
+          &:active{
+            position: relative;
+            z-index: 100;
+            background: $green !important;
+            box-shadow: 0 0 0 0 $green;
+          }
+        }
+        
+        a{
+          line-height: 60px;
+          height: 60px;
+          font-size: 20px;
+          text-align: center;
+        }
+        
+        input[type=radio]:checked + label{
+          background: $green !important;
+          @include semi-bold;
+        }
+      }
+    }
+  }
+  li.floor{
+    h4{
+      position: absolute;
+      top: 70px;
+      margin: 0;
+    }
+    .grid-container{
+      padding-bottom: 90px;
+    }
+  }
+  li.move-in{
+    h4{
+      position: absolute;
+      top: 70px;
+      margin: 0;
+    }
+  }
+  li.keypad{
+    .cell{
+      padding: 40px 0 310px;
+    }
+    a{
+      min-width: 40px;
+    }
+    .keypad-backspace{
+      i{
+        width: 29px;
+        height: 19px;
+        display: inline-block;
+        background: url(../i/backspace.png) no-repeat center;
+        background-size: 29px 19px;
+        opacity: 0.5;
+      }
+      &:active{
+        i{
+          opacity: 1;
+        }
+      }
+    }
+    .grid-container{
+      height: 240px;
+      bottom: 65px;
+      top: auto;
+    }
+    .price-input{
+      width: 100%;
+      text-align: center;
+      font-size: 40px;
+      sub{
+        font-size: 30px;
+        color: $grey-30;
+        @include light;
+      }
+    }
+  }
+  
+  li.photos{
+    padding-top: 30px;
+    input[type=file]{
+      display: none;
+    }
+    .cell{
+      display: block;
+      max-width: 800px;
+      width: 100%;
+      margin: auto;
+    }
+    .preview{
+      width: 88%;
+      margin-left: 6%;
+      position: relative;
+      margin-top: 30px;
+      .photo-name{
+        position: absolute;
+        z-index: 100;
+        top: -40px;
+        left: 0;
+        right: 0;
+        height: 40px;
+        font-size: 20px;
+        text-align: center;
+        @include normal;
+        line-height: 120px;
+      }
+      .button.take-photo{
+        z-index: 10;
+        width: 140px;
+        margin-left: 50%;
+        position: absolute;
+        left: -70px;
+        bottom: 20px;
+        margin-bottom: 0;
+        box-shadow: 0 0 0 0 $button;
+        &:active{
+          box-shadow: 0 0 0 3px $green;
+        }
+      }
+      .close{
+        z-index: 120;
+        width: 24px;
+        height: 24px;
+        display: block;
+        @include border-radius(24px);
+        background: $button url(../i/x-white.png) center no-repeat;
+        background-size: 10px 10px;
+        position: absolute;
+        top: -10px;
+        right: -10px;
+        display: none;
+        &:after{
+          position: absolute;
+          content: "";
+          top: -10px;
+          right: -10px;
+          bottom: -10px;
+          left: -10px;
+        }
+      }
+      .preview-img{
+        width: 100%;
+        height: 0;
+        padding-bottom: 75%;
+        background: $grey-10;
+        position: relative;
+        overflow: hidden;
+        img{
+          z-index: 50;
+          position: relative;
+        }
+      }
+      &.added{
+        .close{
+          display: block;
+        }
+        .photo-name{
+          color: #fff;
+          box-shadow: 0 10px 25px 25px rgba(0,0,0,0.4);
+          @include semi-bold;
+        }
+      }
+    }
+    .next{
+      margin: 40px 35%;
+    }
+  }
+  li.inputs{
+    padding: 40px 0 260px;
+    position: relative;
+    z-index: 250;
+    background: $grey-7;
+    h4{
+      margin-top: 10px;
+      margin-bottom: 5%;
+    }
+  }
+  li.epc{
+    .epc-requested{
+      width: 100%;
+      float: left;
+      text-align: center;
+      height: 42px;      
+      line-height: 22px;
+      padding: 15px 5px;
+      @include semi-bold;
+      margin-bottom: 4%;
+      a{        
+        border-bottom: 1px solid rgba($orange,0.4);
+        color: $orange;
+        font-size: 14px;
+        margin-left: 5px;
+      }
+    }
+  }
+  li.summary,
+  li.portfolio{
+    z-index: 250;
+    padding: 40px 0 65px;
+    background: $grey-7;
+    h4{
+      margin-top: 5%;
+    }
+    .cell{
+      display: block;
+    }
+    .next-bar{
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 65px;
+      background: #fff;
+      z-index: 100;
+      padding-top: 10px;
+    }
+    .summary-bar{
+      width: 100%;
+      box-shadow: 0px -1px 0px 0 rgba($grey-40,0.2);
+      min-height: 56px;
+      position: relative;
+      float: left;
+      padding: 10px;
+      p{
+        float: left;
+        padding: 5px 65px 0 0;
+        line-height: 24px;
+      }
+      .edit.button{
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        width: 55px;
+        height: 36px;
+        line-height: 34px;
+        font-size: 16px;
+        background: $grey-30;
+        box-shadow: 0 0 0 0px $grey-30;
+        margin: 0;
+        &:active{
+          box-shadow: 0 0 0 3px $green;
+          background: $green;
+        }
+      }
+    }
+  }
+  li.portfolio{
+    padding: 56px 0 0;
+    .summary-bar{
+      box-shadow: 0px -1px 0px 0 rgba($grey-40,0.4);
+      .edit.button,
+      .gone.button{
+        width: 55px;
+      }
+      p{
+        min-height: 82px;
+        padding-top: 0px;
+        font-size: 14px;
+        line-height: 20px;
+      }
+      &:nth-child(odd){
+        background: #fff;
+      }
+    }
+    .portfolio-title{
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      width: 100%;
+      background: $grey-85;
+      color: #fff;
+      padding: 10px 0;
+      display: block;
+      height: 56px;
+      border-bottom: 1px solid rgba($grey-50, 0.25);
+      h3{
+        width: 100%;
+        font-size: 24px;
+        text-align: center;
+        line-height: 30px;
+        @include semi-bold;
+      }
+      .help.button{
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        height: 36px;
+        width: 55px;
+        line-height: 34px;
+        font-size: 16px;
+        background: $grey-60;
+        box-shadow: 0 0 0 0px $grey-60;
+        margin: 0;
+        &:active{
+          box-shadow: 0 0 0 3px $green;
+          background: $green;
+        }
+      }
+      .add.button{
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        height: 36px;
+        width: 55px;
+        line-height: 34px;
+        font-size: 16px;
+        box-shadow: 0 0 0 0px $green;
+        background: $green;
+        margin: 0;
+        @include semi-bold;
+        &:active{
+          box-shadow: 0 0 0 3px $green;
+          background: $green;
+        }
+      }
+    }
+    .portfolio-images{
+      width: 100%;
+      float: left;
+    }
+    .gone.button{
+      position: absolute;
+      top: 56px;
+      right: 10px;
+      width: 50px;
+      height: 36px;
+      line-height: 34px;
+      font-size: 16px;
+      background: $orange;
+      box-shadow: 0 0 0 0px $orange;
+      margin: 0;
+      &:active{
+        box-shadow: 0 0 0 3px $green;
+        background: $green;
+      }
+    }
+    img{
+      margin: 10px 5% 0 0;
+      float: left;
+      &:last-child{
+        margin-right: 0;
+      }
+    }
+  }
+  li.safari-install{
+    height: 200px;
+    text-align: center;
+    .cell{
+      padding-bottom: 90px;
+    }
+    img.wigwamm-logo{
+      margin-bottom: 3%;
+    }
+    h1{
+      font-size: 28px;
+      @include semi-bold;
+      margin-bottom: 15%;
+    }
+    p{
+      @include light;
+      font-size: 16px;
+      &.portal-logos-p{
+        margin-bottom: 3%;
+      }
+    }
+    .install-bar{
+      position: absolute;
+      bottom: 1px;
+      left: 20px;
+      right: 20px;
+      border-top: 1px solid $grey-8;
+      float: left;
+      padding: 20px 0;
+      line-height: 25px;
+      font-size: 16px;
+      i{
+        background: url(../i/action-icon.png) top left no-repeat;
+        background-size: 23px 18px;
+        width: 23px;
+        height: 18px;
+        display: inline-block;
+        margin: 0 2px 0 4px;
+        position: relative;
+        top: 2px;
+      }
+    }
+  }
+  li.wigwamm-login-or-start-listing{
+    img.wigwamm-logo{
+      margin: 0 auto 15%;
+      display: block;
+    }
+  }
+}
+
+h4{
+  width: 100%;
+  font-size: 20px;
+  @include normal;
+  text-align: center;
+  margin-bottom: 5%;
+  line-height: 26px;
+  a{
+    border-bottom: 1px solid rgba($orange,0.4);
+    color: $orange;
+    font-size: 14px;
+    margin-left: 5px;
+  }
+  .requires-keyboard &{
+    margin-top: 10px;
+  }
+}
+
+strong{
+  @include bold;
+}
+
+
+
+
+.align-right{
+  text-align: right;
+}
+
+.align-center{
+  text-align: center;
+}
+
+.disabled{
+  display: none !important;
+}
