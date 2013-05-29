@@ -199,8 +199,130 @@ $(window).load(function(){
   // REQUIRES LOTS MORE HERE!!!!!!!!!!!!!!
   // REQUIRES LOTS MORE HERE!!!!!!!!!!!!!!
   
+ 
+  /* PROGRESS BAR IS A BIT GLITCHY, COMMENTING OUT FOR NOW
   
+  $('li.question.postcode a').bind('touchend click', function(e){
+      $(".progress-bar").width('3%');
+  });
   
+  $('li.question.portals a.next').bind('touchend click', function(e){
+      $(".progress-bar").width('6%');
+  });
+  
+  $('li.question.move-in a.next').bind('touchend click', function(e){
+      $(".progress-bar").width('9%');
+  });
+  
+  $('li.question.price a.next').bind('touchend click', function(e){
+      $(".progress-bar").width('12%');
+  });
+  
+  $('li.question.photos a.next').bind('touchend click', function(e){
+      $(".progress-bar").width('15%');
+  });
+  
+  $('li.question.floor a.next').bind('touchend click', function(e){
+      $(".progress-bar").width('18%');
+  });
+  
+  $('li.question.lift :input').bind('touchend click', function(e){
+      $(".progress-bar").width('21%');
+  });
+  
+  $('li.question.kitchen :input, li.question.kitchen a').bind('touchend click', function(e){
+      $(".progress-bar").width('24%');
+  });
+  
+  $('li.question.front-garden :input, li.question.front-garden a').bind('touchend click', function(e){
+      $(".progress-bar").width('27%');
+  });
+  
+  $('li.question.rear-garden :input, li.question.rear-garden a').bind('touchend click', function(e){
+      $(".progress-bar").width('30%');
+  });
+  
+  $('li.question.on-street-parking :input, li.question.on-street-parking a').bind('touchend click', function(e){
+      $(".progress-bar").width('33%');
+  });
+  
+  $('li.question.off-street-parking :input, li.question.off-street-parking a').bind('touchend click', function(e){
+      $(".progress-bar").width('36%');
+  });
+  
+  $('li.question.pets :input, li.question.pets a').bind('touchend click', function(e){
+      $(".progress-bar").width('39%');
+  });
+  
+  $('li.question.heating :input, li.question.heating a').bind('touchend click', function(e){
+      $(".progress-bar").width('42%');
+  });
+  
+  $('li.question.glazing :input, li.question.glazing a').bind('touchend click', function(e){
+      $(".progress-bar").width('45%');
+  });
+  
+  $('li.question.window-frames :input, li.question.window-frames a').bind('touchend click', function(e){
+      $(".progress-bar").width('48%');
+  });
+  
+  $('li.question.furnished :input, li.question.furnished a').bind('touchend click', function(e){
+      $(".progress-bar").width('51%');
+  });
+  
+  $('li.question.decorated :input, li.question.decorated a').bind('touchend click', function(e){
+      $(".progress-bar").width('54%');
+  });
+  
+  $('li.question.deposit :input, li.question.deposit a').bind('touchend click', function(e){
+      $(".progress-bar").width('57%');
+  });
+  
+  $('li.question.agreement-term :input, li.question.agreement-term a').bind('touchend click', function(e){
+      $(".progress-bar").width('60%');
+  });
+  
+  $('li.question.water-bills :input, li.question.water-bills a').bind('touchend click', function(e){
+      $(".progress-bar").width('64%');
+  });
+  
+  $('li.question.council-tax :input, li.question.council-tax a').bind('touchend click', function(e){
+      $(".progress-bar").width('68%');
+  });
+  
+  $('li.question.energy-bills :input, li.question.energy-bills a').bind('touchend click', function(e){
+      $(".progress-bar").width('72%');
+  });
+  
+  $('li.question.telephone-bills :input, li.question.telephone-bills a').bind('touchend click', function(e){
+      $(".progress-bar").width('76%');
+  });
+  
+  $('li.question.broadband :input, li.question.broadband a').bind('touchend click', function(e){
+      $(".progress-bar").width('80%');
+  });
+  
+  $('li.question.council-tax-borough :input, li.question.council-tax-borough a').bind('touchend click', function(e){
+      $(".progress-bar").width('84%');
+  });
+  
+  $('li.question.council-tax-band :input, li.question.council-tax-band a').bind('touchend click', function(e){
+      $(".progress-bar").width('88%');
+  });
+  
+  $('li.question.agent-fee :input, li.question.agent-fee a').bind('touchend click', function(e){
+      $(".progress-bar").width('92%');
+  });
+  
+  $('li.question.managed-by :input, li.question.managed-by a').bind('touchend click', function(e){
+      $(".progress-bar").width('96%');
+  });
+  
+  $('li.question.epc :input, li.question.epc a').bind('touchend click', function(e){
+      $(".progress-bar").width('100%');
+  });
+  
+  */
   
 });
 

@@ -67,7 +67,7 @@ input { font-family: 'Open Sans', sans-serif; }
 .skip-to-summary { position: fixed; top: 10px; right: 10px; z-index: 350; padding: 0 10px; height: 36px; line-height: 34px; font-size: 16px; color: #fff; border-radius: 5px; -webkit-border-radius: 5px; -ms-border-radius: 5px; -moz-border-radius: 5px; -o-border-radius: 5px; background: #76d308; box-shadow: 0 0 0 0px #76d308; cursor: pointer; }
 .skip-to-summary:active { box-shadow: 0 0 0 3px #76d308; }
 
-.back { position: absolute; height: 36px; width: 40px; border-radius: 5px; -webkit-border-radius: 5px; -ms-border-radius: 5px; -moz-border-radius: 5px; -o-border-radius: 5px; top: 20px; left: 50%; margin-left: -20px; z-index: 100; text-align: center; line-height: 36px; vertical-align: middle; cursor: pointer; z-index: 290; }
+.back { position: absolute; height: 36px; width: 40px; border-radius: 5px; -webkit-border-radius: 5px; -ms-border-radius: 5px; -moz-border-radius: 5px; -o-border-radius: 5px; top: 0px; left: 50%; margin-left: -20px; z-index: 100; text-align: center; line-height: 36px; vertical-align: middle; cursor: pointer; z-index: 290; }
 .back i { width: 0; height: 0; border-left: 8px solid transparent; border-right: 8px solid transparent; border-bottom: 10px solid #788898; position: relative; top: -19px; }
 
 body.finished .progress-bar, body.finished .progress-background-bar, body.finished .progress-background, body.finished .back-overlay, body.finished .back { display: none; }
@@ -86,7 +86,7 @@ ul.questions li input.three-col { width: 30%; margin-right: 5%; }
 ul.questions li input.last { margin-right: 0; }
 ul.questions li input.error { -webkit-appearance: none; box-shadow: 0 0 0 3px #f1512d; }
 ul.questions li label, ul.questions li .next, ul.questions li .button { display: inline-block; background: #222a32; height: 42px; margin-bottom: 4%; float: left; line-height: 40px; text-align: center; font-size: 20px; font-weight: 400; border-radius: 5px; -webkit-border-radius: 5px; -ms-border-radius: 5px; -moz-border-radius: 5px; -o-border-radius: 5px; color: #fff; cursor: pointer; -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; box-shadow: 0 0 0 0 #76d308; -webkit-transition: all 0.1s ease-in-out; -moz-transition: all 0.1s ease-in-out; -o-transition: all 0.1s ease-in-out; transition: all 0.1s ease-in-out; }
-ul.questions li label:active, ul.questions li .next:active, ul.questions li .button:active { background: #76d308; box-shadow: 0 0 0 3px #76d308; -webkit-transition: all 0.1s ease-in-out; -moz-transition: all 0.1s ease-in-out; -o-transition: all 0.1s ease-in-out; transition: all 0.1s ease-in-out; }
+ul.questions li label:active, ul.questions li .next:active, ul.questions li .button:active { background: #76d308 !important; box-shadow: 0 0 0 3px #76d308; -webkit-transition: all 0.1s ease-in-out; -moz-transition: all 0.1s ease-in-out; -o-transition: all 0.1s ease-in-out; transition: all 0.1s ease-in-out; }
 ul.questions li label.one-col, ul.questions li .next.one-col, ul.questions li .button.one-col { width: 100%; margin-right: 0; }
 ul.questions li label.two-col, ul.questions li .next.two-col, ul.questions li .button.two-col { width: 48%; margin-right: 4%; }
 ul.questions li label.three-col, ul.questions li .next.three-col, ul.questions li .button.three-col { width: 30%; margin-right: 5%; }
@@ -137,7 +137,7 @@ ul.questions li input[type=radio] { display: none; }
 ul.questions li input[type=radio]:checked + label { background: #76d308; box-shadow: 0 0 0 0px #76d308; }
 ul.questions li input[type=checkbox] { display: none; }
 ul.questions li input[type=checkbox] + label { background: #abb5bf; box-shadow: 0 0 0 0px #abb5bf; -webkit-transition: all 0.1s ease-in-out; -moz-transition: all 0.1s ease-in-out; -o-transition: all 0.1s ease-in-out; transition: all 0.1s ease-in-out; }
-ul.questions li input[type=checkbox] + label:active { background: #222a32; box-shadow: 0 0 0 3px #222a32; -webkit-transition: all 0.1s ease-in-out; -moz-transition: all 0.1s ease-in-out; -o-transition: all 0.1s ease-in-out; transition: all 0.1s ease-in-out; }
+ul.questions li input[type=checkbox] + label:active { background: #222a32 !important; box-shadow: 0 0 0 3px #222a32; -webkit-transition: all 0.1s ease-in-out; -moz-transition: all 0.1s ease-in-out; -o-transition: all 0.1s ease-in-out; transition: all 0.1s ease-in-out; }
 ul.questions li input[type=checkbox] + label:before { height: 16px; width: 20px; margin-right: 10px; content: ""; display: inline-block; background: url(../i/cross.png) center no-repeat; background-size: 20px 16px; }
 ul.questions li input[type=checkbox]:checked + label { background: #222a32; }
 ul.questions li input[type=checkbox]:checked + label:before { background: url(../i/tick.png) center no-repeat; }
@@ -151,7 +151,7 @@ ul.questions li.postcode ul.addresses li a { line-height: 45px; padding-left: 15
 ul.questions li.postcode ul.addresses li a:active { background: #d6dbe0; }
 ul.questions li.postcode ul.addresses li a.selected { background: #76d308; color: #fff; box-shadow: 0 0 0 3px #76d308; -webkit-transition: all 0.1s ease-in-out; -moz-transition: all 0.1s ease-in-out; -o-transition: all 0.1s ease-in-out; transition: all 0.1s ease-in-out; }
 ul.questions li.move-in .next-bar, ul.questions li.floor .next-bar, ul.questions li.keypad .next-bar { position: absolute; bottom: 0; left: 0; right: 0; height: 65px; background: #fff; z-index: 100; padding-top: 10px; }
-ul.questions li.move-in .grid-container, ul.questions li.floor .grid-container, ul.questions li.keypad .grid-container { position: absolute; bottom: 0; top: 120px; left: 0; right: 0; box-shadow: inset 0 -150px 0 0 #222a32; }
+ul.questions li.move-in .grid-container, ul.questions li.floor .grid-container, ul.questions li.keypad .grid-container { position: absolute; bottom: 0; top: 100px; left: 0; right: 0; box-shadow: inset 0 -150px 0 0 #222a32; }
 ul.questions li.move-in .grid-container.chosen, ul.questions li.floor .grid-container.chosen, ul.questions li.keypad .grid-container.chosen { bottom: 65px; }
 ul.questions li.move-in .grid, ul.questions li.floor .grid, ul.questions li.keypad .grid { width: 100%; display: table; min-height: 100%; }
 ul.questions li.move-in .grid .row, ul.questions li.floor .grid .row, ul.questions li.keypad .grid .row { display: table-row; width: 100%; height: 50px; }
@@ -207,17 +207,17 @@ ul.questions li.move-in .grid .row label.grid-40, ul.questions li.move-in .grid 
 ul.questions li.move-in .grid .row label:active, ul.questions li.move-in .grid .row a:active, ul.questions li.floor .grid .row label:active, ul.questions li.floor .grid .row a:active, ul.questions li.keypad .grid .row label:active, ul.questions li.keypad .grid .row a:active { position: relative; z-index: 100; background: #76d308 !important; box-shadow: 0 0 0 0 #76d308; }
 ul.questions li.move-in .grid .row a, ul.questions li.floor .grid .row a, ul.questions li.keypad .grid .row a { line-height: 60px; height: 60px; font-size: 20px; text-align: center; }
 ul.questions li.move-in .grid .row input[type=radio]:checked + label, ul.questions li.floor .grid .row input[type=radio]:checked + label, ul.questions li.keypad .grid .row input[type=radio]:checked + label { background: #76d308 !important; font-weight: 600; }
-ul.questions li.floor h4 { position: absolute; top: 70px; margin: 0; }
+ul.questions li.floor h4 { position: absolute; top: 40px; margin: 0; }
 ul.questions li.floor .grid-container { padding-bottom: 90px; }
-ul.questions li.move-in h4 { position: absolute; top: 70px; margin: 0; }
-ul.questions li.keypad .cell { padding: 40px 0 310px; }
+ul.questions li.move-in h4 { position: absolute; top: 40px; margin: 0; }
+ul.questions li.keypad .cell { padding: 20px 0 310px; }
 ul.questions li.keypad a { min-width: 40px; }
 ul.questions li.keypad .keypad-backspace i { width: 29px; height: 19px; display: inline-block; background: url(../i/backspace.png) no-repeat center; background-size: 29px 19px; opacity: 0.5; }
 ul.questions li.keypad .keypad-backspace:active i { opacity: 1; }
 ul.questions li.keypad .grid-container { height: 240px; bottom: 65px; top: auto; }
 ul.questions li.keypad .price-input { width: 100%; text-align: center; font-size: 40px; }
 ul.questions li.keypad .price-input sub { font-size: 30px; color: #9aa6b2; font-weight: 300; }
-ul.questions li.photos { padding-top: 30px; }
+ul.questions li.photos { padding-top: 10px; }
 ul.questions li.photos input[type=file] { display: none; }
 ul.questions li.photos .cell { display: block; max-width: 800px; width: 100%; margin: auto; }
 ul.questions li.photos .preview { width: 88%; margin-left: 6%; position: relative; margin-top: 30px; }

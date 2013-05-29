@@ -87,7 +87,7 @@ input{
   height: 36px;
   width: 40px;
   @include border-radius(5px);
-  top: 20px;
+  top: 0px;
   left: 50%;
   margin-left: -20px;
   z-index: 100;
@@ -202,7 +202,7 @@ ul.questions{
       box-shadow: 0 0 0 0 $green;
       @include transition(all, 0.1s, ease-in-out);
       &:active{
-        background: $green;
+        background: $green !important;
         box-shadow: 0 0 0 3px $green;
         @include transition(all, 0.1s, ease-in-out)
       }
@@ -365,7 +365,7 @@ ul.questions{
         box-shadow: 0 0 0 0px $grey-20;
         @include transition(all, 0.1s, ease-in-out);
         &:active{
-          background: $grey-80;
+          background: $grey-80 !important;
           box-shadow: 0 0 0 3px $grey-80;
           @include transition(all, 0.1s, ease-in-out);
         }
@@ -475,7 +475,7 @@ ul.questions{
     .grid-container{
       position: absolute;
       bottom: 0;
-      top: 120px;
+      top: 100px;
       left: 0;
       right: 0;
       box-shadow: inset 0 -150px 0 0 $grey-80;
@@ -700,7 +700,7 @@ ul.questions{
   li.floor{
     h4{
       position: absolute;
-      top: 70px;
+      top: 40px;
       margin: 0;
     }
     .grid-container{
@@ -710,13 +710,13 @@ ul.questions{
   li.move-in{
     h4{
       position: absolute;
-      top: 70px;
+      top: 40px;
       margin: 0;
     }
   }
   li.keypad{
     .cell{
-      padding: 40px 0 310px;
+      padding: 20px 0 310px;
     }
     a{
       min-width: 40px;
@@ -754,7 +754,7 @@ ul.questions{
   }
   
   li.photos{
-    padding-top: 30px;
+    padding-top: 10px;
     input[type=file]{
       display: none;
     }
