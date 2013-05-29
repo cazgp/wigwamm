@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<ul class="questions">
+  <li class="question safari-install disabled">
+    <div class="cell">
+      <img class="wigwamm-logo" src="{% static "i/icon-large.png" %}" alt="icon-large" />
+      <h1>Wigwamm</h1>
+      
+      <p class="portal-logos-p">List property from your phone to...</p>
+      <img class="portal-logos" src="{% static "i/logos.jpg" %}" alt="logos" width="280" height="42">
+
+    </div>
+    <div class="install-bar">
+      <p>To install, click the <i></i> icon below then '<strong>Add to Home Screen'</strong></p>
+    </div>
+  </li>
+
+  <li class="wigwamm-login-or-start-listing question">
+    <div class="cell">
+      <img class="wigwamm-logo" src="{% static "i/icon-large.png" %}" alt="icon-large" />
+        
+        <h4>Does your agency already have a Wigwamm account?</h4>
+        
+        <input type="radio" value="1" name="t" id="wigwamm-start-login-check" />
+        <label class="one-col" for="wigwamm-start-login-check">Yes, let me log in</label>
+        
+        <a class="button one-col internal" href="{% url "new" %}">No, let me list a property</a>
+          
+    </div>
+  </li>
+  <li class="wigwamm-login login inputs question requires-keyboard requires-next-button">
+    <a class="back"><i></i></a>
+    <div class="cell">
+      <h4>Wigwamm login details</h4>
+      <input type="text" id="wigwamm-username" class="two-col" placeholder="Username">
+      <input type="password" id="wigwamm-username" class="two-col last" placeholder="Password">
+      <a class="next internal" href="portfolio.html">Log in</a>
+    </div>
+  </li>
+</ul>
+{% endblock %}

@@ -1,5 +1,1278 @@
 {% extends "base.html" %}
-
 {% block content %}
-{{ form }}
+<a class="skip-to-summary button disabled">Back to summary</a>
+
+<ul class="questions">
+  <li class="postcode question">
+    <div class="cell cell-full-width">
+      <a class="button" onclick="history.go(-1)">Cancel</a>
+      <input type="text" class="postcode" placeholder="Postcode">
+      <ul class="addresses scrollable">
+        <li><a>32 Stanley Avenue</a></li>
+        <li><a>34 Stanley Avenue</a></li>
+      </ul>
+    </div>
+  </li>
+
+  <li class="portals question requires-next-button">
+    <div class="cell">
+      <a class="back"><i></i></a>
+      <h4>Where should it be listed?</h4>
+        {% with prefix=form.listing_destination.auto_id %}
+          {% for key, value in form.listing_destination.field.choices %}
+            <input type="checkbox" value="{{ key }}" name="listing_destination" id="{{ prefix }}_{{ forloop.counter0 }}" />
+            <label class="one-col last checkbox" for="{{ prefix }}_{{ forloop.counter0 }}">
+              {{ value|title }}
+            </label>
+          {% endfor %}
+        {% endwith %}
+        <a class="next">Next</a>
+    </div>
+  </li>
+
+  <li class="move-in question requires-next-button">
+    <div class="cell cell-full-width">
+      <a class="back"><i></i></a>
+      <h4>Move-in date</h4>
+      <div class="next-bar disabled">
+        <a class="next">Next</a>
+      </div>
+      <div class="grid-container scrollable">
+        <div class="grid">
+          <div class="row">
+            {% for date in move_in_dates %}
+              {% with day=date.day month=date|date:"M" %}
+              <input type="radio" name="date" id="{{ month|lower }}-{{ day }}" />
+              <label for="{{ month|lower }}-{{ day }}" class="grid-{{ day }}{% if today > date %} past{% elif today == date %} today{% endif %}">
+                <span class="month">{{ month|upper }}</span>
+                <span class="day">{{ day }}</span>
+              </label>
+              {% endwith %}
+              {% if forloop.counter|divisibleby:7 %}</div><div class="row">{% endif %}
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </li>
+
+  <li class="keypad price question requires-next-button">
+    <div class="cell cell-full-width">
+      <a class="back"><i></i></a>
+      <h4>Price</h4>
+      <div class="price-input">
+        &pound; <span class="keypad-value price-value"></span> <sub>/pcm</sub>
+      </div>
+      <div class="next-bar">
+        <a class="next">Next</a>
+      </div>
+      <div class="grid-container">
+        <div class="grid">
+          <div class="row">
+            {% for num, grid in keypad %}
+            <a class="grid-{{grid}} keypad-{{num}}">
+              {% if num == 'decimal' %}.
+              {% elif num == 'backspace' %}<i></i>
+              {% else %}{{num}}{% endif %}
+            </a>
+            {% if forloop.counter|divisibleby:3 %}</div><div class="row">{% endif %}
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </li>
+
+  <li class="photos question">
+    <a class="back"><i></i></a>
+    <div class="cell scrollable">
+
+        <div class="living-room-photo preview">
+          <a class="close take-photo"></a>
+          <a class="button take-photo take-photo-1">Take photo</a>
+          <input type='file' class="take-photo-input" id="living-room-photo-input" onchange="readURL(this);" />
+          <div class="preview-img">
+            <div class="photo-name">Living room</div>
+            <img id="living-room-photo-preview" />
+          </div>
+        </div>
+        <div class="kitchen-photo preview">
+          <a class="close take-photo"></a>
+          <a class="button take-photo take-photo-1">Take photo</a>
+          <input type='file' class="take-photo-input" id="living-room-photo-input" onchange="readURL(this);" />
+          <div class="preview-img">
+            <div class="photo-name">Kitchen</div>
+            <img id="living-room-photo-preview" />
+          </div>
+        </div>
+        <div class="bedroom-1-photo preview">
+          <a class="close take-photo"></a>
+          <a class="button take-photo take-photo-1">Take photo</a>
+          <input type='file' class="take-photo-input" id="bedroom-1-photo-input" onchange="readURL(this);" />
+          <div class="preview-img">
+            <div class="photo-name">Bedroom 1</div>
+            <img id="bedroom-1-photo-preview" />
+          </div>
+        </div>
+        <div class="bedroom-2-photo preview">
+          <a class="close take-photo"></a>
+          <a class="button take-photo take-photo-1">Take photo</a>
+          <input type='file' class="take-photo-input" id="bedroom-2-photo-input" onchange="readURL(this);" />
+          <div class="preview-img">
+            <div class="photo-name">Bedroom 2</div>
+            <img id="bedroom-2-photo-preview" />
+          </div>
+        </div>
+        <div class="bedroom-3-photo preview">
+          <a class="close take-photo"></a>
+          <a class="button take-photo take-photo-1">Take photo</a>
+          <input type='file' class="take-photo-input" id="bedroom-3-photo-input" onchange="readURL(this);" />
+          <div class="preview-img">
+            <div class="photo-name">Bedroom 3</div>
+            <img id="bedroom-3-photo-preview" />
+          </div>
+        </div>
+        
+        <div class="bedroom-4-photo preview">
+          <a class="close take-photo"></a>
+          <a class="button take-photo take-photo-1">Take photo</a>
+          <input type='file' class="take-photo-input" id="bedroom-4-photo-input" onchange="readURL(this);" />
+          <div class="preview-img">
+            <div class="photo-name">Bedroom 4</div>
+            <img id="bedroom-4-photo-preview" />
+          </div>
+        </div>
+        
+        <div class="bedroom-5-photo preview">
+          <a class="close take-photo"></a>
+          <a class="button take-photo take-photo-1">Take photo</a>
+          <input type='file' class="take-photo-input" id="bedroom-5-photo-input" onchange="readURL(this);" />
+          <div class="preview-img">
+            <div class="photo-name">Bedroom 5</div>
+            <img id="bedroom-5-photo-preview" />
+          </div>
+        </div>
+        
+        <div class="bedroom-6-photo preview">
+          <a class="close take-photo"></a>
+          <a class="button take-photo take-photo-1">Take photo</a>
+          <input type='file' class="take-photo-input" id="bedroom-6-photo-input" onchange="readURL(this);" />
+          <div class="preview-img">
+            <div class="photo-name">Bedroom 6</div>
+            <img id="bedroom-6-photo-preview" />
+          </div>
+        </div>
+        
+        <div class="bathroom-1-photo preview">
+          <a class="close take-photo"></a>
+          <a class="button take-photo take-photo-1">Take photo</a>
+          <input type='file' class="take-photo-input" id="bathroom-1-photo-input" onchange="readURL(this);" />
+          <div class="preview-img">
+            <div class="photo-name">Bathroom 1</div>
+            <img id="bathroom-1-photo-preview" />
+          </div>
+        </div>
+        
+        <div class="bathroom-2-photo preview">
+          <a class="close take-photo"></a>
+          <a class="button take-photo take-photo-1">Take photo</a>
+          <input type='file' class="take-photo-input" id="bathroom-2-photo-input" onchange="readURL(this);" />
+          <div class="preview-img">
+            <div class="photo-name">Bathroom 2</div>
+            <img id="bathroom-2-photo-preview" />
+          </div>
+        </div>
+        
+        <div class="bathroom-3-photo preview">
+          <a class="close take-photo"></a>
+          <a class="button take-photo take-photo-1">Take photo</a>
+          <input type='file' class="take-photo-input" id="bathroom-3-photo-input" onchange="readURL(this);" />
+          <div class="preview-img">
+            <div class="photo-name">Bathroom 3</div>
+            <img id="bathroom-3-photo-preview" />
+          </div>
+        </div>
+        
+        <div class="bathroom-4-photo preview">
+          <a class="close take-photo"></a>
+          <a class="button take-photo take-photo-1">Take photo</a>
+          <input type='file' class="take-photo-input" id="bathroom-4-photo-input" onchange="readURL(this);" />
+          <div class="preview-img">
+            <div class="photo-name">Bathroom 4</div>
+            <img id="bathroom-4-photo-preview" />
+          </div>
+        </div>
+        
+        <div class="bathroom-5-photo preview">
+          <a class="close take-photo"></a>
+          <a class="button take-photo take-photo-1">Take photo</a>
+          <input type='file' class="take-photo-input" id="bathroom-5-photo-input" onchange="readURL(this);" />
+          <div class="preview-img">
+            <div class="photo-name">Bathroom 5</div>
+            <img id="bathroom-5-photo-preview" />
+          </div>
+        </div>
+        
+        <div class="bathroom-6-photo preview">
+          <a class="close take-photo"></a>
+          <a class="button take-photo take-photo-1">Take photo</a>
+          <input type='file' class="take-photo-input" id="bathroom-6-photo-input" onchange="readURL(this);" />
+          <div class="preview-img">
+            <div class="photo-name">Bathroom 6</div>
+            <img id="bedroom-6-photo-preview" />
+          </div>
+        </div>
+        
+      <div class="additional-room-1-photo preview">
+        <a class="close take-photo"></a>
+        <a class="button take-photo take-photo-1">Take photo</a>
+        <input type='file' class="take-photo-input" id="additional-room-1-photo-input" onchange="readURL(this);" />
+        <div class="preview-img">
+          <div class="photo-name">Additional room 1</div>
+          <img id="additional-room-1-photo-preview" />
+        </div>
+      </div>
+        
+      <div class="additional-room-2-photo preview">
+        <a class="close take-photo"></a>
+        <a class="button take-photo take-photo-1">Take photo</a>
+        <input type='file' class="take-photo-input" id="additional-room-2-photo-input" onchange="readURL(this);" />
+        <div class="preview-img">
+          <div class="photo-name">Additional room 2</div>
+          <img id="additional-room-2-photo-preview" />
+        </div>
+      </div>
+        
+      <div class="additional-room-3-photo preview">
+        <a class="close take-photo"></a>
+        <a class="button take-photo take-photo-1">Take photo</a>
+        <input type='file' class="take-photo-input" id="additional-room-3-photo-input" onchange="readURL(this);" />
+        <div class="preview-img">
+          <div class="photo-name">Additional room 2</div>
+          <img id="additional-room-3-photo-preview" />
+        </div>
+      </div>
+      
+      <div class="exterior-photo preview">
+        <a class="close take-photo"></a>
+        <a class="button take-photo take-photo-1">Take photo</a>
+        <input type='file' class="take-photo-input" id="exterior-photo-input" onchange="readURL(this);" />
+        <div class="preview-img">
+          <div class="photo-name">Exterior photo</div>
+          <img id="exterior-photo-preview" />
+        </div>
+      </div>
+      
+      <div class="floorplan-photo preview">
+        <a class="close take-photo"></a>
+        <a class="button take-photo take-photo-1">Take photo</a>
+        <input type='file' class="take-photo-input" id="additional-room-3-photo-input" onchange="readURL(this);" />
+        <div class="preview-img">
+          <div class="photo-name">Floorplan</div>
+          <img id="additional-room-3-photo-preview" />
+        </div>
+      </div>
+      
+      <a class="next">Next</a>
+ 
+    </div>
+  </li>
+  
+  <li class="floor question requires-next-button">
+    <div class="cell cell-full-width">
+      <a class="back"><i></i></a>
+      <h4>Which floor is it on?</h4>
+      <div class="next-bar disabled">
+        <a class="next">Next</a>
+      </div>
+      <div class="grid-container scrollable">
+        <div class="grid">
+          <div class="row">
+          
+            <input type="radio" name="date" id="floor-b" />
+            <label class="grid-1 floor-b" for="floor-b">
+              <span class="floor-number">B</span>
+            </label>
+          
+            <input type="radio" name="date" id="floor-g" />
+            <label class="grid-2 floor-g" for="floor-g">
+              <span class="floor-number">G</span>
+            </label>
+          
+            <input type="radio" name="date" id="floor-1" />
+            <label class="grid-3 floor-1" for="floor-1">
+              <span class="floor-number">1</span>
+            </label>
+          
+            <input type="radio" name="date" id="floor-2" />
+            <label class="grid-4 floor-2" for="floor-2">
+              <span class="floor-number">2</span>
+            </label>
+          
+            <input type="radio" name="date" id="floor-3" />
+            <label class="grid-5 floor-3" for="floor-3">
+              <span class="floor-number">3</span>
+            </label>
+          
+            <input type="radio" name="date" id="floor-4" />
+            <label class="grid-6 floor-4" for="floor-4">
+              <span class="floor-number">4</span>
+            </label>
+            
+          </div>
+        
+          <div class="row">
+          
+            <input type="radio" name="date" id="floor-5" />
+            <label class="grid-7 floor-5" for="floor-5">
+              <span class="floor-number">5</span>
+            </label>
+          
+            <input type="radio" name="date" id="floor-6" />
+            <label class="grid-8 floor-6" for="floor-6">
+              <span class="floor-number">6</span>
+            </label>
+          
+            <input type="radio" name="date" id="floor-7" />
+            <label class="grid-9 floor-7" for="floor-7">
+              <span class="floor-number">7</span>
+            </label>
+          
+            <input type="radio" name="date" id="floor-8" />
+            <label class="grid-10 floor-8" for="floor-8">
+              <span class="floor-number">8</span>
+            </label>
+          
+            <input type="radio" name="date" id="floor-9" />
+            <label class="grid-11 floor-9" for="floor-9">
+              <span class="floor-number">9</span>
+            </label>
+          
+            <input type="radio" name="date" id="floor-10" />
+            <label class="grid-12 floor-10" for="floor-10">
+              <span class="floor-number">10</span>
+            </label>
+          
+          </div>
+        
+          <div class="row">
+          
+            <input type="radio" name="date" id="floor-11" />
+            <label class="grid-13 floor-11" for="floor-11">
+              <span class="floor-number">11</span>
+            </label>
+          
+            <input type="radio" name="date" id="floor-12" />
+            <label class="grid-14 floor-12" for="floor-12">
+              <span class="floor-number">12</span>
+            </label>
+          
+            <input type="radio" name="date" id="floor-13" />
+            <label class="grid-15 floor-13" for="floor-13">
+              <span class="floor-number">13</span>
+            </label>
+          
+            <input type="radio" name="date" id="floor-14" />
+            <label class="grid-16 floor-14" for="floor-14">
+              <span class="floor-number">14</span>
+            </label>
+          
+            <input type="radio" name="date" id="floor-15" />
+            <label class="grid-17 floor-15" for="floor-15">
+              <span class="floor-number">15</span>
+            </label>
+          
+            <input type="radio" name="date" id="floor-16" />
+            <label class="grid-18 floor-16" for="floor-16">
+              <span class="floor-number">16</span>
+            </label>
+          
+          </div>
+        
+          <div class="row">
+          
+            <input type="radio" name="date" id="floor-17" />
+            <label class="grid-19 floor-17" for="floor-17">
+              <span class="floor-number">17</span>
+            </label>
+          
+            <input type="radio" name="date" id="floor-18" />
+            <label class="grid-20 floor-18" for="floor-18">
+              <span class="floor-number">18</span>
+            </label>
+          
+            <input type="radio" name="date" id="floor-19" />
+            <label class="grid-21 floor-19" for="floor-19">
+              <span class="floor-number">19</span>
+            </label>
+          
+            <input type="radio" name="date" id="floor-20" />
+            <label class="grid-22 floor-20" for="floor-20">
+              <span class="floor-number">20</span>
+            </label>
+          
+            <input type="radio" name="date" id="floor-21" />
+            <label class="grid-23 floor-21" for="floor-21">
+              <span class="floor-number">21</span>
+            </label>
+          
+            <input type="radio" name="date" id="floor-22" />
+            <label class="grid-24 floor-22" for="floor-22">
+              <span class="floor-number">22</span>
+            </label>
+          
+          </div>
+        
+          <div class="row">
+          
+            <input type="radio" name="date" id="floor-23" />
+            <label class="grid-25 floor-23" for="floor-23">
+              <span class="floor-number">23</span>
+            </label>
+          
+            <input type="radio" name="date" id="floor-24" />
+            <label class="grid-26 floor-24" for="floor-24">
+              <span class="floor-number">24</span>
+            </label>
+          
+            <input type="radio" name="date" id="floor-25" />
+            <label class="grid-27 floor-25" for="floor-25">
+              <span class="floor-number">25</span>
+            </label>
+          
+            <input type="radio" name="date" id="floor-26" />
+            <label class="grid-28 floor-26" for="floor-26">
+              <span class="floor-number">26</span>
+            </label>
+          
+            <input type="radio" name="date" id="floor-27" />
+            <label class="grid-29 floor-27" for="floor-27">
+              <span class="floor-number">27</span>
+            </label>
+          
+            <input type="radio" name="date" id="floor-28" />
+            <label class="grid-30 floor-28" for="floor-28">
+              <span class="floor-number">28</span>
+            </label>
+          
+          </div>
+        
+          <div class="row">
+          
+            <input type="radio" name="date" id="floor-29" />
+            <label class="grid-31 floor-29" for="floor-29">
+              <span class="floor-number">29</span>
+            </label>
+          
+            <input type="radio" name="date" id="floor-30" />
+            <label class="grid-32 floor-30" for="floor-30">
+              <span class="floor-number">30</span>
+            </label>
+          
+            <input type="radio" name="date" id="floor-31" />
+            <label class="grid-33 floor-31" for="floor-31">
+              <span class="floor-number">31</span>
+            </label>
+          
+            <input type="radio" name="date" id="floor-32" />
+            <label class="grid-34 floor-32" for="floor-32">
+              <span class="floor-number">32</span>
+            </label>
+          
+            <input type="radio" name="date" id="floor-33" />
+            <label class="grid-35 floor-33" for="floor-33">
+              <span class="floor-number">33</span>
+            </label>
+          
+            <input type="radio" name="date" id="floor-34" />
+            <label class="grid-36 floor-34" for="floor-34">
+              <span class="floor-number">34</span>
+            </label>
+          
+          </div>
+        
+          <div class="row">
+          
+            <input type="radio" name="date" id="floor-35" />
+            <label class="grid-37 floor-35" for="floor-35">
+              <span class="floor-number">35</span>
+            </label>
+          
+            <input type="radio" name="date" id="floor-36" />
+            <label class="grid-38 floor-36" for="floor-36">
+              <span class="floor-number">36</span>
+            </label>
+          
+            <input type="radio" name="date" id="floor-37" />
+            <label class="grid-39 floor-37" for="floor-37">
+              <span class="floor-number">37</span>
+            </label>
+          
+            <input type="radio" name="date" id="floor-38" />
+            <label class="grid-40 floor-38" for="floor-38">
+              <span class="floor-number">38</span>
+            </label>
+          
+            <input type="radio" name="date" id="floor-39" />
+            <label class="grid-40 floor-39" for="floor-39">
+              <span class="floor-number">39</span>
+            </label>
+          
+            <input type="radio" name="date" id="floor-40" />
+            <label class="grid-40 floor-40" for="floor-40">
+              <span class="floor-number">40</span>
+            </label>
+          
+          </div>
+        </div>
+      </div>
+    </div>
+  </li>
+    
+  
+  <li class="question lift">
+    <div class="cell">
+      <a class="back"><i></i></a>
+      
+        <input type="radio" value="1" name="lift" id="lift-yes" />
+        <label class="one-col grid-30" for="lift-yes">There's a lift</label>
+        
+        <input type="radio" value="1" name="lift" id="lift-no" />
+        <label class="one-col grid-35" for="lift-yes">No lift</label>
+          
+    </div>
+  </li>
+    
+  
+  <li class="question kitchen">
+    <div class="cell">
+      <a class="back"><i></i></a>
+      
+        <input type="radio" value="1" name="kitchen" id="kitchen-open-plan" />
+        <label class="one-col grid-30" for="kitchen-open-plan">Open plan kitchen</label>
+        
+        <input type="radio" value="1" name="kitchen" id="kitchen-separate" />
+        <label class="one-col grid-35" for="kitchen-separate">Separate kitchen</label>
+          
+    </div>
+  </li>
+    
+  
+  <li class="question front-garden">
+    <div class="cell">
+      <a class="back"><i></i></a>
+      
+        <h4>Front garden</h4>
+      
+        <input type="radio" value="1" name="a" id="a-1" />
+        <label class="one-col grid-15" for="a-1">None</label>
+        
+        <input type="radio" value="1" name="a" id="a-2" />
+        <label class="one-col grid-20" for="a-2">Drive</label>
+      
+        <input type="radio" value="1" name="a" id="a-3" />
+        <label class="one-col grid-25" for="a-3">Patio</label>
+        
+        <input type="radio" value="1" name="a" id="a-4" />
+        <label class="one-col grid-30" for="a-4">Small</label>
+      
+        <input type="radio" value="1" name="a" id="a-5" />
+        <label class="one-col grid-35" for="a-5">Large</label>
+          
+    </div>
+  </li>
+    
+  
+  <li class="question rear-garden">
+    <div class="cell">
+      <a class="back"><i></i></a>
+      
+        <h4>Rear garden</h4>
+      
+        <input type="radio" value="1" name="b" id="b-1" />
+        <label class="one-col grid-10" for="b-1">None</label>
+        
+        <input type="radio" value="1" name="b" id="b-2" />
+        <label class="one-col grid-15" for="b-2">Balcony</label>
+      
+        <input type="radio" value="1" name="b" id="b-3" />
+        <label class="one-col grid-20" for="b-3">Patio</label>
+        
+        <input type="radio" value="1" name="b" id="b-4" />
+        <label class="one-col grid-25" for="b-4">Small</label>
+      
+        <input type="radio" value="1" name="b" id="b-5" />
+        <label class="one-col grid-30" for="b-5">Medium</label>
+        
+        <input type="radio" value="1" name="b" id="b-6" />
+        <label class="one-col grid-35" for="b-6">Large</label>
+          
+    </div>
+  </li>
+    
+  
+  <li class="question on-street-parking">
+    <div class="cell">
+      <a class="back"><i></i></a>
+      
+        <h4>On-street parking</h4>
+      
+        <input type="radio" value="1" name="c" id="c-1" />
+        <label class="one-col grid-25" for="c-1">None</label>
+        
+        <input type="radio" value="1" name="c" id="c-2" />
+        <label class="one-col grid-30" for="c-2">Free</label>
+      
+        <input type="radio" value="1" name="c" id="c-3" />
+        <label class="one-col grid-35" for="c-3">Permit</label>
+          
+    </div>
+  </li>
+    
+  
+  <li class="question off-street-parking">
+    <div class="cell">
+      <a class="back"><i></i></a>
+      
+        <h4>Off-street parking</h4>
+      
+        <input type="radio" value="1" name="d" id="d-1" />
+        <label class="one-col grid-20" for="d-1">None</label>
+        
+        <input type="radio" value="1" name="d" id="d-2" />
+        <label class="one-col grid-25" for="d-2">Drive</label>
+      
+        <input type="radio" value="1" name="d" id="d-3" />
+        <label class="one-col grid-30" for="d-3">Single garage</label>
+        
+        <input type="radio" value="1" name="d" id="d-4" />
+        <label class="one-col grid-35" for="d-4">Double garage</label>
+          
+    </div>
+  </li>
+    
+  
+  <li class="question pets">
+    <div class="cell">
+      <a class="back"><i></i></a>
+      
+        <input type="radio" value="1" name="e" id="e-1" />
+        <label class="one-col grid-25" for="e-1">Pets allowed</label>
+        
+        <input type="radio" value="1" name="e" id="e-2" />
+        <label class="one-col grid-30" for="e-2">Caged pets only</label>
+      
+        <input type="radio" value="1" name="e" id="e-3" />
+        <label class="one-col grid-35" for="e-3">No pets allowed</label>
+          
+    </div>
+  </li>
+    
+  
+  <li class="question heating">
+    <div class="cell">
+      <a class="back"><i></i></a>
+      
+        <input type="radio" value="1" name="f" id="f-1" />
+        <label class="one-col grid-25" for="f-1">Electric heating</label>
+        
+        <input type="radio" value="1" name="f" id="f-2" />
+        <label class="one-col grid-30" for="f-2">Gas heating</label>
+      
+        <input type="radio" value="1" name="f" id="f-3" />
+        <label class="one-col grid-35" for="f-3">Oil heating</label>
+          
+    </div>
+  </li>
+    
+  
+  <li class="question glazing">
+    <div class="cell">
+      <a class="back"><i></i></a>
+      
+        <h4>Windows</h4>
+      
+        <input type="radio" value="1" name="g" id="g-1" />
+        <label class="one-col grid-25" for="g-1">Single glazed</label>
+        
+        <input type="radio" value="1" name="g" id="g-2" />
+        <label class="one-col grid-30" for="g-2">Double glazed</label>
+      
+        <input type="radio" value="1" name="g" id="g-3" />
+        <label class="one-col grid-35" for="g-3">Triple glazed</label>
+          
+    </div>
+  </li>
+    
+  
+  <li class="question window-frames">
+    <div class="cell">
+      <a class="back"><i></i></a>
+      
+        <input type="radio" value="1" name="h" id="h-1" />
+        <label class="one-col grid-30" for="h-1">Timber windows</label>
+        
+        <input type="radio" value="1" name="h" id="h-2" />
+        <label class="one-col grid-35" for="h-2">UPVC windows</label>
+          
+    </div>
+  </li>
+    
+  
+  <li class="question furnished">
+    <div class="cell">
+      <a class="back"><i></i></a>
+      
+        <input type="radio" value="1" name="i" id="i-1" />
+        <label class="one-col grid-30" for="i-1">Unfurnished</label>
+        
+        <input type="radio" value="1" name="i" id="i-2" />
+        <label class="one-col grid-35" for="i-2">Furnished</label>
+          
+    </div>
+  </li>
+    
+  
+  <li class="question decorated">
+    <div class="cell">
+      <a class="back"><i></i></a>
+      
+        <h4>Last decorated</h4>
+      
+        <input type="radio" value="1" name="j" id="j-1" />
+        <label class="one-col grid-25" for="j-1">Less than 1 month ago</label>
+        
+        <input type="radio" value="1" name="j" id="j-2" />
+        <label class="one-col grid-30" for="j-2">Less than 1 year ago</label>
+      
+        <input type="radio" value="1" name="j" id="j-3" />
+        <label class="one-col grid-35" for="j-3">2+ years ago</label>
+          
+    </div>
+  </li>
+    
+  
+  <li class="question refurbished">
+    <div class="cell">
+      <a class="back"><i></i></a>
+      
+        <h4>Last refurbished</h4>
+      
+        <input type="radio" value="1" name="k" id="k-1" />
+        <label class="one-col grid-25" for="k-1">Less than 1 month ago</label>
+        
+        <input type="radio" value="1" name="k" id="k-2" />
+        <label class="one-col grid-30" for="k-2">Less than 1 year ago</label>
+      
+        <input type="radio" value="1" name="k" id="k-3" />
+        <label class="one-col grid-35" for="k-3">2+ years ago</label>
+          
+    </div>
+  </li>
+    
+  
+  <li class="question deposit">
+    <div class="cell">
+      <a class="back"><i></i></a>
+      
+        <h4>Deposit</h4>
+      
+        <input type="radio" value="1" name="l" id="l-1" />
+        <label class="one-col grid-25" for="l-1">1 month</label>
+        
+        <input type="radio" value="1" name="l" id="l-2" />
+        <label class="one-col grid-30" for="l-2">6 weeks</label>
+      
+        <input type="radio" value="1" name="l" id="l-3" />
+        <label class="one-col grid-35" for="l-3">2 months</label>
+          
+    </div>
+  </li>
+    
+  
+  <li class="question agreement-term">
+    <div class="cell">
+      <a class="back"><i></i></a>
+      
+        <h4>Agreement term</h4>
+      
+        <input type="radio" value="1" name="m" id="m-1" />
+        <label class="one-col grid-25" for="m-1">6 months</label>
+        
+        <input type="radio" value="1" name="m" id="m-2" />
+        <label class="one-col grid-30" for="m-2">12 months</label>
+      
+        <input type="radio" value="1" name="m" id="m-3" />
+        <label class="one-col grid-35" for="m-3">24 months</label>
+          
+    </div>
+  </li>
+    
+  
+  <li class="question water-bills">
+    <div class="cell">
+      <a class="back"><i></i></a>
+      
+        <h4>Water bills</h4>
+      
+        <input type="radio" value="1" name="n" id="n-1" />
+        <label class="one-col grid-30" for="n-1">Included</label>
+        
+        <input type="radio" value="1" name="n" id="n-2" />
+        <label class="one-col grid-35" for="n-2">Not included</label>
+          
+    </div>
+  </li>
+    
+  
+  <li class="question council-tax">
+    <div class="cell">
+      <a class="back"><i></i></a>
+      
+        <h4>Council tax</h4>
+      
+        <input type="radio" value="1" name="o" id="o-1" />
+        <label class="one-col grid-30" for="o-1">Included</label>
+        
+        <input type="radio" value="1" name="o" id="o-2" />
+        <label class="one-col grid-35" for="o-2">Not included</label>
+          
+    </div>
+  </li>
+    
+  
+  <li class="question energy-bills">
+    <div class="cell">
+      <a class="back"><i></i></a>
+      
+        <h4>Energy bills</h4>
+      
+        <input type="radio" value="1" name="p" id="p-1" />
+        <label class="one-col grid-30" for="p-1">Included</label>
+        
+        <input type="radio" value="1" name="p" id="p-2" />
+        <label class="one-col grid-35" for="p-2">Not included</label>
+          
+    </div>
+  </li>
+    
+  
+  <li class="question telephone-bills">
+    <div class="cell">
+      <a class="back"><i></i></a>
+      
+        <h4>Telephone bills</h4>
+      
+        <input type="radio" value="1" name="q" id="q-1" />
+        <label class="one-col grid-30" for="q-1">Included</label>
+        
+        <input type="radio" value="1" name="q" id="q-2" />
+        <label class="one-col grid-35" for="q-2">Not included</label>
+          
+    </div>
+  </li>
+    
+  
+  <li class="question broadband">
+    <div class="cell">
+      <a class="back"><i></i></a>
+        
+        <h4>Broadband</h4>
+        
+        <input type="radio" value="1" name="r" id="r-1" />
+        <label class="one-col grid-25" for="r-1">Bills included</label>
+        
+        <input type="radio" value="1" name="r" id="r-2" />
+        <label class="one-col grid-30" for="r-2">Available</label>
+        
+        <input type="radio" value="1" name="r" id="r-2" />
+        <label class="one-col grid-35" for="r-2">Unavailable</label>
+          
+    </div>
+  </li>
+
+
+  <li class="council-tax-borough inputs question requires-keyboard requires-next-button">
+    <a class="back"><i></i></a>
+    <div class="cell">
+      <h4>Council tax borough</a></h4>
+      <input type="text" id="epc" class="one-col" placeholder="Borough">
+      <a class="next">Next</a>
+    </div>
+  </li>
+    
+  
+  <li class="question council-tax-band">
+    <div class="cell">
+      <a class="back"><i></i></a>
+      
+        <h4>Council tax band</h4>
+      
+        <input type="radio" value="1" name="s" id="s-1" />
+        <label class="two-col grid-5" for="s-1">A</label>
+        
+        <input type="radio" value="1" name="s" id="s-2" />
+        <label class="two-col grid-10 last" for="s-2">B</label>
+      
+        <input type="radio" value="1" name="s" id="s-3" />
+        <label class="two-col grid-15" for="s-3">C</label>
+        
+        <input type="radio" value="1" name="s" id="s-4" />
+        <label class="two-col last grid-20" for="s-4">D</label>
+      
+        <input type="radio" value="1" name="s" id="s-5" />
+        <label class="two-col grid-25" for="s-5">E</label>
+        
+        <input type="radio" value="1" name="s" id="s-6" />
+        <label class="two-col last grid-30" for="s-6">F</label>
+        
+        <input type="radio" value="1" name="s" id="s-7" />
+        <label class="two-col grid-35" for="s-7">G</label>
+          
+    </div>
+  </li>
+
+
+  <li class="keypad agent-fee question requires-next-button">
+    <div class="cell cell-full-width">
+      <a class="back"><i></i></a>
+      <h4>Lettings agent extra fees</h4>
+      <div class="price-input">
+        &pound; <span class="keypad-value agent-fee-value"></span>
+      </div>
+      <div class="next-bar">
+        <a class="next">Next</a>
+      </div>
+      <div class="grid-container">
+        <div class="grid">
+          <div class="row">
+            <a class="grid-1 keypad-1">
+              1
+            </a>
+            <a class="grid-3 keypad-2">
+              2
+            </a>
+            <a class="grid-5 keypad-3">
+              3
+            </a>
+          </div>
+          
+          <div class="row">
+            <a class="grid-7 keypad-4">
+              4
+            </a>
+            <a class="grid-9 keypad-5">
+              5
+            </a>
+            <a class="grid-11 keypad-6">
+              6
+            </a>
+          </div>
+          
+          <div class="row">
+            <a class="grid-13 keypad-7">
+              7
+            </a>
+            <a class="grid-15 keypad-8">
+              8
+            </a>
+            <a class="grid-17 keypad-9">
+              9
+            </a>
+          </div>
+          
+          <div class="row">
+            <a class="grid-19 keypad-decimal">
+              .
+            </a>
+            <a class="grid-21 keypad-0">
+              0
+            </a>
+            <a class="grid-23 keypad-backspace">
+              <i></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </li>
+    
+  
+  <li class="question managed-by">
+    <div class="cell">
+      <a class="back"><i></i></a>
+      
+        <input type="radio" value="1" name="t" id="t-1" />
+        <label class="one-col grid-30" for="t-1">Managed by agent</label>
+        
+        <input type="radio" value="1" name="t" id="t-2" />
+        <label class="one-col grid-35" for="t-2">Managed by landlord</label>
+          
+    </div>
+  </li>
+  
+
+  <li class="epc inputs question requires-keyboard requires-next-button">
+    <a class="back"><i></i></a>
+    <div class="cell">
+      <h4>EPC Code <a class="no-epc internal" href="#">Don't have one?</a></h4>
+      <input type="text" id="epc" class="one-col" placeholder="EPC code">
+      <span class="epc-requested disabled">We'll contact you. <a class="internal" href="#">Cancel?</a></span>
+      <a class="next">Next</a>
+    </div>
+  </li>
+  
+
+  <li class="login inputs question requires-keyboard requires-next-button">
+    <a class="back"><i></i></a>
+    <div class="cell">
+      <h4>Rightmove login details</h4>
+      <input type="text" id="rightmove-username" class="two-col" placeholder="Username">
+      <input type="password" id="zoopla-username" class="two-col last" placeholder="Password">
+      <a class="next">Next</a>
+    </div>
+  </li>
+  
+
+  <li class="login inputs question requires-keyboard requires-next-button">
+    <a class="back"><i></i></a>
+    <div class="cell">
+      <h4>Zoopla login details</h4>
+      <input type="text" id="rightmove-username" class="two-col error" placeholder="Username">
+      <input type="text" id="zoopla-username" class="two-col last error" placeholder="Password">
+      <a class="next">Next</a>
+    </div>
+  </li>
+  
+
+  <li class="login inputs question requires-keyboard requires-next-button">
+    <a class="back"><i></i></a>
+    <div class="cell">
+      <h4>Gumtree login details</h4>
+      <input type="text" id="rightmove-username" class="two-col" placeholder="Username">
+      <input type="password" id="zoopla-username" class="two-col last" placeholder="Password">
+      <a class="next">Next</a>
+    </div>
+  </li>
+  
+
+  <li class="login inputs question requires-keyboard requires-next-button">
+    <a class="back"><i></i></a>
+    <div class="cell">
+      <h4>Craigslist login details</h4>
+      <input type="text" id="rightmove-username" class="two-col" placeholder="Username">
+      <input type="password" id="zoopla-username" class="two-col last" placeholder="Password">
+      <a class="next">Next</a>
+    </div>
+  </li>
+    
+  
+  <li class="wigwamm-login-or-signup question">
+    <div class="cell">
+      <a class="back"><i></i></a>
+        
+        <h4>Does your agency already have a Wigwamm account?</h4>
+        
+        <input type="radio" value="1" name="t" id="wigwamm-login-check" />
+        <label class="one-col wigwamm-login-label grid-30" for="wigwamm-login-check">Yes, let me log in</label>
+        
+        <input type="radio" value="1" name="t" id="wigwamm-signup-check" />
+        <label class="one-col wigwamm-signup-label grid-35" for="wigwamm-signup-check">No, let me sign up</label>
+          
+    </div>
+  </li>
+  
+
+  <li class="wigwamm-login login inputs question requires-keyboard requires-next-button">
+    <a class="back"><i></i></a>
+    <div class="cell">
+      <h4>Wigwamm login details</h4>
+      <input type="text" id="wigwamm-username" class="two-col" placeholder="Username">
+      <input type="password" id="wigwamm-username" class="two-col last" placeholder="Password">
+      <a class="next">Log in</a>
+    </div>
+  </li>
+  
+
+  <li class="wigwamm-signup login inputs question requires-keyboard requires-next-button">
+    <a class="back"><i></i></a>
+    <div class="cell">
+      <h4>Wigwamm sign up details</h4>
+      <input type="text" id="wigwamm-username" class="two-col" placeholder="Username">
+      <input type="password" id="wigwamm-username" class="two-col last" placeholder="Password">
+      <a class="next">Sign up</a>
+    </div>
+  </li>
+  
+  <li class="question summary">
+
+    <div class="next-bar">
+      <a class="next">Submit listing</a>
+    </div>
+    <a class="back"><i></i></a>
+    <div class="cell cell-full-width scrollable">
+      
+        <h4>Confirm your listing</h4>
+      
+        <div class="summary-bar summary-postcode">
+          <a class="edit button">Edit</a>
+          <p><strong>Address</strong>: <span>38 Stanley Avenue, Beckenham, BR36PX</span></p>
+        </div>
+      
+        <div class="summary-bar">
+          <p><strong>List on</strong>: <span>Rightmove, Zoopla, Gumtree, Craigslist</span></p>
+          <a class="edit button">Edit</a>
+        </div>
+      
+        <div class="summary-bar">
+          <p><strong>Move in</strong>: <span>27th June 2013</span></p>
+          <a class="edit button">Edit</a>
+        </div>
+      
+        <div class="summary-bar">
+          <p><strong>Price</strong>: &pound;<span>345</span>/pcm</p>
+          <a class="edit button">Edit</a>
+        </div>
+      
+        <div class="summary-bar">
+          <p><strong>Bedrooms</strong>: <span>3</span></p>
+          <a class="edit button">Edit</a>
+        </div>
+      
+        <div class="summary-bar">
+          <p><strong>Bathrooms</strong>: <span>2</span></p>
+          <a class="edit button">Edit</a>
+        </div>
+      
+        <div class="summary-bar">
+          <p><strong>Photos</strong>: <span>12</span></p>
+          <a class="edit button">Edit</a>
+        </div>
+      
+        <div class="summary-bar">
+          <p><strong>Floor</strong>: <span>3</span></p>
+          <a class="edit button">Edit</a>
+        </div>
+      
+        <div class="summary-bar">
+          <p><span>There's a lift</span></p>
+          <a class="edit button">Edit</a>
+        </div>
+      
+        <div class="summary-bar">
+          <p><span>Open plan kitchen</span></p>
+          <a class="edit button">Edit</a>
+        </div>
+      
+        <div class="summary-bar">
+          <p><strong>Front garden</strong>: <span>Small</span></p>
+          <a class="edit button">Edit</a>
+        </div>
+      
+        <div class="summary-bar">
+          <p><strong>Rear garden</strong>: <span>Small</span></p>
+          <a class="edit button">Edit</a>
+        </div>
+      
+        <div class="summary-bar">
+          <p><strong>On-street parking</strong>: <span>None</span></p>
+          <a class="edit button">Edit</a>
+        </div>
+      
+        <div class="summary-bar">
+          <p><strong>Off-street parking</strong>: <span>Single garage</span></p>
+          <a class="edit button">Edit</a>
+        </div>
+      
+        <div class="summary-bar">
+          <p><span>Pets allowed</span></p>
+          <a class="edit button">Edit</a>
+        </div>
+      
+        <div class="summary-bar">
+          <p><span>Electric heating</span></p>
+          <a class="edit button">Edit</a>
+        </div>
+      
+        <div class="summary-bar">
+          <p><strong>Windows</strong>: <span>Single glazed</span></p>
+          <a class="edit button">Edit</a>
+        </div>
+      
+        <div class="summary-bar">
+          <p><span>Timber windows</span></p>
+          <a class="edit button">Edit</a>
+        </div>
+      
+        <div class="summary-bar">
+          <p><span>Unfurnished</span></p>
+          <a class="edit button">Edit</a>
+        </div>
+      
+        <div class="summary-bar">
+          <p><strong>Last decorated</strong>: <span>Less than 1 month ago</span></p>
+          <a class="edit button">Edit</a>
+        </div>
+      
+        <div class="summary-bar">
+          <p><strong>Last refurbished</strong>: <span>Less than 1 year ago</span></p>
+          <a class="edit button">Edit</a>
+        </div>
+      
+        <div class="summary-bar">
+          <p><strong>Deposit</strong>: <span>1 month</span></p>
+          <a class="edit button">Edit</a>
+        </div>
+      
+        <div class="summary-bar">
+          <p><strong>Agreement term</strong>: <span>6 months</span></p>
+          <a class="edit button">Edit</a>
+        </div>
+      
+        <div class="summary-bar">
+          <p><strong>Water bills</strong>: <span>Included</span></p>
+          <a class="edit button">Edit</a>
+        </div>
+      
+        <div class="summary-bar">
+          <p><strong>Council tax</strong>: <span>Included</span></p>
+          <a class="edit button">Edit</a>
+        </div>
+      
+        <div class="summary-bar">
+          <p><strong>Energy bills</strong>: <span>Not included</span></p>
+          <a class="edit button">Edit</a>
+        </div>
+      
+        <div class="summary-bar">
+          <p><strong>Telephone bills</strong>: <span>Not included</span></p>
+          <a class="edit button">Edit</a>
+        </div>
+      
+        <div class="summary-bar">
+          <p><strong>Broadband</strong>: <span>Available</span></p>
+          <a class="edit button">Edit</a>
+        </div>
+      
+        <div class="summary-bar">
+          <p><strong>Council tax borough</strong>: <span>Bromley</span></p>
+          <a class="edit button">Edit</a>
+        </div>
+      
+        <div class="summary-bar">
+          <p><strong>Lettings agent extra fees</strong>: &pound;<span>125</span></p>
+          <a class="edit button">Edit</a>
+        </div>
+      
+        <div class="summary-bar">
+          <p><strong>Managed by</strong>: <span>agent</span></p>
+          <a class="edit button">Edit</a>
+        </div>
+        <div class="summary-bar">
+          <p><strong>EPC code</strong>: <span>12387162387</span></p>
+          <a class="edit button">Edit</a>
+        </div>
+    </div>
+  </li>
+</ul>
 {% endblock %}
