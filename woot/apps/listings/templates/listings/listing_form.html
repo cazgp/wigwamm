@@ -109,10 +109,11 @@
             {% with c=forloop.counter0 %}
             {% if c != 0 %}
               {{ field.tag }}
-              <label class="grid-{% if c == 41 or c == 42 %}40{% else %}{{c}}{% endif %} floor-{{ field.choice_label }}" for="{{ field.id }}">
+              
+              <label class="grid-{% if c == 41 or c == 42 %}40{% else %}{{c}}{% endif %} floor-{{ field.choice_label }}" for="{{ field.name }}_{{ c }}">
                 <span class="floor-number">{{ field.choice_label }}</span>
               </label>
-              {% if c|divisibleby:6 %}</div><div class="row">{% endif %}
+              {% if c|divisibleby:6 and not forloop.last %}</div><div class="row">{% endif %}
             {% endif %}
             {% endwith %}
             {% endfor %}
