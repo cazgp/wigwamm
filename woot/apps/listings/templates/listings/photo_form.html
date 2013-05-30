@@ -1,0 +1,9 @@
+<div class="{{room}}-photo preview">
+  <a class="close take-photo"></a>
+  <a class="button take-photo take-photo-1">Take photo</a>
+  <input type='file' class="take-photo-input" id="{{id}}" onchange="readURL(this);" />
+  <div class="preview-img">
+    <div class="photo-name">{{room_label|title}}</div>
+    <img id="{{room}}-photo-preview" />
+  </div>
+</div>
