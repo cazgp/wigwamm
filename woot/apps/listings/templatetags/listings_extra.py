@@ -73,3 +73,11 @@ def cycle_list(parser, token):
     if len(args) != 4 or args[-2] != 'as':
         raise TemplateSyntaxError(u"Cycle_list tag should be in the format {% cycle_list list as variable %}")
     return CycleListNode(args[1], args[3])
+
+@register.filter
+def get_photo_label(counter):
+    return photo_order[counter]
+
+@register.filter
+def to_readable(value):
+    return value.replace('-', ' ').title()

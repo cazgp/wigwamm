@@ -33,7 +33,8 @@ class ListingView(CreateView):
         context['keypad'] = keypad
 
         if self.request.method == 'POST':
-            listingphoto_form = ListingPhotoFormSet(self.request.POST)
+            listingphoto_form = ListingPhotoFormSet(self.request.POST,
+                                                    self.request.FILES)
 
         else:
             listingphoto_form = ListingPhotoFormSet()
@@ -43,7 +44,7 @@ class ListingView(CreateView):
 
     def form_valid(self, form):
         context = self.get_context_data()
-        listingphoto_form = context['listingphoto_formset']
+        listingphoto_form = context['listingphoto_form']
         if listingphoto_form.is_valid():
             self.object = form.save()
             listingphoto_form.instance = self.object
@@ -53,11 +54,3 @@ class ListingView(CreateView):
 
     def form_invalid(self, form):
         return self.render_to_response(self.get_context_data(form=form))
-
-    '''
-    def form_valid(self, form):
-        # On POST success method
-        form.make_listings()
-        form.instance.created_by = self.request.user
-        return super(ListingsView, self).form_valid(form)
-'''

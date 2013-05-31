@@ -1,17 +1,23 @@
 {% extends "base.html" %}
 {% load listings_extra widget_tweaks %}
 {% block content %}
+<form class="listing" method="post">{% csrf_token %}
+  {{ form.errors }}
 <a class="skip-to-summary button disabled">Back to summary</a>
 
-<ul class="questions">
-  <li class="postcode question">
+<ul class="questions">{% csrf_token %}
+  <li class="address postcode question requires-next-button">
     <div class="cell cell-full-width">
       <a class="button" onclick="history.go(-1)">Cancel</a>
+      {{ form.address|add_class:"address"|attr:"placeholder: Address" }}
+      <a class="next">Next</a>
+      {% comment %}
       <input type="text" class="postcode" placeholder="Postcode">
       <ul class="addresses scrollable">
         <li><a>32 Stanley Avenue</a></li>
         <li><a>34 Stanley Avenue</a></li>
       </ul>
+      {% endcomment %}
     </div>
   </li>
 
@@ -19,15 +25,15 @@
     <div class="cell">
       <a class="back"><i></i></a>
       <h4>Where should it be listed?</h4>
-        {% with prefix=form.listing_destination.auto_id %}
-          {% for key, value in form.listing_destination.field.choices %}
-            <input type="checkbox" value="{{ key }}" name="listing_destination" id="{{ prefix }}_{{ forloop.counter0 }}" />
-            <label class="one-col last checkbox" for="{{ prefix }}_{{ forloop.counter0 }}">
-              {{ value|title }}
-            </label>
-          {% endfor %}
-        {% endwith %}
-        <a class="next">Next</a>
+      {% with prefix=form.list_on.auto_id %}
+        {% for key, value in form.list_on.field.choices %}
+          <input type="checkbox" value="{{ key }}" name="list_on" id="{{ prefix }}_{{ forloop.counter0 }}" />
+          <label class="one-col last checkbox" for="{{ prefix }}_{{ forloop.counter0 }}">
+            {{ value|title }}
+          </label>
+        {% endfor %}
+      {% endwith %}
+      <a class="next">Next</a>
     </div>
   </li>
 
@@ -39,13 +45,14 @@
         <a class="next">Next</a>
       </div>
       <div class="grid-container scrollable">
+        {{ form.move_in_date|add_class:"hidden"|attr:"readonly:readonly" }}
         <div class="grid">
           <div class="row">
             {% for date in move_in_dates %}
-              {% with day=date.day month=date|date:"M" %}
-              <input type="radio" name="date" id="{{ month|lower }}-{{ day }}" />
-              <label for="{{ month|lower }}-{{ day }}" class="grid-{{ day }}{% if today > date %} past{% elif today == date %} today{% endif %}">
-                <span class="month">{{ month|upper }}</span>
+              {% with day=date.day month=date.month year=date.year %}
+              <input type="radio" name="move-in-date" id="{{year}}-{{ month }}-{{ day }}" />
+              <label for="{{ year }}-{{ month }}-{{ day }}" class="grid-{{ day }}{% if today > date %} past{% elif today == date %} today{% endif %}">
+                <span class="month">{{ month|date:"M"|upper }}</span>
                 <span class="day">{{ day }}</span>
               </label>
               {% endwith %}
@@ -62,7 +69,43 @@
       <a class="back"><i></i></a>
       <h4>Price</h4>
       <div class="price-input">
-        &pound; <span class="keypad-value price-value"></span> <sub>/pcm</sub>
+        &pound; {{ form.price|add_class:"keypad-value price-value"|attr:"readonly:readonly"}} <sub>/pcm</sub>
+      </div>
+      <div class="next-bar">
+        <a class="next">Next</a>
+      </div>
+      <div class="grid-container">
+        <div class="grid">
+          {% include "listings/keypad.html" %}
+        </div>
+      </div>
+    </div>
+  </li>
+
+  <li class="keypad bedrooms question requires-next-button">
+    <div class="cell cell-full-width">
+      <a class="back"><i></i></a>
+      <h4>Number of Bedrooms</h4>
+      <div class="price-input">
+        {{ form.bedrooms|add_class:"keypad-value bedrooms-value"|attr:"readonly:readonly" }}
+      </div>
+      <div class="next-bar">
+        <a class="next">Next</a>
+      </div>
+      <div class="grid-container">
+        <div class="grid">
+          {% include "listings/keypad.html" %}
+        </div>
+      </div>
+    </div>
+  </li>
+
+  <li class="keypad bathrooms question requires-next-button">
+    <div class="cell cell-full-width">
+      <a class="back"><i></i></a>
+      <h4>Number of Bathrooms</h4>
+      <div class="price-input">
+        {{ form.bathrooms|add_class:"keypad-value bathrooms-value"|attr:"readonly:readonly" }}
       </div>
       <div class="next-bar">
         <a class="next">Next</a>
@@ -78,6 +121,25 @@
   <li class="photos question">
     <a class="back"><i></i></a>
     <div class="cell scrollable">
+      {{ listingphoto_form.management_form }}
+      {% for f in listingphoto_form %}
+      {% with forloop.counter0|get_photo_label as photo_label %}
+      <div class="preview {{ photo_label }}-photo">
+        <a href="#" class="close take-photo"></a>
+        <a class="button take-photo">Take photo</a>
+        {% for f2 in f %}
+        {% if f2.is_hidden %}{{ f2 }}
+        {% else %}
+          {{ f2|add_class:"take-photo-input"|attr:"onchange:readURL(this);" }}
+        {% endif %}
+        {% endfor %}
+        <div class="preview-img">
+          <div class="photo-name">{{ photo_label|to_readable }}</div>
+          <img id="{{ photo_label }}-photo-preview" />
+        </div>
+      </div>
+      {% endwith %}
+      {% endfor %}
       {% for f in listingphoto_form.forms %}
       {% for field in f %}
       {% if field.label == 'Photo' %}{% label_photo field %}{% endif %}{% endfor %}
@@ -85,7 +147,7 @@
       <a class="next">Next</a>
     </div>
   </li>
-  
+
   <li class="floor question requires-next-button">
     <div class="cell cell-full-width">
       <a class="back"><i></i></a>
@@ -112,24 +174,21 @@
       </div>
     </div>
   </li>
-    
-  
+
   <li class="question lift">
     <div class="cell">
       <a class="back"><i></i></a>
       {% boolean_radio form.lift "There's a lift" "There's no lift" %}
     </div>
   </li>
-    
-  
+
   <li class="question kitchen">
     <div class="cell">
       <a class="back"><i></i></a>
       {% choice_radio form.kitchen %}
     </div>
   </li>
-    
-  
+
   <li class="question front-garden">
     <div class="cell">
       <a class="back"><i></i></a>
@@ -137,8 +196,7 @@
       {% choice_radio form.front_garden %}
     </div>
   </li>
-    
-  
+
   <li class="question rear-garden">
     <div class="cell">
       <a class="back"><i></i></a>
@@ -146,8 +204,7 @@
       {% choice_radio form.back_garden %}
     </div>
   </li>
-    
-  
+
   <li class="question on-street-parking">
     <div class="cell">
       <a class="back"><i></i></a>
@@ -155,8 +212,7 @@
       {% choice_radio form.on_street_parking %}
     </div>
   </li>
-    
-  
+
   <li class="question off-street-parking">
     <div class="cell">
       <a class="back"><i></i></a>
@@ -164,23 +220,21 @@
       {% choice_radio form.off_street_parking %}
     </div>
   </li>
-    
-  
+
   <li class="question pets">
     <div class="cell">
       <a class="back"><i></i></a>
       {% choice_radio form.pets %}
     </div>
   </li>
-    
-  
+
   <li class="question heating">
     <div class="cell">
       <a class="back"><i></i></a>
       {% choice_radio form.heating %}
     </div>
   </li>
-    
+
   <li class="question glazing">
     <div class="cell">
       <a class="back"><i></i></a>
@@ -188,21 +242,21 @@
       {% choice_radio form.glazing_type %}
     </div>
   </li>
-    
+
   <li class="question window-frames">
     <div class="cell">
       <a class="back"><i></i></a>
       {% choice_radio form.glazing_material %}
     </div>
   </li>
-    
+
   <li class="question furnished">
     <div class="cell">
       <a class="back"><i></i></a>
       {% boolean_radio form.furnished "Furnished" "Unfurnished" %}
     </div>
   </li>
-    
+
   <li class="question decorated">
     <div class="cell">
       <a class="back"><i></i></a>
@@ -210,7 +264,7 @@
       {% choice_radio form.last_decorated %}
     </div>
   </li>
-  
+
   <li class="question refurbished">
     <div class="cell">
       <a class="back"><i></i></a>
@@ -218,7 +272,7 @@
       {% choice_radio form.last_refurbished %}
     </div>
   </li>
-    
+
   <li class="question deposit">
     <div class="cell">
       <a class="back"><i></i></a>
@@ -226,7 +280,7 @@
       {% choice_radio form.deposit %}
     </div>
   </li>
-  
+
   <li class="question agreement-term">
     <div class="cell">
       <a class="back"><i></i></a>
@@ -234,7 +288,7 @@
       {% choice_radio form.agreement_term %}
     </div>
   </li>
-    
+
   <li class="question water-bills">
     <div class="cell">
       <a class="back"><i></i></a>
@@ -242,7 +296,7 @@
       {% boolean_radio form.water_bills_included "Included" "Not included" %}
     </div>
   </li>
-    
+
   <li class="question council-tax">
     <div class="cell">
       <a class="back"><i></i></a>
@@ -250,7 +304,7 @@
       {% boolean_radio form.council_tax_included "Included" "Not included" %}
     </div>
   </li>
-    
+
   <li class="question energy-bills">
     <div class="cell">
     <a class="back"><i></i></a>
@@ -258,7 +312,7 @@
     {% boolean_radio form.energy_bills_included "Included" "Not included" %}
     </div>
   </li>
-    
+
   <li class="question telephone-bills">
     <div class="cell">
       <a class="back"><i></i></a>
@@ -266,7 +320,7 @@
       {% boolean_radio form.telephone_included "Included" "Not included" %}
     </div>
   </li>
-    
+
   <li class="question broadband">
     <div class="cell">
       <a class="back"><i></i></a>
@@ -283,12 +337,12 @@
       <a class="next">Next</a>
     </div>
   </li>
-    
+
   <li class="question council-tax-band">
     <div class="cell">
       <a class="back"><i></i></a>
       <h4>Council tax band</h4>
-      {% choice_radio_two form.council_tax %}
+      {% choice_radio_two form.council_tax_band %}
     </div>
   </li>
 
@@ -297,7 +351,7 @@
       <a class="back"><i></i></a>
       <h4>Lettings agent extra fees</h4>
       <div class="price-input">
-        &pound; <span class="keypad-value agent-fee-value"></span>
+        &pound; {{ form.agent_fee|add_class:"keypad-value agent-fee-value"|attr:"readonly:readonly" }}
       </div>
       <div class="next-bar">
         <a class="next">Next</a>
@@ -309,82 +363,46 @@
       </div>
     </div>
   </li>
-  
+
   <li class="question managed-by">
     <div class="cell">
       <a class="back"><i></i></a>
       {% choice_radio form.managed_by %}
     </div>
   </li>
-  
+
   <li class="epc inputs question requires-keyboard requires-next-button">
     <a class="back"><i></i></a>
     <div class="cell">
       <h4>EPC Code <a class="no-epc internal" href="#">Don't have one?</a></h4>
-      {{ form.epc|add_class:"one-col"|attr:"placeholder:EPC code" }}
+      {{ form.epc_code|add_class:"one-col"|attr:"placeholder:EPC code" }}
       <span class="epc-requested disabled">We'll contact you. <a class="internal" href="#">Cancel?</a></span>
       <a class="next">Next</a>
     </div>
   </li>
-  
+
   <li class="login inputs question requires-keyboard requires-next-button">
     <a class="back"><i></i></a>
     <div class="cell">
       <h4>Rightmove login details</h4>
       <input type="text" id="rightmove-username" class="two-col" placeholder="Username">
-      <input type="password" id="zoopla-username" class="two-col last" placeholder="Password">
+      <input type="password" id="rightmove-password" class="two-col last" placeholder="Password">
       <a class="next">Next</a>
     </div>
   </li>
 
-  <li class="login inputs question requires-keyboard requires-next-button">
-    <a class="back"><i></i></a>
-    <div class="cell">
-      <h4>Zoopla login details</h4>
-      <input type="text" id="rightmove-username" class="two-col error" placeholder="Username">
-      <input type="text" id="zoopla-username" class="two-col last error" placeholder="Password">
-      <a class="next">Next</a>
-    </div>
-  </li>
-  
-
-  <li class="login inputs question requires-keyboard requires-next-button">
-    <a class="back"><i></i></a>
-    <div class="cell">
-      <h4>Gumtree login details</h4>
-      <input type="text" id="rightmove-username" class="two-col" placeholder="Username">
-      <input type="password" id="zoopla-username" class="two-col last" placeholder="Password">
-      <a class="next">Next</a>
-    </div>
-  </li>
-  
-
-  <li class="login inputs question requires-keyboard requires-next-button">
-    <a class="back"><i></i></a>
-    <div class="cell">
-      <h4>Craigslist login details</h4>
-      <input type="text" id="rightmove-username" class="two-col" placeholder="Username">
-      <input type="password" id="zoopla-username" class="two-col last" placeholder="Password">
-      <a class="next">Next</a>
-    </div>
-  </li>
-    
-  
+  {% comment %}
   <li class="wigwamm-login-or-signup question">
     <div class="cell">
       <a class="back"><i></i></a>
-        
-        <h4>Does your agency already have a Wigwamm account?</h4>
-        
-        <input type="radio" value="1" name="t" id="wigwamm-login-check" />
-        <label class="one-col wigwamm-login-label grid-30" for="wigwamm-login-check">Yes, let me log in</label>
-        
-        <input type="radio" value="1" name="t" id="wigwamm-signup-check" />
-        <label class="one-col wigwamm-signup-label grid-35" for="wigwamm-signup-check">No, let me sign up</label>
-          
+      <h4>Does your agency already have a Wigwamm account?</h4>
+      <input type="radio" value="1" name="t" id="wigwamm-login-check" />
+      <label class="one-col wigwamm-login-label grid-30" for="wigwamm-login-check">Yes, let me log in</label>
+
+      <input type="radio" value="1" name="t" id="wigwamm-signup-check" />
+      <label class="one-col wigwamm-signup-label grid-35" for="wigwamm-signup-check">No, let me sign up</label>
     </div>
   </li>
-  
 
   <li class="wigwamm-login login inputs question requires-keyboard requires-next-button">
     <a class="back"><i></i></a>
@@ -395,7 +413,6 @@
       <a class="next">Log in</a>
     </div>
   </li>
-  
 
   <li class="wigwamm-signup login inputs question requires-keyboard requires-next-button">
     <a class="back"><i></i></a>
@@ -406,176 +423,28 @@
       <a class="next">Sign up</a>
     </div>
   </li>
-  
-  <li class="question summary">
+  {% endcomment %}
 
+  <li class="question summary">
     <div class="next-bar">
-      <a class="next">Submit listing</a>
+      <input class="next" type="submit">Submit listing</a>
     </div>
     <a class="back"><i></i></a>
     <div class="cell cell-full-width scrollable">
-      
-        <h4>Confirm your listing</h4>
-      
-        <div class="summary-bar summary-postcode">
-          <a class="edit button">Edit</a>
-          <p><strong>Address</strong>: <span>38 Stanley Avenue, Beckenham, BR36PX</span></p>
-        </div>
-      
-        <div class="summary-bar">
-          <p><strong>List on</strong>: <span>Rightmove, Zoopla, Gumtree, Craigslist</span></p>
-          <a class="edit button">Edit</a>
-        </div>
-      
-        <div class="summary-bar">
-          <p><strong>Move in</strong>: <span>27th June 2013</span></p>
-          <a class="edit button">Edit</a>
-        </div>
-      
-        <div class="summary-bar">
-          <p><strong>Price</strong>: &pound;<span>345</span>/pcm</p>
-          <a class="edit button">Edit</a>
-        </div>
-      
-        <div class="summary-bar">
-          <p><strong>Bedrooms</strong>: <span>3</span></p>
-          <a class="edit button">Edit</a>
-        </div>
-      
-        <div class="summary-bar">
-          <p><strong>Bathrooms</strong>: <span>2</span></p>
-          <a class="edit button">Edit</a>
-        </div>
-      
-        <div class="summary-bar">
-          <p><strong>Photos</strong>: <span>12</span></p>
-          <a class="edit button">Edit</a>
-        </div>
-      
-        <div class="summary-bar">
-          <p><strong>Floor</strong>: <span>3</span></p>
-          <a class="edit button">Edit</a>
-        </div>
-      
-        <div class="summary-bar">
-          <p><span>There's a lift</span></p>
-          <a class="edit button">Edit</a>
-        </div>
-      
-        <div class="summary-bar">
-          <p><span>Open plan kitchen</span></p>
-          <a class="edit button">Edit</a>
-        </div>
-      
-        <div class="summary-bar">
-          <p><strong>Front garden</strong>: <span>Small</span></p>
-          <a class="edit button">Edit</a>
-        </div>
-      
-        <div class="summary-bar">
-          <p><strong>Rear garden</strong>: <span>Small</span></p>
-          <a class="edit button">Edit</a>
-        </div>
-      
-        <div class="summary-bar">
-          <p><strong>On-street parking</strong>: <span>None</span></p>
-          <a class="edit button">Edit</a>
-        </div>
-      
-        <div class="summary-bar">
-          <p><strong>Off-street parking</strong>: <span>Single garage</span></p>
-          <a class="edit button">Edit</a>
-        </div>
-      
-        <div class="summary-bar">
-          <p><span>Pets allowed</span></p>
-          <a class="edit button">Edit</a>
-        </div>
-      
-        <div class="summary-bar">
-          <p><span>Electric heating</span></p>
-          <a class="edit button">Edit</a>
-        </div>
-      
-        <div class="summary-bar">
-          <p><strong>Windows</strong>: <span>Single glazed</span></p>
-          <a class="edit button">Edit</a>
-        </div>
-      
-        <div class="summary-bar">
-          <p><span>Timber windows</span></p>
-          <a class="edit button">Edit</a>
-        </div>
-      
-        <div class="summary-bar">
-          <p><span>Unfurnished</span></p>
-          <a class="edit button">Edit</a>
-        </div>
-      
-        <div class="summary-bar">
-          <p><strong>Last decorated</strong>: <span>Less than 1 month ago</span></p>
-          <a class="edit button">Edit</a>
-        </div>
-      
-        <div class="summary-bar">
-          <p><strong>Last refurbished</strong>: <span>Less than 1 year ago</span></p>
-          <a class="edit button">Edit</a>
-        </div>
-      
-        <div class="summary-bar">
-          <p><strong>Deposit</strong>: <span>1 month</span></p>
-          <a class="edit button">Edit</a>
-        </div>
-      
-        <div class="summary-bar">
-          <p><strong>Agreement term</strong>: <span>6 months</span></p>
-          <a class="edit button">Edit</a>
-        </div>
-      
-        <div class="summary-bar">
-          <p><strong>Water bills</strong>: <span>Included</span></p>
-          <a class="edit button">Edit</a>
-        </div>
-      
-        <div class="summary-bar">
-          <p><strong>Council tax</strong>: <span>Included</span></p>
-          <a class="edit button">Edit</a>
-        </div>
-      
-        <div class="summary-bar">
-          <p><strong>Energy bills</strong>: <span>Not included</span></p>
-          <a class="edit button">Edit</a>
-        </div>
-      
-        <div class="summary-bar">
-          <p><strong>Telephone bills</strong>: <span>Not included</span></p>
-          <a class="edit button">Edit</a>
-        </div>
-      
-        <div class="summary-bar">
-          <p><strong>Broadband</strong>: <span>Available</span></p>
-          <a class="edit button">Edit</a>
-        </div>
-      
-        <div class="summary-bar">
-          <p><strong>Council tax borough</strong>: <span>Bromley</span></p>
-          <a class="edit button">Edit</a>
-        </div>
-      
-        <div class="summary-bar">
-          <p><strong>Lettings agent extra fees</strong>: &pound;<span>125</span></p>
-          <a class="edit button">Edit</a>
-        </div>
-      
-        <div class="summary-bar">
-          <p><strong>Managed by</strong>: <span>agent</span></p>
-          <a class="edit button">Edit</a>
-        </div>
-        <div class="summary-bar">
-          <p><strong>EPC code</strong>: <span>12387162387</span></p>
-          <a class="edit button">Edit</a>
-        </div>
+      <h4>Confirm your listing</h4>
+      {% for field in form %}
+      {% if field.name != 'list_on' %}
+      <div class="summary-bar summary-{{ field.name }}">
+        <a class="edit button">Edit</a>
+        <p class="{{ field.name }}-summary">
+          <strong>{{ field.label }}:</strong>
+          <span></span>
+        </p>
+      </div>
+      {% endif %}
+      {% endfor %}
     </div>
   </li>
 </ul>
+</form>
 {% endblock %}

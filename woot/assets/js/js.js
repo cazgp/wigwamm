@@ -7,16 +7,50 @@ window.addEventListener('load', function() {
 
 $(window).load(function(){
 
+/****************************************************
+ * HANDLE INPUT CHANGES SO SUMMARY IS AUTOMATICALLY
+ * KEPT IN SYNC
+ * **************************************************/
+  $('.question input').change(function(e) {
+    var target = e.currentTarget;
+    var name = target.name;
+    var value;
+    // If dealing with radio, we can get the value by the label
+    if(target.type === 'radio') {
+      var label = target.labels[0];
+      value = label.innerText || label.textContent;
+      console.log("radio")
+    }
+    var summary = $('.' + name + '-summary span');
+    summary.text(value);
+  });
+
+  // Set the hidden date input when the radio buttons change
+  $("input[name='move-in-date']").change(function(e) {
+    $('#id_move_in_date').val(e.currentTarget.id);
+  });
+  
+
   // FOCUS THE CURSOR IN THE POSTCODE INPUT ON PAGE LOAD
-  $('.postcode').focus();
+  //$('.postcode').focus();
+  // FOCUS THE CURSOR IN THE ADDRESS INPUT ON PAGE LOAD
+  $('input.address').focus().change(function(e) {
+    console.log(e.currentTarget);
+    $('.address-summary span').text(e.currentTarget.value);
+  });
 
+  $('#id_council_borough').change(function(e) {
+    $('.council_borough-summary').text(e.currentTarget.value);
+  });
+  $('#id_epc_code').change(function(e) {
+    $('.epc_code-summary').text(e.currentTarget.value);
+  });
 
-  // GO TO NEXT QUESTION ON CLICK WITH 300MS DELAY SO YOU KNOW WHAT YOU'VE CLICKED
+  //GO TO NEXT QUESTION ON CLICK WITH 300MS DELAY SO YOU KNOW WHAT YOU'VE CLICKED
   $('li:not(.requires-next-button) input:radio, .addresses li a').bind('touchend, click', function(e){
       nextdiv = $(this).closest('.question').nextAll('li:not(.disabled), :has(li)').first();
       $('body').delay(200).animate({scrollTop:nextdiv.offset().top},400);    
   });
-  
 
   // GO TO NEXT QUESTION ON CLICK WITH NO DELAY
   $('.next, .skip').bind('touchend, click', function(e){
@@ -33,10 +67,10 @@ $(window).load(function(){
   
   
   // ADDRESS CHOOSING
-  $('.addresses li a').bind('click', function(e){
-      $('.addresses li a').removeClass('selected');
-      $(this).addClass('selected');
-  });
+  //$('.addresses li a').bind('click', function(e){
+      //$('.addresses li a').removeClass('selected');
+      //$(this).addClass('selected');
+  //});
   
   
   // MOVE IN DATE
@@ -52,83 +86,34 @@ $(window).load(function(){
       $('.floor .grid-container').addClass('chosen');
   });
   
-  
-  //KEYPAD
-  $('.price a.keypad-1').bind('touchend, click', function(e){
-      $('.price-value').html( $('.price-value').html() + '1' );
-  });
-  $('.price a.keypad-2').bind('touchend, click', function(e){
-      $('.price-value').html( $('.price-value').html() + '2' );
-  });
-  $('.price a.keypad-3').bind('touchend, click', function(e){
-      $('.price-value').html( $('.price-value').html() + '3' );
-  });
-  $('.price a.keypad-4').bind('touchend, click', function(e){
-      $('.price-value').html( $('.price-value').html() + '4' );
-  });
-  $('.price a.keypad-5').bind('touchend, click', function(e){
-      $('.price-value').html( $('.price-value').html() + '5' );
-  });
-  $('.price a.keypad-6').bind('touchend, click', function(e){
-      $('.price-value').html( $('.price-value').html() + '6' );
-  });
-  $('.price a.keypad-7').bind('touchend, click', function(e){
-      $('.price-value').html( $('.price-value').html() + '7' );
-  });
-  $('.price a.keypad-8').bind('touchend, click', function(e){
-      $('.price-value').html( $('.price-value').html() + '8' );
-  });
-  $('.price a.keypad-9').bind('touchend, click', function(e){
-      $('.price-value').html( $('.price-value').html() + '9' );
-  });
-  $('.price a.keypad-decimal').bind('touchend, click', function(e){
-      $('.price-value').html( $('.price-value').html() + '.' );
-  });
-  $('.price a.keypad-0').bind('touchend, click', function(e){
-      $('.price-value').html( $('.price-value').html() + '0' );
-  });
-  $('.price a.keypad-backspace').bind('touchend, click', function(e){
-      $('.price-value').html( $('.price-value').html().slice(0, -1));
-  });
-  
-  
-  $('.agent-fee a.keypad-1').bind('touchend, click', function(e){
-      $('.agent-fee-value').html( $('.agent-fee-value').html() + '1' );
-  });
-  $('.agent-fee a.keypad-2').bind('touchend, click', function(e){
-      $('.agent-fee-value').html( $('.agent-fee-value').html() + '2' );
-  });
-  $('.agent-fee a.keypad-3').bind('touchend, click', function(e){
-      $('.agent-fee-value').html( $('.agent-fee-value').html() + '3' );
-  });
-  $('.agent-fee a.keypad-4').bind('touchend, click', function(e){
-      $('.agent-fee-value').html( $('.agent-fee-value').html() + '4' );
-  });
-  $('.agent-fee a.keypad-5').bind('touchend, click', function(e){
-      $('.agent-fee-value').html( $('.agent-fee-value').html() + '5' );
-  });
-  $('.agent-fee a.keypad-6').bind('touchend, click', function(e){
-      $('.agent-fee-value').html( $('.agent-fee-value').html() + '6' );
-  });
-  $('.agent-fee a.keypad-7').bind('touchend, click', function(e){
-      $('.agent-fee-value').html( $('.agent-fee-value').html() + '7' );
-  });
-  $('.agent-fee a.keypad-8').bind('touchend, click', function(e){
-      $('.agent-fee-value').html( $('.agent-fee-value').html() + '8' );
-  });
-  $('.agent-fee a.keypad-9').bind('touchend, click', function(e){
-      $('.agent-fee-value').html( $('.agent-fee-value').html() + '9' );
-  });
-  $('.agent-fee a.keypad-decimal').bind('touchend, click', function(e){
-      $('.agent-fee-value').html( $('.agent-fee-value').html() + '.' );
-  });
-  $('.agent-fee a.keypad-0').bind('touchend, click', function(e){
-      $('.agent-fee-value').html( $('.agent-fee-value').html() + '0' );
-  });
-  $('.agent-fee a.keypad-backspace').bind('touchend, click', function(e){
-      $('.agent-fee-value').html( $('.agent-fee-value').html().slice(0, -1));
-  });
-  
+  // Keypad bindings
+  tobind = ['price', 'bedrooms', 'bathrooms', 'agent-fee'];
+  for(var b in tobind) {
+    bind = tobind[b];
+    make_binding(bind, '.'+bind+' a.keypad-button', '.'+bind+'-value');
+  }
+
+  // Event handler for when key is pressed
+  function make_binding(b, binder, disp) {
+    $(binder).bind('touchend, click', function(e) {
+      var target  = e.currentTarget;
+      var display = $(disp);
+      var currentValue = display.val();
+      var newValue;
+      if(/backspace/.test(target.className)) {
+        newValue = currentValue.slice(0, -1);
+      }
+      else {
+        var value = e.currentTarget.innerText || e.currentTarget.textContent;
+        newValue = currentValue + value;
+      }
+      // Update the summary and the span
+      display.val(newValue);
+      b = b.replace('-', '_');
+      console.log(b);
+      $('.' + b + '-summary span').html(newValue);
+    });
+  }
 
   // PHOTO SKIP TO NEXT
   $('.living-room-photo .no-photo, .kitchen-photo .no-photo, .exterior-photo .no-photo, .floorplan-photo .no-photo').bind('touchend, click', function(e){
@@ -187,18 +172,11 @@ $(window).load(function(){
       $('body').animate({scrollTop:$('.summary.question').offset().top},800);   
   });
   
-  
-  
   // WHEN AN EDIT BUTTON IS CLICKED, SCROLL TO RELEVANT QUESTION DIV
-  $('.summary-postcode .edit').bind('click', function(e){
-      $('body').animate({scrollTop:$('.postcode.question').offset().top},800);   
+  $('.summary .edit').bind('click', function(e) {
+    var questionName = e.currentTarget.nextElementSibling.className.replace('-summary', '');
+    $('body').animate({scrollTop:$('.' + questionName + '.question').offset().top},800);   
   });
-  // REQUIRES LOTS MORE HERE!!!!!!!!!!!!!!
-  // REQUIRES LOTS MORE HERE!!!!!!!!!!!!!!
-  // REQUIRES LOTS MORE HERE!!!!!!!!!!!!!!
-  // REQUIRES LOTS MORE HERE!!!!!!!!!!!!!!
-  // REQUIRES LOTS MORE HERE!!!!!!!!!!!!!!
-  
  
   /* PROGRESS BAR IS A BIT GLITCHY, COMMENTING OUT FOR NOW
   

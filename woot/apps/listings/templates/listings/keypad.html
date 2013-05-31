@@ -1,6 +1,6 @@
 <div class="row">
 {% for num, grid in keypad %}
-<a class="grid-{{grid}} keypad-{{num}}">
+<a class="keypad-button grid-{{grid}} keypad-{{num}}">
   {% if num == 'decimal' %}.
   {% elif num == 'backspace' %}<i></i>
   {% else %}{{num}}{% endif %}

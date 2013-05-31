@@ -281,3 +281,24 @@ strong { font-weight: 700; }
 
 .disabled { display: none !important; }
 .wigwamm-logo { height: 102px; width: 102px; }
+ul.questions li input.keypad-value {
+  text-align: center;
+  float: none;
+  font-size: 100%;
+  vertical-align: baseline;
+  line-height: inherit;
+  padding: 0;
+  height: inherit;
+  border-radius: 0;
+}
+.price-summary span:before {
+  content: "£";
+}
+.price-summary span:after {
+  content: "PCM";
+}
+
+form.listing { width: 100%; height: 100% }
+.hidden {
+    display: none;
+}
