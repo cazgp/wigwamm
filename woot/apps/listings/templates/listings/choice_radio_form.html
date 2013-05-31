@@ -1,0 +1,8 @@
+{% load listings_extra %}
+{% for f in field %} {% if f.choice_value %}
+{{ f.tag }}
+{% cycle_list grid_indexes as grid_index %}
+<label class="one-col grid-{{ grid_index }}" for="{{ f.attrs.id }}">
+  {{ f.choice_label }}
+</label>
+{% endif %} {% endfor %}

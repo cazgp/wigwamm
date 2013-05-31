@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load label_photos %}
+{% load listings_extra widget_tweaks %}
 {% block content %}
 <a class="skip-to-summary button disabled">Back to summary</a>
 
@@ -69,16 +69,7 @@
       </div>
       <div class="grid-container">
         <div class="grid">
-          <div class="row">
-            {% for num, grid in keypad %}
-            <a class="grid-{{grid}} keypad-{{num}}">
-              {% if num == 'decimal' %}.
-              {% elif num == 'backspace' %}<i></i>
-              {% else %}{{num}}{% endif %}
-            </a>
-            {% if forloop.counter|divisibleby:3 %}</div><div class="row">{% endif %}
-            {% endfor %}
-          </div>
+          {% include "listings/keypad.html" %}
         </div>
       </div>
     </div>
@@ -109,8 +100,7 @@
             {% with c=forloop.counter0 %}
             {% if c != 0 %}
               {{ field.tag }}
-              
-              <label class="grid-{% if c == 41 or c == 42 %}40{% else %}{{c}}{% endif %} floor-{{ field.choice_label }}" for="{{ field.name }}_{{ c }}">
+              <label class="grid-{% if c == 41 or c == 42 %}40{% else %}{{c}}{% endif %} floor-{{ field.choice_label }}" for="{{ field.attrs.id }}">
                 <span class="floor-number">{{ field.choice_label }}</span>
               </label>
               {% if c|divisibleby:6 and not forloop.last %}</div><div class="row">{% endif %}
@@ -127,13 +117,7 @@
   <li class="question lift">
     <div class="cell">
       <a class="back"><i></i></a>
-      
-        <input type="radio" value="1" name="lift" id="lift-yes" />
-        <label class="one-col grid-30" for="lift-yes">There's a lift</label>
-        
-        <input type="radio" value="1" name="lift" id="lift-no" />
-        <label class="one-col grid-35" for="lift-yes">No lift</label>
-          
+      {% boolean_radio form.lift "There's a lift" "There's no lift" %}
     </div>
   </li>
     
@@ -141,13 +125,7 @@
   <li class="question kitchen">
     <div class="cell">
       <a class="back"><i></i></a>
-      
-        <input type="radio" value="1" name="kitchen" id="kitchen-open-plan" />
-        <label class="one-col grid-30" for="kitchen-open-plan">Open plan kitchen</label>
-        
-        <input type="radio" value="1" name="kitchen" id="kitchen-separate" />
-        <label class="one-col grid-35" for="kitchen-separate">Separate kitchen</label>
-          
+      {% choice_radio form.kitchen %}
     </div>
   </li>
     
@@ -155,24 +133,8 @@
   <li class="question front-garden">
     <div class="cell">
       <a class="back"><i></i></a>
-      
-        <h4>Front garden</h4>
-      
-        <input type="radio" value="1" name="a" id="a-1" />
-        <label class="one-col grid-15" for="a-1">None</label>
-        
-        <input type="radio" value="1" name="a" id="a-2" />
-        <label class="one-col grid-20" for="a-2">Drive</label>
-      
-        <input type="radio" value="1" name="a" id="a-3" />
-        <label class="one-col grid-25" for="a-3">Patio</label>
-        
-        <input type="radio" value="1" name="a" id="a-4" />
-        <label class="one-col grid-30" for="a-4">Small</label>
-      
-        <input type="radio" value="1" name="a" id="a-5" />
-        <label class="one-col grid-35" for="a-5">Large</label>
-          
+      <h4>Front garden</h4>
+      {% choice_radio form.front_garden %}
     </div>
   </li>
     
@@ -180,27 +142,8 @@
   <li class="question rear-garden">
     <div class="cell">
       <a class="back"><i></i></a>
-      
-        <h4>Rear garden</h4>
-      
-        <input type="radio" value="1" name="b" id="b-1" />
-        <label class="one-col grid-10" for="b-1">None</label>
-        
-        <input type="radio" value="1" name="b" id="b-2" />
-        <label class="one-col grid-15" for="b-2">Balcony</label>
-      
-        <input type="radio" value="1" name="b" id="b-3" />
-        <label class="one-col grid-20" for="b-3">Patio</label>
-        
-        <input type="radio" value="1" name="b" id="b-4" />
-        <label class="one-col grid-25" for="b-4">Small</label>
-      
-        <input type="radio" value="1" name="b" id="b-5" />
-        <label class="one-col grid-30" for="b-5">Medium</label>
-        
-        <input type="radio" value="1" name="b" id="b-6" />
-        <label class="one-col grid-35" for="b-6">Large</label>
-          
+      <h4>Back garden</h4>
+      {% choice_radio form.back_garden %}
     </div>
   </li>
     
@@ -208,18 +151,8 @@
   <li class="question on-street-parking">
     <div class="cell">
       <a class="back"><i></i></a>
-      
-        <h4>On-street parking</h4>
-      
-        <input type="radio" value="1" name="c" id="c-1" />
-        <label class="one-col grid-25" for="c-1">None</label>
-        
-        <input type="radio" value="1" name="c" id="c-2" />
-        <label class="one-col grid-30" for="c-2">Free</label>
-      
-        <input type="radio" value="1" name="c" id="c-3" />
-        <label class="one-col grid-35" for="c-3">Permit</label>
-          
+      <h4>On-street parking</h4>
+      {% choice_radio form.on_street_parking %}
     </div>
   </li>
     
@@ -227,21 +160,8 @@
   <li class="question off-street-parking">
     <div class="cell">
       <a class="back"><i></i></a>
-      
-        <h4>Off-street parking</h4>
-      
-        <input type="radio" value="1" name="d" id="d-1" />
-        <label class="one-col grid-20" for="d-1">None</label>
-        
-        <input type="radio" value="1" name="d" id="d-2" />
-        <label class="one-col grid-25" for="d-2">Drive</label>
-      
-        <input type="radio" value="1" name="d" id="d-3" />
-        <label class="one-col grid-30" for="d-3">Single garage</label>
-        
-        <input type="radio" value="1" name="d" id="d-4" />
-        <label class="one-col grid-35" for="d-4">Double garage</label>
-          
+      <h4>Off-street parking</h4>
+      {% choice_radio form.off_street_parking %}
     </div>
   </li>
     
@@ -249,16 +169,7 @@
   <li class="question pets">
     <div class="cell">
       <a class="back"><i></i></a>
-      
-        <input type="radio" value="1" name="e" id="e-1" />
-        <label class="one-col grid-25" for="e-1">Pets allowed</label>
-        
-        <input type="radio" value="1" name="e" id="e-2" />
-        <label class="one-col grid-30" for="e-2">Caged pets only</label>
-      
-        <input type="radio" value="1" name="e" id="e-3" />
-        <label class="one-col grid-35" for="e-3">No pets allowed</label>
-          
+      {% choice_radio form.pets %}
     </div>
   </li>
     
@@ -266,266 +177,120 @@
   <li class="question heating">
     <div class="cell">
       <a class="back"><i></i></a>
-      
-        <input type="radio" value="1" name="f" id="f-1" />
-        <label class="one-col grid-25" for="f-1">Electric heating</label>
-        
-        <input type="radio" value="1" name="f" id="f-2" />
-        <label class="one-col grid-30" for="f-2">Gas heating</label>
-      
-        <input type="radio" value="1" name="f" id="f-3" />
-        <label class="one-col grid-35" for="f-3">Oil heating</label>
-          
+      {% choice_radio form.heating %}
     </div>
   </li>
     
-  
   <li class="question glazing">
     <div class="cell">
       <a class="back"><i></i></a>
-      
-        <h4>Windows</h4>
-      
-        <input type="radio" value="1" name="g" id="g-1" />
-        <label class="one-col grid-25" for="g-1">Single glazed</label>
-        
-        <input type="radio" value="1" name="g" id="g-2" />
-        <label class="one-col grid-30" for="g-2">Double glazed</label>
-      
-        <input type="radio" value="1" name="g" id="g-3" />
-        <label class="one-col grid-35" for="g-3">Triple glazed</label>
-          
+      <h4>Windows</h4>
+      {% choice_radio form.glazing_type %}
     </div>
   </li>
     
-  
   <li class="question window-frames">
     <div class="cell">
       <a class="back"><i></i></a>
-      
-        <input type="radio" value="1" name="h" id="h-1" />
-        <label class="one-col grid-30" for="h-1">Timber windows</label>
-        
-        <input type="radio" value="1" name="h" id="h-2" />
-        <label class="one-col grid-35" for="h-2">UPVC windows</label>
-          
+      {% choice_radio form.glazing_material %}
     </div>
   </li>
     
-  
   <li class="question furnished">
     <div class="cell">
       <a class="back"><i></i></a>
-      
-        <input type="radio" value="1" name="i" id="i-1" />
-        <label class="one-col grid-30" for="i-1">Unfurnished</label>
-        
-        <input type="radio" value="1" name="i" id="i-2" />
-        <label class="one-col grid-35" for="i-2">Furnished</label>
-          
+      {% boolean_radio form.furnished "Furnished" "Unfurnished" %}
     </div>
   </li>
     
-  
   <li class="question decorated">
     <div class="cell">
       <a class="back"><i></i></a>
-      
-        <h4>Last decorated</h4>
-      
-        <input type="radio" value="1" name="j" id="j-1" />
-        <label class="one-col grid-25" for="j-1">Less than 1 month ago</label>
-        
-        <input type="radio" value="1" name="j" id="j-2" />
-        <label class="one-col grid-30" for="j-2">Less than 1 year ago</label>
-      
-        <input type="radio" value="1" name="j" id="j-3" />
-        <label class="one-col grid-35" for="j-3">2+ years ago</label>
-          
+      <h4>Last decorated</h4>
+      {% choice_radio form.last_decorated %}
     </div>
   </li>
-    
   
   <li class="question refurbished">
     <div class="cell">
       <a class="back"><i></i></a>
-      
-        <h4>Last refurbished</h4>
-      
-        <input type="radio" value="1" name="k" id="k-1" />
-        <label class="one-col grid-25" for="k-1">Less than 1 month ago</label>
-        
-        <input type="radio" value="1" name="k" id="k-2" />
-        <label class="one-col grid-30" for="k-2">Less than 1 year ago</label>
-      
-        <input type="radio" value="1" name="k" id="k-3" />
-        <label class="one-col grid-35" for="k-3">2+ years ago</label>
-          
+      <h4>Last refurbished</h4>
+      {% choice_radio form.last_refurbished %}
     </div>
   </li>
     
-  
   <li class="question deposit">
     <div class="cell">
       <a class="back"><i></i></a>
-      
-        <h4>Deposit</h4>
-      
-        <input type="radio" value="1" name="l" id="l-1" />
-        <label class="one-col grid-25" for="l-1">1 month</label>
-        
-        <input type="radio" value="1" name="l" id="l-2" />
-        <label class="one-col grid-30" for="l-2">6 weeks</label>
-      
-        <input type="radio" value="1" name="l" id="l-3" />
-        <label class="one-col grid-35" for="l-3">2 months</label>
-          
+      <h4>Deposit</h4>
+      {% choice_radio form.deposit %}
     </div>
   </li>
-    
   
   <li class="question agreement-term">
     <div class="cell">
       <a class="back"><i></i></a>
-      
-        <h4>Agreement term</h4>
-      
-        <input type="radio" value="1" name="m" id="m-1" />
-        <label class="one-col grid-25" for="m-1">6 months</label>
-        
-        <input type="radio" value="1" name="m" id="m-2" />
-        <label class="one-col grid-30" for="m-2">12 months</label>
-      
-        <input type="radio" value="1" name="m" id="m-3" />
-        <label class="one-col grid-35" for="m-3">24 months</label>
-          
+      <h4>Agreement term</h4>
+      {% choice_radio form.agreement_term %}
     </div>
   </li>
     
-  
   <li class="question water-bills">
     <div class="cell">
       <a class="back"><i></i></a>
-      
-        <h4>Water bills</h4>
-      
-        <input type="radio" value="1" name="n" id="n-1" />
-        <label class="one-col grid-30" for="n-1">Included</label>
-        
-        <input type="radio" value="1" name="n" id="n-2" />
-        <label class="one-col grid-35" for="n-2">Not included</label>
-          
+      <h4>Water bills</h4>
+      {% boolean_radio form.water_bills_included "Included" "Not included" %}
     </div>
   </li>
     
-  
   <li class="question council-tax">
     <div class="cell">
       <a class="back"><i></i></a>
-      
-        <h4>Council tax</h4>
-      
-        <input type="radio" value="1" name="o" id="o-1" />
-        <label class="one-col grid-30" for="o-1">Included</label>
-        
-        <input type="radio" value="1" name="o" id="o-2" />
-        <label class="one-col grid-35" for="o-2">Not included</label>
-          
+      <h4>Council tax</h4>
+      {% boolean_radio form.council_tax_included "Included" "Not included" %}
     </div>
   </li>
     
-  
   <li class="question energy-bills">
     <div class="cell">
-      <a class="back"><i></i></a>
-      
-        <h4>Energy bills</h4>
-      
-        <input type="radio" value="1" name="p" id="p-1" />
-        <label class="one-col grid-30" for="p-1">Included</label>
-        
-        <input type="radio" value="1" name="p" id="p-2" />
-        <label class="one-col grid-35" for="p-2">Not included</label>
-          
+    <a class="back"><i></i></a>
+    <h4>Energy bills</h4>
+    {% boolean_radio form.energy_bills_included "Included" "Not included" %}
     </div>
   </li>
     
-  
   <li class="question telephone-bills">
     <div class="cell">
       <a class="back"><i></i></a>
-      
-        <h4>Telephone bills</h4>
-      
-        <input type="radio" value="1" name="q" id="q-1" />
-        <label class="one-col grid-30" for="q-1">Included</label>
-        
-        <input type="radio" value="1" name="q" id="q-2" />
-        <label class="one-col grid-35" for="q-2">Not included</label>
-          
+      <h4>Telephone bills</h4>
+      {% boolean_radio form.telephone_included "Included" "Not included" %}
     </div>
   </li>
     
-  
   <li class="question broadband">
     <div class="cell">
       <a class="back"><i></i></a>
-        
-        <h4>Broadband</h4>
-        
-        <input type="radio" value="1" name="r" id="r-1" />
-        <label class="one-col grid-25" for="r-1">Bills included</label>
-        
-        <input type="radio" value="1" name="r" id="r-2" />
-        <label class="one-col grid-30" for="r-2">Available</label>
-        
-        <input type="radio" value="1" name="r" id="r-2" />
-        <label class="one-col grid-35" for="r-2">Unavailable</label>
-          
+      <h4>Broadband</h4>
+      {% choice_radio form.broadband %}
     </div>
   </li>
-
 
   <li class="council-tax-borough inputs question requires-keyboard requires-next-button">
     <a class="back"><i></i></a>
     <div class="cell">
       <h4>Council tax borough</a></h4>
-      <input type="text" id="epc" class="one-col" placeholder="Borough">
+      {{ form.council_borough|add_class:"one-col"|attr:"placeholder:Borough" }}
       <a class="next">Next</a>
     </div>
   </li>
     
-  
   <li class="question council-tax-band">
     <div class="cell">
       <a class="back"><i></i></a>
-      
-        <h4>Council tax band</h4>
-      
-        <input type="radio" value="1" name="s" id="s-1" />
-        <label class="two-col grid-5" for="s-1">A</label>
-        
-        <input type="radio" value="1" name="s" id="s-2" />
-        <label class="two-col grid-10 last" for="s-2">B</label>
-      
-        <input type="radio" value="1" name="s" id="s-3" />
-        <label class="two-col grid-15" for="s-3">C</label>
-        
-        <input type="radio" value="1" name="s" id="s-4" />
-        <label class="two-col last grid-20" for="s-4">D</label>
-      
-        <input type="radio" value="1" name="s" id="s-5" />
-        <label class="two-col grid-25" for="s-5">E</label>
-        
-        <input type="radio" value="1" name="s" id="s-6" />
-        <label class="two-col last grid-30" for="s-6">F</label>
-        
-        <input type="radio" value="1" name="s" id="s-7" />
-        <label class="two-col grid-35" for="s-7">G</label>
-          
+      <h4>Council tax band</h4>
+      {% choice_radio_two form.council_tax %}
     </div>
   </li>
-
 
   <li class="keypad agent-fee question requires-next-button">
     <div class="cell cell-full-width">
@@ -539,84 +304,29 @@
       </div>
       <div class="grid-container">
         <div class="grid">
-          <div class="row">
-            <a class="grid-1 keypad-1">
-              1
-            </a>
-            <a class="grid-3 keypad-2">
-              2
-            </a>
-            <a class="grid-5 keypad-3">
-              3
-            </a>
-          </div>
-          
-          <div class="row">
-            <a class="grid-7 keypad-4">
-              4
-            </a>
-            <a class="grid-9 keypad-5">
-              5
-            </a>
-            <a class="grid-11 keypad-6">
-              6
-            </a>
-          </div>
-          
-          <div class="row">
-            <a class="grid-13 keypad-7">
-              7
-            </a>
-            <a class="grid-15 keypad-8">
-              8
-            </a>
-            <a class="grid-17 keypad-9">
-              9
-            </a>
-          </div>
-          
-          <div class="row">
-            <a class="grid-19 keypad-decimal">
-              .
-            </a>
-            <a class="grid-21 keypad-0">
-              0
-            </a>
-            <a class="grid-23 keypad-backspace">
-              <i></i>
-            </a>
-          </div>
+          {% include "listings/keypad.html" %}
         </div>
       </div>
     </div>
   </li>
-    
   
   <li class="question managed-by">
     <div class="cell">
       <a class="back"><i></i></a>
-      
-        <input type="radio" value="1" name="t" id="t-1" />
-        <label class="one-col grid-30" for="t-1">Managed by agent</label>
-        
-        <input type="radio" value="1" name="t" id="t-2" />
-        <label class="one-col grid-35" for="t-2">Managed by landlord</label>
-          
+      {% choice_radio form.managed_by %}
     </div>
   </li>
   
-
   <li class="epc inputs question requires-keyboard requires-next-button">
     <a class="back"><i></i></a>
     <div class="cell">
       <h4>EPC Code <a class="no-epc internal" href="#">Don't have one?</a></h4>
-      <input type="text" id="epc" class="one-col" placeholder="EPC code">
+      {{ form.epc|add_class:"one-col"|attr:"placeholder:EPC code" }}
       <span class="epc-requested disabled">We'll contact you. <a class="internal" href="#">Cancel?</a></span>
       <a class="next">Next</a>
     </div>
   </li>
   
-
   <li class="login inputs question requires-keyboard requires-next-button">
     <a class="back"><i></i></a>
     <div class="cell">
@@ -626,7 +336,6 @@
       <a class="next">Next</a>
     </div>
   </li>
-  
 
   <li class="login inputs question requires-keyboard requires-next-button">
     <a class="back"><i></i></a>

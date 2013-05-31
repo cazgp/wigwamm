@@ -3,33 +3,57 @@ KITCHEN_TYPES = (
     (2, 'Separate'),
 )
 
-PARKING_TYPES = (
-    (1, 'garage'),
-    (2, 'double'),
-    (3, 'single'),
+ON_PARKING_TYPES = (
+    (1, 'None'),
+    (2, 'Free'),
+    (3, 'Permit'),
+)
+
+OFF_PARKING_TYPES = (
+    (1, 'None'),
+    (2, 'Drive'),
+    (3, 'Single garage'),
+    (4, 'Double garage'),
 )
 
 HEATING_TYPES = (
-    (1, 'gas'),
-    (2, 'oil'),
-    (3, 'electric'),
+    (1, 'Electric heating'),
+    (2, 'Gas heating'),
+    (3, 'Oil heating'),
 )
 
 GLAZING_TYPES = (
-    (1, 'single'),
-    (2, 'double'),
-    (3, 'triple'),
+    (1, 'Single glazed'),
+    (2, 'Double glazed'),
+    (3, 'Triple glazed'),
 )
 
 GLAZING_MATERIAL = (
-    (1, 'timer'),
-    (2, 'UPVC'),
+    (1, 'Timber windows'),
+    (2, 'UPVC windows'),
 )
 
 LAST_MONTHS = (
-    (1, '1 month'),
+    (1, 'Less than 1 month ago'),
+    (2, 'Less than 1 year ago'),
+    (3, '2+ years ago'),
+)
+PET_TYPES = (
+    (1, 'Pets allowed'),
+    (2, 'Caged pets only'),
+    (3, 'No pets allowed'),
+)
+
+AGREEMENT = (
+    (1, '6 months'),
     (2, '12 months'),
     (3, '24 months'),
+)
+
+BROADBAND = (
+    (1, 'Bills included'),
+    (2, 'Available'),
+    (3, 'Unavailable'),
 )
 
 DEPOSIT = (
@@ -52,8 +76,25 @@ floors = ['B', 'G'] + range(1, 41)
 FLOORS = zip(floors, floors)
 
 MANAGED_BY = (
-    (1, 'agent'),
-    (2, 'landlord'),
+    (1, 'Managed by agent'),
+    (2, 'Managed by landlord'),
+)
+
+BACK_GARDEN_TYPES = (
+    (1, 'None'),
+    (2, 'Balcony'),
+    (3, 'Patio'),
+    (4, 'Small'),
+    (5, 'Medium'),
+    (6, 'Large'),
+)
+
+FRONT_GARDEN_TYPES = (
+    (1, 'None'),
+    (2, 'Drive'),
+    (3, 'Patio'),
+    (4, 'Small'),
+    (5, 'Large'),
 )
 
 photo_order = [

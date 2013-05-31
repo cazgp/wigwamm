@@ -1,0 +1,8 @@
+{% for f in field %}
+{% with c=forloop.counter0 %}
+{{ f.tag }}
+  <label class="one-col grid-3{% cycle '0' '5' %}" for="{{f.attrs.id}}">
+    {% cycle yes no %}
+  </label>
+{% endwith %}
+{% endfor %}
