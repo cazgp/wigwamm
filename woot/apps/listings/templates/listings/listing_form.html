@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load listings_extra widget_tweaks %}
 {% block content %}
-<form class="listing" method="post">{% csrf_token %}
+<form class="listing" method="post" enctype="multipart/form-data">{% csrf_token %}
   {{ form.errors }}
 <a class="skip-to-summary button disabled">Back to summary</a>
 

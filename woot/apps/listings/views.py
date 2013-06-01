@@ -35,6 +35,7 @@ class ListingView(CreateView):
         if self.request.method == 'POST':
             listingphoto_form = ListingPhotoFormSet(self.request.POST,
                                                     self.request.FILES)
+            print self.request.FILES
 
         else:
             listingphoto_form = ListingPhotoFormSet()
@@ -45,12 +46,20 @@ class ListingView(CreateView):
     def form_valid(self, form):
         context = self.get_context_data()
         listingphoto_form = context['listingphoto_form']
+        if listingphoto_form.is_valid() and form.is_valid():
+            self.object = form.save()
+            listingphoto_form.instance = self.object
+            listingphoto_form.save()
+            print self.object
+            return HttpResponseRedirect('/created/')
+        return self.render_to_response(self.get_context_data(form=form))
+        """
         if listingphoto_form.is_valid():
             self.object = form.save()
             listingphoto_form.instance = self.object
             listingphoto_form.save()
-            return HttpResponseRedirect('/created/')
-        return self.render_to_response(self.get_context_data(form=form))
+        """
+        return super(ListingView, self).form_valid(form)
 
     def form_invalid(self, form):
         return self.render_to_response(self.get_context_data(form=form))
