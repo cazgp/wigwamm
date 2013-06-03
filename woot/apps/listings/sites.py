@@ -129,6 +129,6 @@ def create_rightmove(listing):
   with zipfile.ZipFile(zip_file_name, "w") as z:
       z.writestr(blm_file_name, blm)
       for index, photo in enumerate(photos):
-          filetype = photo.photo.path.split(".")[-1]
+          filetype = photo.photo.name.split(".")[-1]
           zip_photo_name = "%s_IMG_%02d.%s" % (agent_ref, index, filetype)
           z.write(photo.photo.path, zip_photo_name)
