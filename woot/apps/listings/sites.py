@@ -2,7 +2,7 @@ import zipfile
 
 from datetime import datetime
 
-from django.conf.settings import DJANGO_ROOT
+from django.conf import settings
 from django.core.files import File
 from django.db.models import CharField
 from django.template import Context, Template
@@ -93,7 +93,6 @@ def create_rightmove(listing):
 
   # Grab the photos
   photos = listing.listingphoto_set.all()
-  print photos
 
   rightmove_blm = get_template('listings/rightmove.blm')
   context = Context({
@@ -124,7 +123,7 @@ def create_rightmove(listing):
   # Create the zip file
   today = datetime.today()
   seq_no = today.strftime("%H%M")
-  zip_file_name = "%s/tmp/%s.zip" % (DJANGO_ROOT, branch_id)
+  zip_file_name = "%s/tmp/%s.zip" % (settings.DJANGO_ROOT, branch_id)
   blm_file_name = "%s_%s%s.blm" % (branch_id, today.strftime("%Y%m%d"), seq_no)
   blm = rightmove_blm.render(context)
   with zipfile.ZipFile(zip_file_name, "w") as z:
