@@ -4,7 +4,6 @@ from django import forms
 from django.db import models
 from django.forms.models import inlineformset_factory
 
-from libs.fields import OneCharChoiceField
 from libs.helpers import weeks_range
 
 from listings.models import Listing, ListingPhoto, ListingSite
