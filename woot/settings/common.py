@@ -2,6 +2,7 @@
 
 from datetime import timedelta
 from os.path import abspath, basename, dirname, join, normpath
+import sys
 from sys import path
 
 from djcelery import setup_loader
@@ -218,6 +219,11 @@ LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
     'handlers': {
+        'console': {
+            'level': 'INFO',
+            'class': 'logging.StreamHandler',
+            'stream': sys.stdout,
+        },
         'mail_admins': {
            'level': 'ERROR',
             'filters': [],
