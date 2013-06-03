@@ -2,7 +2,7 @@
 
 from datetime import timedelta
 from os.path import abspath, basename, dirname, join, normpath
-import sys
+import os, sys
 from sys import path
 
 from djcelery import setup_loader
@@ -26,7 +26,7 @@ path.insert(0, join(DJANGO_ROOT, 'apps'))
 
 ########## DEBUG CONFIGURATION
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#debug
-DEBUG = False
+DEBUG = bool(os.environ.get('DJANGO_DEBUG', ''))
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#template-debug
 TEMPLATE_DEBUG = DEBUG
