@@ -1,15 +1,28 @@
 from django.core.urlresolvers import reverse
 from django.db import models
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+import django.dispatch
 
 from libs.models import UUIDModel
 from listings.helpers import *
+from listings.sites import create_rightmove
 
 class Listing(UUIDModel):
-    address               = models.CharField(max_length=100)
-    list_on               = models.CharField(
+    address_1             = models.CharField(max_length=100)
+    address_2             = models.CharField(max_length=100,
+                                             blank=True,
+                                             null=True)
+    town = models.CharField(max_length=100)
+    postcode              = models.CharField(max_length=8)
+    property_type         = models.CharField(
         max_length=1,
-        choices=LIST_CHOICES,
+        choices=PROPERTY_TYPES,
     )
+    #list_on               = models.CharField(
+        #max_length=1,
+        #choices=LIST_CHOICES,
+    #)
     floor                 = models.CharField(choices=FLOORS, max_length=2)
     lift                  = models.BooleanField()
     bedrooms              = models.CharField(max_length=2)
@@ -100,3 +113,17 @@ class Listing(UUIDModel):
 class ListingPhoto(models.Model):
     photo   = models.ImageField(upload_to='photos')
     listing = models.ForeignKey(Listing)
+
+# Saves user login details for sites
+class ListingSite(models.Model):
+    username = models.CharField(max_length=255)
+    password = models.CharField(max_length=255)
+    site = models.CharField(max_length=1, default=0)
+    listing = models.ForeignKey(Listing)
+
+# Signal for when the listing has been uploaded
+listing_done = django.dispatch.Signal(providing_args=['instance'])
+
+@receiver(listing_done, dispatch_uid="listing-created")
+def listing_handler(sender, **kwargs):
+    create_rightmove(kwargs['instance'])

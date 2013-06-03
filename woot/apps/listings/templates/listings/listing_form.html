@@ -3,13 +3,18 @@
 {% block content %}
 <form class="listing" method="post" enctype="multipart/form-data">{% csrf_token %}
   {{ form.errors }}
+  {{ listingsite_form.errors }}
+  {{ listingphoto_form.errors }}
 <a class="skip-to-summary button disabled">Back to summary</a>
 
 <ul class="questions">{% csrf_token %}
   <li class="address postcode question requires-next-button">
     <div class="cell cell-full-width">
       <a class="button" onclick="history.go(-1)">Cancel</a>
-      {{ form.address|add_class:"address"|attr:"placeholder: Address" }}
+      {{ form.address_1|add_class:"address"|attr:"placeholder: Address Line 1" }}
+      {{ form.address_2|add_class:"address"|attr:"placeholder: Address Line 2" }}
+      {{ form.town|add_class:"address"|attr:"placeholder: Town" }}
+      {{ form.postcode|add_class:"address"|attr:"placeholder: Postcode" }}
       <a class="next">Next</a>
       {% comment %}
       <input type="text" class="postcode" placeholder="Postcode">
@@ -21,6 +26,15 @@
     </div>
   </li>
 
+  <li class="question property-type">
+    <div class="cell">
+      <h4>What type of property is it?</h4>
+      <a class="back"><i></i></a>
+      {% choice_radio form.property_type %}
+    </div>
+  </li>
+
+  {% comment %}
   <li class="portals question requires-next-button">
     <div class="cell">
       <a class="back"><i></i></a>
@@ -36,6 +50,7 @@
       <a class="next">Next</a>
     </div>
   </li>
+  {% endcomment %}
 
   <li class="move-in question requires-next-button">
     <div class="cell cell-full-width">
@@ -52,7 +67,7 @@
               {% with day=date.day month=date.month year=date.year %}
               <input type="radio" name="move-in-date" id="{{year}}-{{ month }}-{{ day }}" />
               <label for="{{ year }}-{{ month }}-{{ day }}" class="grid-{{ day }}{% if today > date %} past{% elif today == date %} today{% endif %}">
-                <span class="month">{{ month|date:"M"|upper }}</span>
+                <span class="month">{{ date|date:"M"|upper }}</span>
                 <span class="day">{{ day }}</span>
               </label>
               {% endwith %}
@@ -385,8 +400,15 @@
     <a class="back"><i></i></a>
     <div class="cell">
       <h4>Rightmove login details</h4>
-      <input type="text" id="rightmove-username" class="two-col" placeholder="Username">
-      <input type="password" id="rightmove-password" class="two-col last" placeholder="Password">
+      {{ listingsite_form.management_form }}
+      {% for f in listingsite_form %}
+        {% for field in f %}
+        {% if field.is_hidden %}{{ field }}
+        {% else %}{% cycle "two-col" "two-col last" as column silent %}
+        {% render_field field placeholder=field.label class=column %}
+        {% endif %}
+        {% endfor %}
+      {% endfor %}
       <a class="next">Next</a>
     </div>
   </li>

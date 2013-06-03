@@ -6,7 +6,8 @@ from django.forms.models import inlineformset_factory
 
 from libs.fields import OneCharChoiceField
 from libs.helpers import weeks_range
-from listings.models import Listing, ListingPhoto
+
+from listings.models import Listing, ListingPhoto, ListingSite
 
 def get_attrs(klass):
   return [k for k in klass.__dict__.keys()
@@ -40,16 +41,20 @@ class ListingForm(forms.ModelForm):
 
     class Meta:
         model = Listing
-        fields = ['address', 'list_on', 'move_in_date', 'price',
-                  'bedrooms', 'bathrooms', 'floor', 'lift', 'kitchen',
-                  'front_garden', 'back_garden', 'on_street_parking',
-                  'off_street_parking', 'pets', 'heating', 'glazing_type',
-                  'glazing_material', 'furnished', 'last_decorated',
-                  'last_refurbished', 'deposit', 'agreement_term',
-                  'water_bills_included', 'council_tax_included',
-                  'energy_bills_included', 'telephone_included', 'broadband',
-                  'council_borough', 'council_tax_band', 'agent_fee',
-                  'managed_by', 'epc_code']
+        fields = ['address_1', 'address_2', 'town', 'postcode', 'property_type', 'move_in_date', 'price', 'bedrooms', 'bathrooms', 'floor', 'lift', 'kitchen', 'front_garden', 'back_garden', 'on_street_parking', 'off_street_parking', 'pets', 'heating', 'glazing_type', 'glazing_material', 'furnished', 'last_decorated', 'last_refurbished', 'deposit', 'agreement_term', 'water_bills_included', 'council_tax_included', 'energy_bills_included', 'telephone_included', 'broadband', 'council_borough', 'council_tax_band', 'agent_fee', 'managed_by', 'epc_code']
+
+class ListingSiteForm(forms.ModelForm):
+    class Meta:
+        model = ListingSite
+        exclude = ('listing', 'site')
+        widgets = {
+            'password': forms.PasswordInput,
+        }
 
 ListingPhotoFormSet = inlineformset_factory(
-    Listing, ListingPhoto, extra=19, can_delete=False)
+    Listing, ListingPhoto, extra=19, can_delete=False
+)
+
+ListingSiteFormSet = inlineformset_factory(
+    Listing, ListingSite, extra=1, can_delete=False, form=ListingSiteForm
+)

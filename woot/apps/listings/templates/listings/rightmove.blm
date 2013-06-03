@@ -1,0 +1,13 @@
+{% load listings_extra %}{% autoescape off %}#HEADER#
+Version : 3
+EOF : '^'
+EOR : '|'
+
+Property Count : 1
+Generated Date : {% now "d-F-Y H:i" %}
+
+#DEFINITION#
+AGENT_REF^ADDRESS_1^ADDRESS_2^TOWN^POSTCODE1^POSTCODE2^FEATURE1^FEATURE2^FEATURE3^SUMMARY^DESCRIPTION^BRANCH_ID^STATUS_ID^BEDROOMS^PRICE^PROP_SUB_ID^CREATE_DATE^UPDATE_DATE^DISPLAY_ADDRESS^PUBLISHED_FLAG^LET_DATE_AVAILABLE^LET_FURN_ID^TRANS_TYPE_ID^{% for photo in photos %}MEDIA_IMAGE_{{ forloop.counter0|stringformat:"02d" }}^MEDIA_IMAGE_TEXT_{{ forloop.counter0|stringformat:"05d" }}^{% endfor %}|
+
+#DATA#
+{{ AGENT_REF }}^{{ ADDRESS_1 }}^{{ ADDRESS_2 }}^{{ TOWN }}^{{ POSTCODE_1 }}^{{ POSTCODE_2 }}^{{ FEATURE_1 }}^{{ FEATURE_2 }}^{{ FEATURE_3 }}^{{ SUMMARY }}^{{ DESCRIPTION }}^{{ BRANCH_ID }}^{{ STATUS_ID }}^{{ BEDROOMS }}^{{ PRICE }}^{{ PROP_SUB_ID }}^^^{{ DISPLAY_ADDRESS }}^{{ PUBLISHED_FLAG }}^{{ LET_DATE_AVAILABLE|date:"Y-m-d H:i:s" }}^{{ LET_FURN_ID }}^{{ TRANS_TYPE_ID }}^{% for photo in photos %}{{ AGENT_REF }}_IMG_{{ forloop.counter0|stringformat:"02d" }}.{{ photo.photo.name|filetype }}^{{ photo.caption }}^{% endfor %}^EPC^|{% endautoescape %}

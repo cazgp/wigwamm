@@ -1,3 +1,10 @@
+PROPERTY_TYPES = (
+    ('1', 'Flat'),
+    ('2', 'Studio'),
+    ('3', 'House'),
+    ('4', 'House share'),
+)
+
 KITCHEN_TYPES = (
     ('1', 'Open-plan'),
     ('2', 'Separate'),

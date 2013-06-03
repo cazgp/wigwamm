@@ -80,4 +80,10 @@ def get_photo_label(counter):
 
 @register.filter
 def to_readable(value):
-    return value.replace('-', ' ').title()
+    value = value.replace('-', ' ')
+    value = value.replace('_', ' ')
+    return value.title()
+
+@register.filter
+def filetype(value):
+    return value.split('.')[-1]

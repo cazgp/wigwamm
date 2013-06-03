@@ -5,9 +5,9 @@ from django.views.generic import CreateView, TemplateView
 
 from libs.helpers import weeks_range
 
-from listings.forms import ListingForm, ListingPhotoFormSet
+from listings.forms import ListingForm, ListingPhotoFormSet, ListingSiteFormSet
 from listings.helpers import photo_order
-from listings.models import Listing, ListingPhoto
+from listings.models import Listing, ListingPhoto, listing_done
 
 class HomeView(TemplateView):
     template_name = 'home.html'
@@ -35,22 +35,29 @@ class ListingView(CreateView):
         if self.request.method == 'POST':
             listingphoto_form = ListingPhotoFormSet(self.request.POST,
                                                     self.request.FILES)
-            print self.request.FILES
+            listingsite_form = ListingSiteFormSet(self.request.POST)
 
         else:
             listingphoto_form = ListingPhotoFormSet()
+            listingsite_form = ListingSiteFormSet()
 
         context['listingphoto_form'] = listingphoto_form
+        context['listingsite_form'] = listingsite_form
         return context
 
     def form_valid(self, form):
         context = self.get_context_data()
         listingphoto_form = context['listingphoto_form']
-        if listingphoto_form.is_valid() and form.is_valid():
+        listingsite_form = context['listingsite_form']
+        if listingphoto_form.is_valid() \
+           and listingsite_form.is_valid() \
+           and form.is_valid():
             self.object = form.save()
             listingphoto_form.instance = self.object
             listingphoto_form.save()
-            print self.object
+            listingsite_form.instance = self.object
+            listingsite_form.save()
+            listing_done.send(sender=self, instance=self.object)
             return HttpResponseRedirect('/created/')
         return self.render_to_response(self.get_context_data(form=form))
         """
